@@ -5,7 +5,7 @@ import java.util.List;
 
 public class User {
     private String username;
-    private int id;
+    private long id;
     private String name;
     private String email;
     private String password;
@@ -18,6 +18,10 @@ public class User {
     private List<Tweet> tweets;
     private boolean isPublic;
     private Date lastSeen;
+    private List<Tweet> favoriteTweets;
+    private List<Message> favoriteMessages;
+    //private boolean isActive;
+    // since the username if a deleted account can be used, it's better to remove the user from database
 
     public String getUsername() {
         return username;
@@ -27,7 +31,7 @@ public class User {
         this.username = username;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -90,4 +94,10 @@ public class User {
     public List<User> getBlackList() {
         return blackList;
     }
+
+//
+//    public void ReTweet (Tweet tweetToBeCopied){
+//        Tweet tweetCopy = new Tweet(tweetToBeCopied.getUser() , tweetToBeCopied.getText());
+//        this.tweets.add(tweetCopy);
+//    }
 }

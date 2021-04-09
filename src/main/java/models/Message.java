@@ -3,13 +3,13 @@ package models;
 import java.util.Date;
 
 public class Message {
-    private int id;
+    private long id;
     private String text;
     private Date date;
     private User sender;
     private User receiver;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

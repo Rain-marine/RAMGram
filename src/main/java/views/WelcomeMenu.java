@@ -6,7 +6,7 @@ import java.util.List;
 public class WelcomeMenu extends Menu {
 
     public WelcomeMenu() {
-        options = Arrays.asList("Login", "Register");
+        options = Arrays.asList("LoginManager", "RegisterManager");
     }
 
     @Override
