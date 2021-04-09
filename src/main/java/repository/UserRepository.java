@@ -8,4 +8,8 @@ public class UserRepository {
 
         return user;
     }
+
+    public void insert(User user){
+
+    }
 }

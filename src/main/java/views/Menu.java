@@ -21,6 +21,8 @@ public abstract class Menu {
         this.scanner = scanner;
     }
 
+    public abstract boolean checkValidation(String... input);
+
     @Override
     public String toString() {
         return "";
