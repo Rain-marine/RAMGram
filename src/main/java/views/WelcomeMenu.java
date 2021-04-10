@@ -14,8 +14,8 @@ public class WelcomeMenu extends Menu {
         String input = "";
         boolean isValid = true;
         do {
-            for (int i = 0; i < options.size(); i++) {
-                System.out.println(i + " :" + options.get(i));
+            for (int i = 1; i < options.size() + 1; i++) {
+                System.out.println(i + " :" + options.get(i-1));
             }
             input = scanner.nextLine();
             isValid = checkValidation(input);
@@ -27,14 +27,11 @@ public class WelcomeMenu extends Menu {
 
     @Override
     public Menu getMenu(int option) {
-        switch (option) {
-            case 1:
-                return new LoginMenu();
-            case 2:
-                return new RegisterMenu();
-            default:
-                return null;
-        }
+        return switch (option) {
+            case 1 -> new LoginMenu();
+            case 2 -> new RegisterMenu();
+            default -> null;
+        };
     }
 
     @Override

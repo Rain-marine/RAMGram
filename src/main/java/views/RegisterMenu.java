@@ -41,7 +41,7 @@ public class RegisterMenu extends Menu {
 
     @Override
     public boolean checkValidation(String... input) {
-        if (input[0].equals("\n") || input[1].equals("\n") )
+        ///if (input[0].equals("\n") || input[1].equals("\n") )
 
 
         return registerManager.checkUsernameUniqueness(input[0]);

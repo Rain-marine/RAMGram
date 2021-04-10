@@ -27,8 +27,8 @@ public class SavedMessageMenu extends Menu implements View<ArrayList<Message>> {
         String input;
         while (true) {
             do {
-                for (int i = 0; i < options.size(); i++) {
-                    System.out.println(i + " : " + options.get(i));
+                for (int i = 1; i < options.size() + 1; i++) {
+                    System.out.println(i + " : " + options.get(i-1));
                 }
                 input = scanner.nextLine();
                 isValid = checkValidation(input);

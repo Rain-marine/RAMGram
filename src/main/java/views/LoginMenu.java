@@ -7,7 +7,7 @@ import models.User;
 public class LoginMenu extends Menu {
 
 
-    private AuthController authController;
+    private final AuthController authController;
 
     public LoginMenu() {
         authController = new AuthController();
@@ -29,5 +29,10 @@ public class LoginMenu extends Menu {
     @Override
     public Menu getMenu(int option) {
         return new WelcomeMenu(); // Todo: return next menu (after the user logs in)
+    }
+
+    @Override
+    public boolean checkValidation(String... input) {
+        return false;
     }
 }

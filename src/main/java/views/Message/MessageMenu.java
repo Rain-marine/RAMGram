@@ -18,8 +18,8 @@ public class MessageMenu extends Menu {
         String input = "";
         do {
             System.out.println("Which messages do you wanna see?!");
-            for (int i = 0; i < options.size(); i++) {
-                System.out.println(i + " : " + options.get(i));
+            for (int i = 1; i < options.size() + 1; i++) {
+                System.out.println(i + " : " + options.get(i-1));
             }
             input = scanner.nextLine();
             isValid = checkValidation(input);
@@ -30,16 +30,12 @@ public class MessageMenu extends Menu {
 
     @Override
     public Menu getMenu(int option) {
-        switch (option) {
-            case 1:
-                return new SavedMessageMenu();
-            case 2:
-                return new PeopleMessageMenu();
-            case 3:
-                 return new MainMenu();
-            default:
-                return new MessageMenu();
-        }
+        return switch (option) {
+            case 1 -> new SavedMessageMenu();
+            case 2 -> new PeopleMessageMenu();
+            case 3 -> new MainMenu();
+            default -> new MessageMenu();
+        };
     }
 
     @Override
