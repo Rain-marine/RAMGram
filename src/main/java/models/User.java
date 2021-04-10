@@ -20,8 +20,7 @@ public class User {
     private Date lastSeen;
     private List<Tweet> favoriteTweets;
     private List<Message> favoriteMessages;
-    //private boolean isActive;
-    // since the username if a deleted account can be used, it's better to remove the user from database
+
 
     public String getUsername() {
         return username;
