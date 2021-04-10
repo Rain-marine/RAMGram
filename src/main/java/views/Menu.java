@@ -7,9 +7,7 @@ public abstract class Menu {
     protected Scanner scanner;
     protected List<String> options;
 
-    public void run() {
-
-    }
+    public abstract void run();
 
     public List<String> getOptions() {
         return options;
