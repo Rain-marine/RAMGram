@@ -15,6 +15,9 @@ public class User {
     private Date lastSeen;
     private boolean isPublic;
     private boolean isActive;
+    private boolean isBirthDayVisible;
+    private boolean isEmailVisible;
+    private boolean isPhoneNumberVisible;
     private List<User> followers;
     private List<User> followings;
     private List<User> blackList;
@@ -156,5 +159,29 @@ public class User {
 
     public void setTweets(List<Tweet> tweets) {
         this.tweets = tweets;
+    }
+
+    public boolean isBirthDayVisible() {
+        return isBirthDayVisible;
+    }
+
+    public void setBirthDayVisible(boolean birthDayVisible) {
+        isBirthDayVisible = birthDayVisible;
+    }
+
+    public boolean isEmailVisible() {
+        return isEmailVisible;
+    }
+
+    public void setEmailVisible(boolean emailVisible) {
+        isEmailVisible = emailVisible;
+    }
+
+    public boolean isPhoneNumberVisible() {
+        return isPhoneNumberVisible;
+    }
+
+    public void setPhoneNumberVisible(boolean phoneNumberVisible) {
+        isPhoneNumberVisible = phoneNumberVisible;
     }
 }

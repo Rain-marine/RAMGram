@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MenuManager {
-    private Scanner scanner;
-    private List<Menu> allMenus;
+    private final Scanner scanner;
+    private final List<Menu> allMenus;
 
     public MenuManager(Scanner scanner) {
         allMenus = new ArrayList<>();

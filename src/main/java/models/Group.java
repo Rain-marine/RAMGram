@@ -3,6 +3,7 @@ package models;
 import java.util.List;
 
 public class Group {
+    private int id;
     private String name;
     private User owner;
     private List<User> members;
@@ -35,5 +36,13 @@ public class Group {
 
     public void setMembers(List<User> members) {
         this.members = members;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

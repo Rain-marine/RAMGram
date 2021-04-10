@@ -44,4 +44,8 @@ public class Message {
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
