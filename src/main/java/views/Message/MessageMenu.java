@@ -1,11 +1,14 @@
-package views;
+package views.Message;
+
+import views.MainMenu;
+import views.Menu;
 
 import java.util.Arrays;
 
-public class MessageMenu extends Menu{
+public class MessageMenu extends Menu {
 
     public MessageMenu() {
-        options = Arrays.asList("SavedMessage", "PeopleMessage");
+        options = Arrays.asList("SavedMessage", "PeopleMessage", "Back");
     }
 
     @Override
@@ -32,6 +35,8 @@ public class MessageMenu extends Menu{
                 return new SavedMessageMenu();
             case 2:
                 return new PeopleMessageMenu();
+            case 3:
+                 return new MainMenu();
             default:
                 return new MessageMenu();
         }
@@ -41,7 +46,7 @@ public class MessageMenu extends Menu{
     public boolean checkValidation(String... input) {
         try {
             int number = Integer.parseInt(input[0]);
-            if (number == 1 || number == 2)
+            if (number > 0 && number < 4)
                 return true;
             System.out.println("You must enter 1 or 2");
         } catch (Exception e) {

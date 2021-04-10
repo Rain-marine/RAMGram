@@ -1,14 +1,14 @@
-package views;
+package views.Message;
 
-import java.util.Arrays;
+import views.Menu;
 
-public class SavedMessageMenu extends Menu {
+public class PeopleMessageMenu extends Menu {
 
-    public SavedMessageMenu() {
-        options = Arrays.asList("Back", "New Message");
+
+    @Override
+    public void run() {
+
     }
-
-
 
     @Override
     public Menu getMenu(int option) {

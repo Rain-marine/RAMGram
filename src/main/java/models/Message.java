@@ -9,6 +9,13 @@ public class Message {
     private User sender;
     private User receiver;
 
+    public Message(String text, User sender, User receiver) {
+        this.date = new Date();
+        this.text = text;
+        this.sender = sender;
+        this.receiver = receiver;
+    }
+
     public long getId() {
         return id;
     }

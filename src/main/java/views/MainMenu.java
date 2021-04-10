@@ -1,6 +1,11 @@
 package views;
 
-public class PeopleMessageMenu extends Menu {
+public class MainMenu extends Menu {
+    @Override
+    public void run() {
+
+    }
+
     @Override
     public Menu getMenu(int option) {
         return null;
