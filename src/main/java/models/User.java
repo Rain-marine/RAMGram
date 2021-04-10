@@ -22,6 +22,7 @@ public class User {
     private List<User> followings;
     private List<User> blackList;
     private List<User> mutedUsers;
+    private List<Group> groups;
     private List<Tweet> tweets;
     private List<Tweet> favoriteTweets;
     private List<Message> favoriteMessages;
@@ -144,6 +145,14 @@ public class User {
 
     public void setMutedUsers(List<User> mutedUsers) {
         this.mutedUsers = mutedUsers;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     public List<Tweet> getTweets() {
