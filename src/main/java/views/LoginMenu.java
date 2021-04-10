@@ -5,6 +5,8 @@ import exceptions.InvalidInputException;
 import models.User;
 
 public class LoginMenu extends Menu {
+
+
     private AuthController authController;
 
     public LoginMenu() {
