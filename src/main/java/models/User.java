@@ -24,6 +24,8 @@ public class User {
     private List<User> mutedUsers;
     private List<Group> groups;
     private List<Tweet> tweets;
+    private List<Tweet> favoriteTweets;
+    private List<Message> favoriteMessages;
 
     public String getUsername() {
         return username;
@@ -183,5 +185,21 @@ public class User {
 
     public void setPhoneNumberVisible(boolean phoneNumberVisible) {
         isPhoneNumberVisible = phoneNumberVisible;
+    }
+
+    public List<Tweet> getFavoriteTweets() {
+        return favoriteTweets;
+    }
+
+    public void setFavoriteTweets(List<Tweet> favoriteTweets) {
+        this.favoriteTweets = favoriteTweets;
+    }
+
+    public List<Message> getFavoriteMessages() {
+        return favoriteMessages;
+    }
+
+    public void setFavoriteMessages(List<Message> favoriteMessages) {
+        this.favoriteMessages = favoriteMessages;
     }
 }
