@@ -4,20 +4,22 @@ import java.util.Date;
 import java.util.List;
 
 public class User {
-    private String username;
     private int id;
-    private String name;
+    private String username;
+    private String fullName;
     private String email;
     private String password;
-    private Date birthday;
     private String phoneNumber;
     private String bio;
+    private Date birthday;
+    private Date lastSeen;
+    private boolean isPublic;
+    private boolean isActive;
     private List<User> followers;
     private List<User> followings;
     private List<User> blackList;
+    private List<User> mutedUsers;
     private List<Tweet> tweets;
-    private boolean isPublic;
-    private Date lastSeen;
 
     public String getUsername() {
         return username;
@@ -31,12 +33,12 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -89,5 +91,33 @@ public class User {
 
     public List<User> getBlackList() {
         return blackList;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public Date getLastSeen() {
+        return lastSeen;
+    }
+
+    public void setLastSeen(Date lastSeen) {
+        this.lastSeen = lastSeen;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
