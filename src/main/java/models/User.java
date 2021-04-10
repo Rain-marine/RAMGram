@@ -19,6 +19,7 @@ public class User {
     private List<User> followings;
     private List<User> blackList;
     private List<User> mutedUsers;
+    private List<Group> groups;
     private List<Tweet> tweets;
 
     public String getUsername() {
@@ -119,5 +120,41 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
+    public void setFollowings(List<User> followings) {
+        this.followings = followings;
+    }
+
+    public void setBlackList(List<User> blackList) {
+        this.blackList = blackList;
+    }
+
+    public List<User> getMutedUsers() {
+        return mutedUsers;
+    }
+
+    public void setMutedUsers(List<User> mutedUsers) {
+        this.mutedUsers = mutedUsers;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public List<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
     }
 }
