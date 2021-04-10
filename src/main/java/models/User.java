@@ -4,23 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 public class User {
+    private int id;
     private String username;
-    private long id;
-    private String name;
+    private String fullName;
     private String email;
     private String password;
-    private Date birthday;
     private String phoneNumber;
     private String bio;
+    private Date birthday;
+    private Date lastSeen;
+    private boolean isPublic;
+    private boolean isActive;
+    private boolean isBirthDayVisible;
+    private boolean isEmailVisible;
+    private boolean isPhoneNumberVisible;
     private List<User> followers;
     private List<User> followings;
     private List<User> blackList;
+    private List<User> mutedUsers;
     private List<Tweet> tweets;
-    private boolean isPublic;
-    private Date lastSeen;
     private List<Tweet> favoriteTweets;
     private List<Message> favoriteMessages;
-
 
     public String getUsername() {
         return username;
@@ -30,16 +34,16 @@ public class User {
         this.username = username;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -94,9 +98,99 @@ public class User {
         return blackList;
     }
 
-//
-//    public void ReTweet (Tweet tweetToBeCopied){
-//        Tweet tweetCopy = new Tweet(tweetToBeCopied.getUser() , tweetToBeCopied.getText());
-//        this.tweets.add(tweetCopy);
-//    }
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public Date getLastSeen() {
+        return lastSeen;
+    }
+
+    public void setLastSeen(Date lastSeen) {
+        this.lastSeen = lastSeen;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
+    public void setFollowings(List<User> followings) {
+        this.followings = followings;
+    }
+
+    public void setBlackList(List<User> blackList) {
+        this.blackList = blackList;
+    }
+
+    public List<User> getMutedUsers() {
+        return mutedUsers;
+    }
+
+    public void setMutedUsers(List<User> mutedUsers) {
+        this.mutedUsers = mutedUsers;
+    }
+
+    public List<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
+    }
+
+    public boolean isBirthDayVisible() {
+        return isBirthDayVisible;
+    }
+
+    public void setBirthDayVisible(boolean birthDayVisible) {
+        isBirthDayVisible = birthDayVisible;
+    }
+
+    public boolean isEmailVisible() {
+        return isEmailVisible;
+    }
+
+    public void setEmailVisible(boolean emailVisible) {
+        isEmailVisible = emailVisible;
+    }
+
+    public boolean isPhoneNumberVisible() {
+        return isPhoneNumberVisible;
+    }
+
+    public void setPhoneNumberVisible(boolean phoneNumberVisible) {
+        isPhoneNumberVisible = phoneNumberVisible;
+    }
+
+    public List<Tweet> getFavoriteTweets() {
+        return favoriteTweets;
+    }
+
+    public void setFavoriteTweets(List<Tweet> favoriteTweets) {
+        this.favoriteTweets = favoriteTweets;
+    }
+
+    public List<Message> getFavoriteMessages() {
+        return favoriteMessages;
+    }
+
+    public void setFavoriteMessages(List<Message> favoriteMessages) {
+        this.favoriteMessages = favoriteMessages;
+    }
 }
