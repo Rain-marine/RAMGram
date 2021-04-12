@@ -7,6 +7,7 @@ import models.User;
 import views.Menu;
 import views.View;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PeopleMessageMenu extends Menu implements View<ArrayList<Message>> {
@@ -28,6 +29,8 @@ public class PeopleMessageMenu extends Menu implements View<ArrayList<Message>> 
             input = scanner.nextLine();
             isValid = checkValidation(input, String.valueOf(messages.size()));
         }while(!isValid);
+
+
     }
 
     @Override

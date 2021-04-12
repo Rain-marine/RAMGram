@@ -13,4 +13,5 @@ public class MessageController {
     public ArrayList<Message> getPeopleMessage() {
         return null;
     }
+
 }
