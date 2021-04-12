@@ -1,8 +1,9 @@
-package views;
+package views.Welcome;
 
 import controllers.AuthController;
 import exceptions.InvalidInputException;
 import models.User;
+import views.Menu;
 
 public class LoginMenu extends Menu {
 

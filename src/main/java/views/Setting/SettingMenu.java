@@ -1,6 +1,9 @@
-package views;
+package views.Setting;
 
 import controllers.SettingController;
+import views.MainMenu;
+import views.Menu;
+import views.Welcome.WelcomeMenu;
 
 import java.util.Arrays;
 

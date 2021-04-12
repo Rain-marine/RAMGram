@@ -1,7 +1,9 @@
-package views;
+package views.Setting;
 
 import controllers.SettingController;
 import models.LoggedUser;
+import views.Menu;
+import views.Welcome.WelcomeMenu;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,8 @@
-package views;
+package views.Welcome;
 
 import controllers.RegisterManager;
+import views.Menu;
+import views.Welcome.WelcomeMenu;
 
 public class RegisterMenu extends Menu {
     private final RegisterManager registerManager;

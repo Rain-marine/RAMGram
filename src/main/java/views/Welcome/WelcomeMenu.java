@@ -1,4 +1,6 @@
-package views;
+package views.Welcome;
+
+import views.Menu;
 
 import java.util.Arrays;
 
