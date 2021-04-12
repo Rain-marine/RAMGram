@@ -11,8 +11,9 @@ public class User {
     private String password;
     private String phoneNumber;
     private String bio;
-    private Date birthday;
+    private String lastSeenStatus; // "nobody" , "everyone", "following"
     private Date lastSeen;
+    private Date birthday;
     private boolean isPublic;
     private boolean isActive;
     private boolean isBirthDayVisible;
@@ -201,5 +202,13 @@ public class User {
 
     public void setFavoriteMessages(List<Message> favoriteMessages) {
         this.favoriteMessages = favoriteMessages;
+    }
+
+    public String getLastSeenStatus() {
+        return lastSeenStatus;
+    }
+
+    public void setLastSeenStatus(String lastSeenStatus) {
+        this.lastSeenStatus = lastSeenStatus;
     }
 }

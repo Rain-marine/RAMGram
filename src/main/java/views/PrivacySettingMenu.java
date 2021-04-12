@@ -1,7 +1,9 @@
 package views;
 
 import controllers.SettingController;
+import models.LoggedUser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PrivacySettingMenu extends Menu {
@@ -39,7 +41,7 @@ public class PrivacySettingMenu extends Menu {
         System.out.println("Enter your password! if You wanna back, Enter 'B' ");
         boolean isValid;
         String input;
-        do{
+        do {
             input = scanner.nextLine();
             if (input.equals("B")) {
                 run();
@@ -48,24 +50,72 @@ public class PrivacySettingMenu extends Menu {
             isValid = settingController.doesPasswordExist(input);
             if (!isValid)
                 System.out.println("Password is incorrect! Enter again!");
-        }while (!isValid);
+        } while (!isValid);
 
+        System.out.println("Enter your new password!");
+        input = scanner.nextLine();
+        settingController.checkPassword(input);
+        System.out.println("Password changed!");
+        run();
     }
 
     private void activationChecker() {
-
+        System.out.println("Do you wanna deActive your account?(Y/N)\nYour account will be ghosted until you active it again!");
+        String input = scanner.nextLine();
+        if (input.equals("Y")) {
+            settingController.deActiveAccount();
+            new WelcomeMenu().run();
+        } else {
+            System.out.println("Account is still active and you get back to privacy setting!");
+            run();
+        }
     }
 
     private void lastSeenChecker() {
+        ArrayList<String> status = new ArrayList<>();
+        status.add("nobody");
+        status.add("everybody");
+        status.add("following");
+
+        String lastSeenStatus = settingController.getUserLastSeenStatus(LoggedUser.getLoggedUser().getUsername());
+        System.out.println("Your lastSeen is visible for " + lastSeenStatus);
+        System.out.println("Do you wanna change your status?(type the status) or any character for back");
+        int printedStatus = 0;
+        for (String state : status) {
+            if (state.equals(lastSeenStatus))
+                continue;
+            System.out.println(printedStatus + 1 + " : " + state);
+            printedStatus++;
+        }
+
+        String input = scanner.nextLine();
+        if (input.equals(lastSeenStatus) || !status.contains(lastSeenStatus)) {
+            System.out.println("Nothing changed! You get back to privacy setting!");
+        } else {
+            settingController.changeLastSeenStatus(input);
+            System.out.println("Now your lastSeen is visible for " + input);
+        }
+        run();
     }
 
     private void privatePublicChecker() {
-
+        boolean isPublic = settingController.isAccountPublic(LoggedUser.getLoggedUser().getUsername());
+        if (isPublic)
+            System.out.println("Your Account is Public! change to Private?(Y/N)");
+        else
+            System.out.println("Your Account is Private! change to Public?(Y/N)");
+        String input = scanner.nextLine();
+        if (input.equals("Y")) {
+            settingController.changeAccountVisibility(!isPublic);
+        } else {
+            System.out.println("No change! \n You get back to privacy setting!");
+            run();
+        }
     }
 
     @Override
     public Menu getMenu(int option) {
-        return null;
+        return new SettingMenu();
     }
 
     @Override
