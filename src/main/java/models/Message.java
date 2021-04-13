@@ -27,7 +27,9 @@ public class Message {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     public Message(String text, User sender, User receiver) {
         this.date = new Date();
