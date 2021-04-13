@@ -7,9 +7,7 @@ public abstract class Menu {
     protected Scanner scanner;
     protected List<String> options;
 
-    public void run() {
-
-    }
+    public abstract void run();
 
     public List<String> getOptions() {
         return options;
@@ -20,6 +18,8 @@ public abstract class Menu {
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
+
+    public abstract boolean checkValidation(String... input);
 
     @Override
     public String toString() {

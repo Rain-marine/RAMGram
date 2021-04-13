@@ -1,11 +1,14 @@
-package views;
+package views.Welcome;
 
 import controllers.AuthController;
 import exceptions.InvalidInputException;
 import models.User;
+import views.Menu;
 
 public class LoginMenu extends Menu {
-    private AuthController authController;
+
+
+    private final AuthController authController;
 
     public LoginMenu() {
         authController = new AuthController();
@@ -27,5 +30,10 @@ public class LoginMenu extends Menu {
     @Override
     public Menu getMenu(int option) {
         return new WelcomeMenu(); // Todo: return next menu (after the user logs in)
+    }
+
+    @Override
+    public boolean checkValidation(String... input) {
+        return false;
     }
 }

@@ -3,14 +3,14 @@ package models;
 import java.util.List;
 
 public class Chat {
-    private int id;
+    private long id;
     private User user1;
     private User user2;
     private List<Message> messages;
     private boolean hasSeen;
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

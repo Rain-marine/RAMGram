@@ -3,13 +3,20 @@ package models;
 import java.util.Date;
 
 public class Message {
-    private int id;
+    private long id;
     private String text;
     private Date date;
     private User sender;
     private User receiver;
 
-    public int getId() {
+    public Message(String text, User sender, User receiver) {
+        this.date = new Date();
+        this.text = text;
+        this.sender = sender;
+        this.receiver = receiver;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -43,5 +50,9 @@ public class Message {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
