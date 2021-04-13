@@ -1,14 +1,6 @@
 package views;
 
-import models.User;
-
-public class PrivatePageMenu extends Menu {
-    private User user;
-
-    public PrivatePageMenu(User user) {
-        this.user = user;
-    }
-
+public class TimelineMenu extends Menu {
     @Override
     public void run() {
 
