@@ -8,9 +8,11 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
+    private long userId;
+
     @Id
     @Column(name = "user_id", unique = true)
-    private int id;
+    private long id;
 
     @Column(name = "username")
     private String username;
@@ -55,6 +57,22 @@ public class User {
 
     @Column(name = "is_phone_number_visible")
     private boolean isPhoneNumberVisible;
+
+    public User(String username, String fullName, String email, String password) {
+        this.id = System.currentTimeMillis();
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.isActive = true;
+    }
+
+    public User(long userId, String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday, boolean isActive) {
+        this(username, fullName, email, password);
+        this.phoneNumber = phoneNumber;
+        this.bio = bio;
+        this.birthday = birthday;
+    }
 
     @ManyToMany
     @JoinTable(
@@ -123,7 +141,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
-    }
+    
 
     public String getUsername() {
         return username;
@@ -133,7 +151,7 @@ public class User {
         this.username = username;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
