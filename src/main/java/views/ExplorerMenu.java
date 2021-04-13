@@ -1,11 +1,19 @@
 package views;
 
+import controllers.ExplorerController;
+import models.Tweet;
+import models.User;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ExplorerMenu extends Menu {
     public ExplorerMenu() {
         options = Arrays.asList("Search", "Interested tweets, Back");
     }
+
+    private ExplorerController explorerController = new ExplorerController();
+
 
     @Override
     public void run() {
@@ -25,13 +33,11 @@ public class ExplorerMenu extends Menu {
         if (intInput == 1)
             search();
         else if (intInput == 2) {
-            int step = 1;
-            while(true) {
-                showTopTweets(step);
-                step++;
+            while (true) {
+                showTopTweets();
                 System.out.println("Load More?(Y/N)");
                 input = scanner.nextLine();
-                if(input.equals("Y"))
+                if (input.equals("Y"))
                     continue;
                 break;
             }
@@ -40,17 +46,32 @@ public class ExplorerMenu extends Menu {
             getMenu(3).run();
     }
 
-    private void showTopTweets(int step) {
+    private void showTopTweets() {
+        ArrayList<Tweet> tweetsToShow = explorerController.getTopTweets();
+        for (Tweet tweet : tweetsToShow) {
+            System.out.println(tweet.getUser().getUsername() + " wrote in " + tweet.getTweetDateTime().toString()+
+                    "\n" + tweet.getText() + "\n" + "__________________________");
 
+        }
     }
 
     private void search() {
+        System.out.println("type username you want to find");
+        String userToFind = scanner.nextLine();
+        User user = explorerController.getUserByUsername(userToFind);
+        if (user == null) {
+            System.out.println("username not found");
+            run();
+        }
+        else{
+            new PrivatePageMenu(user);
+        }
 
     }
 
     @Override
     public Menu getMenu(int option) {
-        if(option == 0)
+        if (option == 0)
             return new ExplorerMenu();
         return new MainMenu();
     }
