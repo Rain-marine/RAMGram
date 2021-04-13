@@ -100,8 +100,18 @@ public class User {
 //            inverseJoinColumns = @JoinColumn(name = "user_id"))
 //    private List<User> mutedByUsers;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_following_request",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id"))
     private List<User> followingRequest;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_following_request",
+            joinColumns = @JoinColumn(name = "following_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private List<User> followerRequest;
 
     @OneToMany(mappedBy = "owner")
