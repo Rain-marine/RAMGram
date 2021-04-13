@@ -1,14 +1,33 @@
 package models;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "chat")
 public class Chat {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "chat_id", unique = true)
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user1_id")
     private User user1;
+
+    @ManyToOne
+    @JoinColumn(name = "user2_id")
     private User user2;
+
+    @OneToMany(mappedBy = "chat")
     private List<Message> messages;
+
+    // TODO: Check
     private boolean hasSeen;
 
+    public Chat() {
+    }
 
     public long getId() {
         return id;

@@ -1,13 +1,33 @@
 package models;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "message")
 public class Message {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "message_id", unique = true)
     private long id;
+
+    @Column(name = "text")
     private String text;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date")
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
     private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
     private User receiver;
+
+
 
     public Message(String text, User sender, User receiver) {
         this.date = new Date();
