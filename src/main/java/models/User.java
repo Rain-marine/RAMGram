@@ -5,6 +5,7 @@ import java.util.List;
 
 public class User {
     private int id;
+    private long userId;
     private String username;
     private String fullName;
     private String email;
@@ -27,6 +28,8 @@ public class User {
     private List<Tweet> tweets;
     private List<Tweet> favoriteTweets;
     private List<Message> favoriteMessages;
+
+
 
     public String getUsername() {
         return username;
@@ -210,5 +213,9 @@ public class User {
 
     public void setLastSeenStatus(String lastSeenStatus) {
         this.lastSeenStatus = lastSeenStatus;
+    }
+
+    public long getUserId() {
+        return userId;
     }
 }

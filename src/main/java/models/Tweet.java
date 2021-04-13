@@ -6,7 +6,8 @@ import java.util.List;
 
 
 public class Tweet {
-    private long id;
+    private int id;
+    private long tweetId;
     private User user;
     private List<User> usersWhoLiked;
     private List<Tweet> comments;
@@ -17,7 +18,7 @@ public class Tweet {
         this.user = user;
         this.tweetDateTime = LocalDateTime.now();
         this.text = text;
-        this.id = System.currentTimeMillis();
+        this.tweetId = System.currentTimeMillis();
 
     }
 
@@ -64,4 +65,7 @@ public class Tweet {
     }
 
 
+    public long getTweetId() {
+        return tweetId;
+    }
 }
