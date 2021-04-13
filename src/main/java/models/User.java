@@ -1,35 +1,127 @@
 package models;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "chat")
 public class User {
+
+    @Id
+    @Column(name = "user_id", unique = true)
     private int id;
-    private long userId;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "bio")
     private String bio;
+
+    @Column(name = "last_seen_status")
     private String lastSeenStatus; // "nobody" , "everyone", "following"
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_seen")
     private Date lastSeen;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "birthday")
     private Date birthday;
+
+    @Column(name = "is_public")
     private boolean isPublic;
+
+    @Column(name = "is_active")
     private boolean isActive;
+
+    @Column(name = "is_birthday_visible")
     private boolean isBirthDayVisible;
+
+    @Column(name = "is_email_visible")
     private boolean isEmailVisible;
+
+    @Column(name = "is_phone_number_visible")
     private boolean isPhoneNumberVisible;
+
+    @ManyToMany
+    @JoinTable(
+            name = "follower_following",
+            joinColumns = @JoinColumn(name = "following_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private List<User> followers;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "follower_following",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id"))
     private List<User> followings;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_black_list",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "blocked_id"))
     private List<User> blackList;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_black_list",
+//            joinColumns = @JoinColumn(name = "blocked_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+//    private List<User> blockedByList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_muted",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "muted_id"))
     private List<User> mutedUsers;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_muted",
+//            joinColumns = @JoinColumn(name = "muted_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+//    private List<User> mutedByUsers;
+
+    @OneToMany(mappedBy = "owner")
     private List<Group> groups;
+
+    @OneToMany(mappedBy = "user")
     private List<Tweet> tweets;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorite_tweets",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     private List<Tweet> favoriteTweets;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorite_messages",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
 
-
+    public User() {
+    }
 
     public String getUsername() {
         return username;
@@ -213,9 +305,5 @@ public class User {
 
     public void setLastSeenStatus(String lastSeenStatus) {
         this.lastSeenStatus = lastSeenStatus;
-    }
-
-    public long getUserId() {
-        return userId;
     }
 }
