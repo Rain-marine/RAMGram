@@ -49,7 +49,7 @@ public class MainMenu extends Menu {
 
     @Override
     public boolean checkValidation(String... input) {
-        try {
+        try{
             int inputInt = Integer.parseInt(input[0]);
             if (inputInt > 0 && inputInt < 6) {
                 return true;

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "chat")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -100,6 +100,10 @@ public class User {
 //            inverseJoinColumns = @JoinColumn(name = "user_id"))
 //    private List<User> mutedByUsers;
 
+    private List<User> followingRequest;
+
+    private List<User> followerRequest;
+
     @OneToMany(mappedBy = "owner")
     private List<Group> groups;
 
@@ -119,6 +123,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
+
 
     public User() {
     }
