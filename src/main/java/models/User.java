@@ -67,7 +67,7 @@ public class User {
         this.isActive = true;
     }
 
-    public User(long userId, String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday, boolean isActive) {
+    public User(String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday) {
         this(username, fullName, email, password);
         this.phoneNumber = phoneNumber;
         this.bio = bio;
