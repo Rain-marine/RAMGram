@@ -5,7 +5,7 @@ import repository.utils.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class UserRepository {
 
@@ -38,8 +38,25 @@ public class UserRepository {
         }
     }
 
-    public void setLastSeen(String username, LocalDateTime now) {
-
+    public void setLastSeen(String username, Date now) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, username); // is Ok?
+            user.setLastSeen(now);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void deleteAccount(String username) {

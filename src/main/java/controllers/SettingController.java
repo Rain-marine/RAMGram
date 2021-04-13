@@ -4,6 +4,8 @@ package controllers;
 import models.LoggedUser;
 import repository.UserRepository;
 
+import java.util.Date;
+
 
 public class SettingController {
     private final UserRepository userRepository;
@@ -13,7 +15,7 @@ public class SettingController {
     }
 
     public void logout() {
-        userRepository.setLastSeen(LoggedUser.getLoggedUser().getUsername(), java.time.LocalDateTime.now());
+        userRepository.setLastSeen(LoggedUser.getLoggedUser().getUsername(), new Date());
     }
 
     public void deleteAccount() {
