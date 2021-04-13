@@ -1,13 +1,10 @@
 package views.Welcome;
 
 import controllers.RegisterManager;
-import controllers.UserController;
 import views.Menu;
-import views.Welcome.WelcomeMenu;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class RegisterMenu extends Menu {
     private final RegisterManager registerManager;

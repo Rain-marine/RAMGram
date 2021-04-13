@@ -5,9 +5,9 @@ import repository.utils.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.time.LocalDateTime;
 
 public class UserRepository {
-
 
     public User getById(Long userId){
         EntityManager em = EntityManagerProvider.getEntityManager();
@@ -38,21 +38,39 @@ public class UserRepository {
         }
     }
 
-    public User getByUsername(String username) {
-        //get username and find the return the User object with that username.
-        //if the username doesn't exists, return null
+    public void setLastSeen(String username, LocalDateTime now) {
+
+    }
+
+    public void deleteAccount(String username) {
+
+    }
+
+    public boolean doesPasswordExist(String username, String password) {
+        return false;
+    }
+
+    public boolean isAccountPublic(String username) {
+        return false;
+    }
+
+    public void changeAccountVisibility(String username, boolean newVisibility) {
+
+    }
+
+    public void deActiveAccount(String username) {
+
+    }
+
+    public String getUserLastSeenStatus(String username) {
         return null;
     }
 
-    public User getByEmail(String email) {
-        //get email and find the return the User object with that email.
-        //if the email doesn't exists, return null
-        return null;
+    public void changeLastSeenStatus(String username, String newStatus) {
+
     }
 
-    public User getByPhoneNumber(String phoneNumber) {
-        //get phoneNumber and find the return the User object with that phoneNumber.
-        //if the phoneNumber doesn't exists, return null
-        return null;
+    public void changePassword(String username, String newPassword) {
+
     }
 }
