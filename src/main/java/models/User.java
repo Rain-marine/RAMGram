@@ -123,9 +123,6 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
-
-
-    public User() {
     }
 
     public String getUsername() {
