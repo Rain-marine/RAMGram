@@ -30,6 +30,22 @@ public class User {
     private List<Message> favoriteMessages;
 
 
+    public User(String username, String fullName, String email, String password) {
+        this.userId = System.currentTimeMillis();
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.isActive = true;
+    }
+
+    public User(long userId, String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday, boolean isActive) {
+        this(username, fullName, email, password);
+        this.phoneNumber = phoneNumber;
+        this.bio = bio;
+        this.birthday = birthday;
+
+    }
 
     public String getUsername() {
         return username;

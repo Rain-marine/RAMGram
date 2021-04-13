@@ -2,6 +2,7 @@ package controllers;
 
 public class RegisterManager {
 
+
     public boolean checkUsernameUniqueness (String username){
 
         return true;
@@ -11,4 +12,15 @@ public class RegisterManager {
 
     }
 
+    public boolean isUsernameAvailable(String username) {
+
+    }
+
+    public boolean isEmailAvailable(String email) {
+
+    }
+
+    public boolean isPhoneNumberAvailable(String phoneNumber) {
+
+    }
 }
