@@ -18,9 +18,9 @@ public class Tweet {
     @JoinColumn(name = "user")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
-            name = "user_favorite_tweets",
+            name = "user_liked",
             joinColumns = @JoinColumn(name = "tweet_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> usersWhoLiked;
