@@ -5,12 +5,15 @@ import controllers.UserController;
 import views.Menu;
 import views.Welcome.WelcomeMenu;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class RegisterMenu extends Menu {
     private final RegisterManager registerManager;
-    private final UserController userController;
+
     public RegisterMenu() {
         this.registerManager = new RegisterManager();
-        this.userController = new UserController();
     }
 
     @Override
@@ -32,16 +35,14 @@ public class RegisterMenu extends Menu {
             String phoneNumber = scanner.nextLine();
             System.out.println("Enter your Bio:");
             String bio = scanner.nextLine();
-            System.out.println("Enter your birth date in yyyy/mm/dd format:");
+            System.out.println("Enter your birth date in yyyy/MM/dd format:");
             String birthDate = scanner.nextLine();
             registerSuccessful = checkRequiredInputs(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
 
             if(registerSuccessful){
                 System.out.println("register successful!");
-                userController.makeNewUser(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
+                registerManager.makeNewUser(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
             }
-
-
 
         } while (!registerSuccessful);
 
@@ -92,6 +93,14 @@ public class RegisterMenu extends Menu {
         if (!(phoneNumber.equals(""))){
             if(!registerManager.isPhoneNumberAvailable(phoneNumber)){
                 System.out.println("phone number exists");
+                return false;
+            }
+        }
+        if(!birthDate.equals("")) {
+            try {
+                new SimpleDateFormat("yyyy/MM/dd").parse(birthDate);
+            } catch (ParseException e) {
+                System.out.println("birthday format not valid");
                 return false;
             }
         }
