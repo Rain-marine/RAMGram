@@ -110,7 +110,7 @@ public class PrivacySettingMenu extends Menu {
         if (input.equals("Y")) {
             settingController.changeAccountVisibility(!isPublic);
         } else {
-            System.out.println("No change! \n You get back to privacy setting!");
+            System.out.println("No change! \nYou get back to privacy setting!");
             run();
         }
     }

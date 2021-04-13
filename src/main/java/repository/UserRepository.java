@@ -73,4 +73,16 @@ public class UserRepository {
     public void changePassword(String username, String newPassword) {
 
     }
+
+    public User getByUsername(String username) {
+        return null;
+    }
+
+    public User getByEmail(String email) {
+        return null;
+    }
+
+    public User getByPhoneNumber(String phoneNumber) {
+        return null;
+    }
 }
