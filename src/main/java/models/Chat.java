@@ -23,7 +23,7 @@ public class Chat {
     @OneToMany(mappedBy = "chat")
     private List<Message> messages;
 
-    // TODO: Check
+    @Column(name = "has_seen")
     private boolean hasSeen;
 
     public Chat() {
