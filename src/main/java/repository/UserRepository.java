@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 
 public class UserRepository {
 
+
     public User getById(Long userId){
         EntityManager em = EntityManagerProvider.getEntityManager();
 
@@ -35,5 +36,23 @@ public class UserRepository {
         } finally {
             em.close();
         }
+    }
+
+    public User getByUsername(String username) {
+        //get username and find the return the User object with that username.
+        //if the username doesn't exists, return null
+        return null;
+    }
+
+    public User getByEmail(String email) {
+        //get email and find the return the User object with that email.
+        //if the email doesn't exists, return null
+        return null;
+    }
+
+    public User getByPhoneNumber(String phoneNumber) {
+        //get phoneNumber and find the return the User object with that phoneNumber.
+        //if the phoneNumber doesn't exists, return null
+        return null;
     }
 }
