@@ -1,20 +1,22 @@
 package views.Welcome;
 
 import controllers.RegisterManager;
+import controllers.UserController;
 import views.Menu;
 import views.Welcome.WelcomeMenu;
 
 public class RegisterMenu extends Menu {
     private final RegisterManager registerManager;
-
+    private final UserController userController;
     public RegisterMenu() {
         this.registerManager = new RegisterManager();
+        this.userController = new UserController();
     }
 
     @Override
     public void run() {
         System.out.println("Hi! to register complete this form. fields with * are necessary");
-        boolean registerVerified = true;
+        boolean registerSuccessful = true;
         do {
             System.out.println("*Enter your full name:");
             String fullName = scanner.nextLine();
@@ -32,12 +34,16 @@ public class RegisterMenu extends Menu {
             String bio = scanner.nextLine();
             System.out.println("Enter your birth date in yyyy/mm/dd format:");
             String birthDate = scanner.nextLine();
-            boolean b = checkRequiredInputs(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
-            if(!b){
-                run();
+            registerSuccessful = checkRequiredInputs(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
+
+            if(registerSuccessful){
+                System.out.println("register successful!");
+                userController.makeNewUser(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
             }
-            registerVerified = checkValidation(username);
-        } while (!registerVerified);
+
+
+
+        } while (!registerSuccessful);
 
         getMenu(1).run();
     }
@@ -89,6 +95,7 @@ public class RegisterMenu extends Menu {
                 return false;
             }
         }
+        return true;
 
     }
     @Override
