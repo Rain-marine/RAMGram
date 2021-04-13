@@ -56,7 +56,7 @@ public class PrivacySettingMenu extends Menu {
 
         System.out.println("Enter your new password!");
         input = scanner.nextLine();
-        settingController.checkPassword(input);
+        settingController.changePassword(input);
         System.out.println("Password changed!");
         run();
     }
