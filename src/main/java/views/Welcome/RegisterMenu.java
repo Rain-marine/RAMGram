@@ -19,7 +19,7 @@ public class RegisterMenu extends Menu {
     @Override
     public void run() {
         System.out.println("Hi! to register complete this form. fields with * are necessary");
-        boolean registerSuccessful = true;
+        boolean registerSuccessful;
         do {
             System.out.println("*Enter your full name:");
             String fullName = scanner.nextLine();
@@ -41,7 +41,7 @@ public class RegisterMenu extends Menu {
 
             if(registerSuccessful){
                 System.out.println("register successful!");
-                registerManager.makeNewUser(fullName,username,password,passwordRe,email,phoneNumber,bio,birthDate);
+                registerManager.makeNewUser(fullName,username,password,email,phoneNumber,bio,birthDate);
             }
 
         } while (!registerSuccessful);
@@ -114,10 +114,7 @@ public class RegisterMenu extends Menu {
 
     @Override
     public boolean checkValidation(String... input) {
-        ///if (input[0].equals("\n") || input[1].equals("\n") )
-
-
-        return registerManager.checkUsernameUniqueness(input[0]);
+        return false;
     }
 
 
