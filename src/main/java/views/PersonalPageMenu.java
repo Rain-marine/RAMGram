@@ -2,10 +2,10 @@ package views;
 
 import models.User;
 
-public class PrivatePageMenu extends Menu {
+public class PersonalPageMenu extends Menu {
     private User user;
 
-    public PrivatePageMenu(User user) {
+    public PersonalPageMenu() {
         this.user = user;
     }
 
