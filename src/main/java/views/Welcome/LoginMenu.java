@@ -2,6 +2,8 @@ package views.Welcome;
 
 import controllers.AuthController;
 import exceptions.InvalidInputException;
+import models.LoggedUser;
+import models.User;
 import views.MainMenu;
 import views.Menu;
 
@@ -21,13 +23,17 @@ public class LoginMenu extends Menu {
         String username = scanner.nextLine();
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
-
+        int option;
         try {
-            long loggedInId = authController.login(username, password);
-
-        } catch (InvalidInputException e) {
+            User user = authController.login(username, password);
+            LoggedUser.setLoggedUser(user);
+            System.out.println("login successful. press enter to continue");
+            scanner.nextLine();
+            getMenu(1).run();
+        }
+        catch (InvalidInputException e) {
             System.err.println(e.getMessage());
-            System.out.println("press enter to return to main menu");
+            System.out.println("press enter to return to welcome menu");
             scanner.nextLine();
             getMenu(0).run();
         }
@@ -35,10 +41,10 @@ public class LoginMenu extends Menu {
 
     @Override
     public Menu getMenu(int option) {
-        switch (option){
-            case 1 -> { return new MainMenu(); }
-            default -> { return new WelcomeMenu(); }
-
+        if (option == 1) {
+            return new MainMenu();
+        } else {
+            return new WelcomeMenu();
         }
 
     }
