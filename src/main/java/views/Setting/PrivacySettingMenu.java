@@ -93,10 +93,13 @@ public class PrivacySettingMenu extends Menu {
         String input = scanner.nextLine();
         if (input.equals(lastSeenStatus) || !status.contains(lastSeenStatus)) {
             System.out.println("Nothing changed! You get back to privacy setting!");
-        } else {
+        }
+        else {
             settingController.changeLastSeenStatus(input);
             System.out.println("Now your lastSeen is visible for " + input);
         }
+        System.out.println("press enter to continue");
+        scanner.nextLine();
         run();
     }
 
@@ -111,6 +114,8 @@ public class PrivacySettingMenu extends Menu {
             settingController.changeAccountVisibility(!isPublic);
         } else {
             System.out.println("No change! \nYou get back to privacy setting!");
+            System.out.println("press enter to continue");
+            scanner.nextLine();
             run();
         }
     }

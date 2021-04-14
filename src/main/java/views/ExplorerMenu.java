@@ -64,7 +64,7 @@ public class ExplorerMenu extends Menu {
             run();
         }
         else{
-            new PrivatePageMenu(user);
+            new ProfilePage(user);
         }
 
     }

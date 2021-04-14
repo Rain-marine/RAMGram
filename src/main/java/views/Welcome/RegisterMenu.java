@@ -42,7 +42,8 @@ public class RegisterMenu extends Menu {
             }
 
         } while (!registerSuccessful);
-
+        System.out.println("press enter to continue");
+        scanner.nextLine();
         getMenu(1).run();
     }
 

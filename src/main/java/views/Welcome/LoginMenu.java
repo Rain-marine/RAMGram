@@ -2,8 +2,10 @@ package views.Welcome;
 
 import controllers.AuthController;
 import exceptions.InvalidInputException;
-import models.User;
+import views.MainMenu;
 import views.Menu;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginMenu extends Menu {
 
@@ -15,21 +17,30 @@ public class LoginMenu extends Menu {
     }
 
     public void run() {
-        System.out.println("Enter your username:");
+        System.out.println("Hi! your in login menu. \n Enter your username: ");
         String username = scanner.nextLine();
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
 
         try {
-            User user = authController.login(username, password);
+            long loggedInId = authController.login(username, password);
+
         } catch (InvalidInputException e) {
             System.err.println(e.getMessage());
+            System.out.println("press enter to return to main menu");
+            scanner.nextLine();
+            getMenu(0).run();
         }
     }
 
     @Override
     public Menu getMenu(int option) {
-        return new WelcomeMenu(); // Todo: return next menu (after the user logs in)
+        switch (option){
+            case 1 -> { return new MainMenu(); }
+            default -> { return new WelcomeMenu(); }
+
+        }
+
     }
 
     @Override
