@@ -18,6 +18,6 @@ public class ExplorerController {
     }
 
     public User getUserByUsername(String userToFind) {
-
+    return null;
     }
 }

@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class Tweet {
         return user;
     }
 
-    public LocalDateTime getTweetDateTime() {
+    public Date getTweetDateTime() {
         return tweetDateTime;
     }
 
