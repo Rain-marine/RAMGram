@@ -15,9 +15,16 @@ public class RegisterMenu extends Menu {
 
     @Override
     public void run() {
-        System.out.println("Hi! to register complete this form. fields with * are necessary");
+        System.out.println("Hi! to register complete this form. fields with * are necessary ");
         boolean registerSuccessful;
         do {
+            System.out.println("if you want to go back to Welcome Menu enter 1, enter anything else to continue ");
+            String firstInput = scanner.nextLine();
+            if (firstInput.equals("1")){
+                Menu nextMenu = getMenu(1);
+                nextMenu.setScanner(scanner);
+                nextMenu.run();
+            }
             System.out.println("*Enter your full name:");
             String fullName = scanner.nextLine();
             System.out.println("*Enter your username:");
