@@ -38,13 +38,13 @@ public class UserRepository {
         }
     }
 
-    public void setLastSeen(String username, Date now) {
+    public void setLastSeen(long id, Date now) {
         EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
             et.begin();
-            User user = em.find(User.class, username); // is Ok?
+            User user = em.find(User.class, id); // is Ok?
             user.setLastSeen(now);
             em.persist(user);
             et.commit();
@@ -59,11 +59,11 @@ public class UserRepository {
         }
     }
 
-    public void deleteAccount(String username) {
+    public void deleteAccount(long id) {
 
     }
 
-    public boolean doesPasswordExist(String username, String password) {
+    public boolean doesPasswordExist(long id, String password) {
         return false;
     }
 
@@ -71,11 +71,11 @@ public class UserRepository {
         return false;
     }
 
-    public void changeAccountVisibility(String username, boolean newVisibility) {
+    public void changeAccountVisibility(long id, boolean newVisibility) {
 
     }
 
-    public void deActiveAccount(String username) {
+    public void deActiveAccount(long id) {
 
     }
 
@@ -83,11 +83,11 @@ public class UserRepository {
         return null;
     }
 
-    public void changeLastSeenStatus(String username, String newStatus) {
+    public void changeLastSeenStatus(long id, String newStatus) {
 
     }
 
-    public void changePassword(String username, String newPassword) {
+    public void changePassword(long id, String newPassword) {
 
     }
 

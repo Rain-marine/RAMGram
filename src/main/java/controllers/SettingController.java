@@ -15,15 +15,15 @@ public class SettingController {
     }
 
     public void logout() {
-        userRepository.setLastSeen(LoggedUser.getLoggedUser().getUsername(), new Date());
+        userRepository.setLastSeen(LoggedUser.getLoggedUser().getId(), new Date());
     }
 
     public void deleteAccount() {
-        userRepository.deleteAccount(LoggedUser.getLoggedUser().getUsername());
+        userRepository.deleteAccount(LoggedUser.getLoggedUser().getId());
     }
 
     public boolean doesPasswordExist(String password) {
-        return userRepository.doesPasswordExist(LoggedUser.getLoggedUser().getUsername(), password);
+        return userRepository.doesPasswordExist(LoggedUser.getLoggedUser().getId(), password);
     }
 
     public boolean isAccountPublic(String username) {
@@ -31,11 +31,11 @@ public class SettingController {
     }
 
     public void changeAccountVisibility(boolean newVisibility) {
-        userRepository.changeAccountVisibility(LoggedUser.getLoggedUser().getUsername(), newVisibility);
+        userRepository.changeAccountVisibility(LoggedUser.getLoggedUser().getId(), newVisibility);
     }
 
     public void deActiveAccount() {
-        userRepository.deActiveAccount(LoggedUser.getLoggedUser().getUsername());
+        userRepository.deActiveAccount(LoggedUser.getLoggedUser().getId());
     }
 
     public String getUserLastSeenStatus(String username) {
@@ -43,10 +43,10 @@ public class SettingController {
     }
 
     public void changeLastSeenStatus(String newStatus) {
-        userRepository.changeLastSeenStatus(LoggedUser.getLoggedUser().getUsername() ,newStatus);
+        userRepository.changeLastSeenStatus(LoggedUser.getLoggedUser().getId() ,newStatus);
     }
 
     public void changePassword(String newPassword) {
-        userRepository.changePassword(LoggedUser.getLoggedUser().getUsername(), newPassword);
+        userRepository.changePassword(LoggedUser.getLoggedUser().getId(), newPassword);
     }
 }

@@ -152,6 +152,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
 
+    private List<Notification> notifications;
+
     public User() {
 
     }
@@ -339,5 +341,13 @@ public class User {
 
     public void setLastSeenStatus(String lastSeenStatus) {
         this.lastSeenStatus = lastSeenStatus;
+    }
+
+    public List getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List notifications) {
+        this.notifications = notifications;
     }
 }

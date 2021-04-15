@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class Tweet {
 
     @ManyToOne
     @JoinColumn(name = "main_tweet_id")
-    private Tweet mainTweet;
+    private Tweet parentTweet;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
@@ -47,7 +46,6 @@ public class Tweet {
         this.tweetDateTime = new Date();
         this.text = text;
         this.id = System.currentTimeMillis();
-
     }
 
 
@@ -59,7 +57,7 @@ public class Tweet {
         return user;
     }
 
-    public LocalDateTime getTweetDateTime() {
+    public Date getTweetDateTime() {
         return tweetDateTime;
     }
 
