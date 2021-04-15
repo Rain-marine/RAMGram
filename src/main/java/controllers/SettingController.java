@@ -35,7 +35,7 @@ public class SettingController {
     }
 
     public void deActiveAccount() {
-        userRepository.deActiveAccount(LoggedUser.getLoggedUser().getId());
+        userRepository.deactivateAccount(LoggedUser.getLoggedUser().getId());
     }
 
     public String getUserLastSeenStatus(String username) {

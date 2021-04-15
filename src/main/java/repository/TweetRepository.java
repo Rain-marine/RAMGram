@@ -6,7 +6,6 @@ import repository.utils.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 
 public class TweetRepository {
