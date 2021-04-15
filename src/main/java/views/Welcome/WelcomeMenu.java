@@ -13,8 +13,8 @@ public class WelcomeMenu extends Menu {
     @Override
     public void run() {
         System.out.println("Hi. choose what you want to do");
-        String input = "";
-        boolean isValid = true;
+        String input;
+        boolean isValid;
         do {
             for (int i = 1; i < options.size() + 1; i++) {
                 System.out.println(i + " :" + options.get(i-1));
@@ -23,7 +23,9 @@ public class WelcomeMenu extends Menu {
             isValid = checkValidation(input);
         } while (!isValid);
         int inputInt = Integer.parseInt(input);
-        getMenu(inputInt).run();
+        Menu nextMenu = getMenu(inputInt);
+        nextMenu.setScanner(scanner);
+        nextMenu.run();
     }
 
 
@@ -43,9 +45,11 @@ public class WelcomeMenu extends Menu {
             if (inputInt == 1 || inputInt == 2) {
                 return true;
             }
-            System.out.println("input should be either 1 or 2");
+            System.out.println("input should be either 1 or 2! press Enter to try again");
+            scanner.nextLine();
         } catch (Exception e) {
-            System.out.println("You haven't entered a number!");
+            System.out.println("You haven't entered a number! press Enter to try again");
+            scanner.nextLine();
         }
         return false;
     }
