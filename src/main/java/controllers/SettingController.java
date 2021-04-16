@@ -2,6 +2,7 @@ package controllers;
 
 
 import models.LoggedUser;
+import models.User;
 import repository.UserRepository;
 
 import java.util.Date;
@@ -27,7 +28,8 @@ public class SettingController {
     }
 
     public boolean isAccountPublic(String username) {
-        return userRepository.isAccountPublic(username);
+        User user = userRepository.getByUsername(username);
+        return user.isPublic();
     }
 
     public void changeAccountVisibility(boolean newVisibility) {
@@ -39,7 +41,8 @@ public class SettingController {
     }
 
     public String getUserLastSeenStatus(String username) {
-        return userRepository.getUserLastSeenStatus(username);
+        User user = userRepository.getByUsername(username);
+        return user.getLastSeenStatus();
     }
 
     public void changeLastSeenStatus(String newStatus) {

@@ -14,6 +14,7 @@ import java.util.Date;
 
 public class UserRepository {
     private final EntityManager em = EntityManagerProvider.getEntityManager();
+    private final EntityTransaction et = em.getTransaction();
 
     public User getById(Long userId){
         try {
@@ -24,9 +25,7 @@ public class UserRepository {
     }
 
     public void insert(User user){
-        EntityTransaction et = null;
-        try {
-            et = em.getTransaction();
+        try{
             et.begin();
             em.persist(user);
             et.commit();
@@ -42,11 +41,9 @@ public class UserRepository {
     }
 
     public void setLastSeen(long id, Date now) {
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
-            User user = em.find(User.class, id); // is Ok?
+            User user = em.find(User.class, id);
             user.setLastSeen(now);
             em.persist(user);
             et.commit();
@@ -62,9 +59,7 @@ public class UserRepository {
     }
 
     public void deleteAccount(long id) {
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
             User object = em.find(User.class, id);
             em.remove(object);
@@ -82,18 +77,11 @@ public class UserRepository {
         return false;
     }
 
-    public boolean isAccountPublic(String username) {
-        User user = getByUsername(username);
-        return user.isPublic();
-    }
-
     public void changeAccountVisibility(long id, boolean newVisibility) {
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
-            // TODO: Set the property in 'user' object
+            user.setPublic(newVisibility);
             em.persist(user);
             et.commit();
         } catch (Exception e) {
@@ -108,9 +96,7 @@ public class UserRepository {
     }
 
     public void deactivateAccount(long id) {
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setActive(false);
@@ -127,15 +113,8 @@ public class UserRepository {
         }
     }
 
-    public String getUserLastSeenStatus(String username) {
-        User user = getByUsername(username);
-        return user.getLastSeenStatus();
-    }
-
     public void changeLastSeenStatus(long id, String newStatus) {
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setLastSeenStatus(newStatus);
@@ -153,9 +132,7 @@ public class UserRepository {
     }
 
     public void changePassword(long id, String newPassword) {
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setPassword(newPassword);
