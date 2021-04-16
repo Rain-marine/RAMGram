@@ -13,10 +13,10 @@ import javax.persistence.criteria.Root;
 import java.util.Date;
 
 public class UserRepository {
-    private final EntityManager em = EntityManagerProvider.getEntityManager();
-    private final EntityTransaction et = em.getTransaction();
 
     public User getById(Long userId){
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
         try {
             return em.find(User.class, userId);
         } catch (Exception e) {
@@ -25,7 +25,10 @@ public class UserRepository {
     }
 
     public void insert(User user){
-        try{
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
             et.begin();
             em.persist(user);
             et.commit();
@@ -41,7 +44,10 @@ public class UserRepository {
     }
 
     public void setLastSeen(long id, Date now) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
         try {
+            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setLastSeen(now);
@@ -59,7 +65,10 @@ public class UserRepository {
     }
 
     public void deleteAccount(long id) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
         try {
+            et = em.getTransaction();
             et.begin();
             User object = em.find(User.class, id);
             em.remove(object);
@@ -78,7 +87,10 @@ public class UserRepository {
     }
 
     public void changeAccountVisibility(long id, boolean newVisibility) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
         try {
+            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setPublic(newVisibility);
@@ -96,7 +108,10 @@ public class UserRepository {
     }
 
     public void deactivateAccount(long id) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
         try {
+            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setActive(false);
@@ -114,7 +129,10 @@ public class UserRepository {
     }
 
     public void changeLastSeenStatus(long id, String newStatus) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
         try {
+            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setLastSeenStatus(newStatus);
@@ -132,7 +150,10 @@ public class UserRepository {
     }
 
     public void changePassword(long id, String newPassword) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
         try {
+            et = em.getTransaction();
             et.begin();
             User user = em.find(User.class, id);
             user.setPassword(newPassword);
@@ -150,6 +171,8 @@ public class UserRepository {
     }
 
     public User getByUsername(String username) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -165,6 +188,8 @@ public class UserRepository {
     }
 
     public User getByEmail(String email) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -180,6 +205,8 @@ public class UserRepository {
     }
 
     public User getByPhoneNumber(String phoneNumber) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
