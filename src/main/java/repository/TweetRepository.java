@@ -51,6 +51,6 @@ public class TweetRepository {
     }
 
     public ArrayList<Tweet> getAllTweets(String username) {
-        return null; // order by date desc
+        return null; // order by date desc // tweet where their parentTweet is null
     }
 }

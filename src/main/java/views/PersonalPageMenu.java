@@ -54,11 +54,10 @@ public class PersonalPageMenu extends Menu {
     }
 
     private void showMyTweets() {
-        ArrayList<Tweet> myTweets = tweetController.getAllTweets();
-        for (int i = 1; i < myTweets.size() + 1; i++) {
-            System.out.println(i + " : " + myTweets.get(i-1) + "\nDate: " + myTweets.get(i-1).getTweetDateTime().toString());
+        while(true) {
+
         }
-        System.out.println();
+
     }
 
 

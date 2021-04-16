@@ -91,4 +91,11 @@ public class Tweet {
     }
 
 
+    public Tweet getParentTweet() {
+        return parentTweet;
+    }
+
+    public void setParentTweet(Tweet parentTweet) {
+        this.parentTweet = parentTweet;
+    }
 }

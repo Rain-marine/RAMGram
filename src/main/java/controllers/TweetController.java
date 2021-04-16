@@ -21,4 +21,8 @@ public class TweetController {
     public ArrayList<Tweet> getAllTweets() {
         return tweetRepository.getAllTweets(LoggedUser.getLoggedUser().getUsername());
     }
+
+    public void saveTweet(long id) {
+
+    }
 }
