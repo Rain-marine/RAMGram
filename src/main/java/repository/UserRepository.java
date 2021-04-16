@@ -13,10 +13,9 @@ import javax.persistence.criteria.Root;
 import java.util.Date;
 
 public class UserRepository {
+    private final EntityManager em = EntityManagerProvider.getEntityManager();
 
     public User getById(Long userId){
-        EntityManager em = EntityManagerProvider.getEntityManager();
-
         try {
             return em.find(User.class, userId);
         } catch (Exception e) {
@@ -25,7 +24,6 @@ public class UserRepository {
     }
 
     public void insert(User user){
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -44,7 +42,6 @@ public class UserRepository {
     }
 
     public void setLastSeen(long id, Date now) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -65,7 +62,6 @@ public class UserRepository {
     }
 
     public void deleteAccount(long id) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -92,7 +88,6 @@ public class UserRepository {
     }
 
     public void changeAccountVisibility(long id, boolean newVisibility) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -113,7 +108,6 @@ public class UserRepository {
     }
 
     public void deactivateAccount(long id) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -139,7 +133,6 @@ public class UserRepository {
     }
 
     public void changeLastSeenStatus(long id, String newStatus) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -160,7 +153,6 @@ public class UserRepository {
     }
 
     public void changePassword(long id, String newPassword) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
             et = em.getTransaction();
@@ -181,8 +173,6 @@ public class UserRepository {
     }
 
     public User getByUsername(String username) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
-
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -198,8 +188,6 @@ public class UserRepository {
     }
 
     public User getByEmail(String email) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
-
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -215,8 +203,6 @@ public class UserRepository {
     }
 
     public User getByPhoneNumber(String phoneNumber) {
-        EntityManager em = EntityManagerProvider.getEntityManager();
-
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);

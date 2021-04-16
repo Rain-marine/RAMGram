@@ -19,34 +19,21 @@ public class RegisterManager {
         }
 
         User user = new User(username,fullName,email,password,phoneNumber, bio,birthday);
+        userRepository.insert(user);
     }
 
     public boolean isUsernameAvailable(String username) {
-        boolean isAvailable = false;
         User user = userRepository.getByUsername(username);
-        if (user == null){
-            isAvailable = true;
-        }
-        return isAvailable;
-
+        return user == null;
     }
 
     public boolean isEmailAvailable(String email) {
-        boolean isAvailable = false;
         User user = userRepository.getByEmail(email);
-        if (user == null){
-            isAvailable = true;
-        }
-        return isAvailable;
-
+        return user == null;
     }
 
     public boolean isPhoneNumberAvailable(String phoneNumber) {
-        boolean isAvailable = false;
         User user = userRepository.getByPhoneNumber(phoneNumber);
-        if (user == null){
-            isAvailable = true;
-        }
-        return isAvailable;
+        return user == null;
     }
 }
