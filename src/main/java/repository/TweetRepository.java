@@ -9,12 +9,11 @@ import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 
 public class TweetRepository {
+    private final EntityManager em = EntityManagerProvider.getEntityManager();
+    private final EntityTransaction et = em.getTransaction();
 
-    public void insert(Tweet tweet){
-        EntityManager em = EntityManagerProvider.getEntityManager();
-        EntityTransaction et = null;
+    public void insert(Tweet tweet) {
         try {
-            et = em.getTransaction();
             et.begin();
             em.persist(tweet);
             et.commit();
@@ -30,10 +29,7 @@ public class TweetRepository {
     }
 
     public void like(long userId , long tweetId){
-        EntityManager em = EntityManagerProvider.getEntityManager();
-        EntityTransaction et = null;
         try {
-            et = em.getTransaction();
             et.begin();
             Tweet tweet = em.find(Tweet.class, tweetId);
             tweet.getUsersWhoLiked().add(em.find(User.class, userId));
