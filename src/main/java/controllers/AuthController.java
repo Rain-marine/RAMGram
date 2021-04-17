@@ -5,7 +5,7 @@ import models.User;
 import repository.UserRepository;
 
 public class AuthController {
-    private UserRepository userRepository;
+    private final UserRepository userRepository = new UserRepository();
 
     public User login(String username, String password) throws InvalidInputException {
         User user = userRepository.getByUsername(username);

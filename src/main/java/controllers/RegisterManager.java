@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegisterManager {
-    UserRepository userRepository;
+    private final UserRepository userRepository = new UserRepository();
 
     public void makeNewUser(String fullName, String username, String password, String email, String phoneNumber, String bio, String birthDate)   {
         Date birthday;
@@ -24,7 +24,7 @@ public class RegisterManager {
 
     public boolean isUsernameAvailable(String username) {
         User user = userRepository.getByUsername(username);
-        return user == null;
+        return (user == null);
     }
 
     public boolean isEmailAvailable(String email) {
