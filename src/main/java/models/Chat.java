@@ -12,13 +12,12 @@ public class Chat {
     @Column(name = "chat_id", unique = true)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user1_id")
-    private User user1;
-
-    @ManyToOne
-    @JoinColumn(name = "user2_id")
-    private User user2;
+    @ManyToMany
+    @JoinTable(
+            name = "user_chat",
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users;
 
     @OneToMany(mappedBy = "chat")
     private List<Message> messages;
@@ -31,22 +30,6 @@ public class Chat {
 
     public long getId() {
         return id;
-    }
-
-    public User getUser1() {
-        return user1;
-    }
-
-    public void setUser1(User user1) {
-        this.user1 = user1;
-    }
-
-    public User getUser2() {
-        return user2;
-    }
-
-    public void setUser2(User user2) {
-        this.user2 = user2;
     }
 
     public List<Message> getMessages() {
