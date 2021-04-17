@@ -8,8 +8,6 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
-    private long userId;
-
     @Id
     @Column(name = "user_id", unique = true)
     private long id;

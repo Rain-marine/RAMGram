@@ -24,7 +24,7 @@ public class Tweet {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> usersWhoLiked;
 
-    @OneToMany(mappedBy = "mainTweet")
+    @OneToMany(mappedBy = "parentTweet")
     private List<Tweet> comments;
 
     @ManyToOne

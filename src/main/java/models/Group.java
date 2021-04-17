@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "group")
+@Table(name = "gr")
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id", unique = true)
+    @Column(name = "gr_id", unique = true)
     private int id;
 
     @Column(name = "name")
@@ -22,7 +22,7 @@ public class Group {
     @ManyToMany
     @JoinTable(
             name = "group_members",
-            joinColumns = @JoinColumn(name = "group_id"),
+            joinColumns = @JoinColumn(name = "gr_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> members;
 
