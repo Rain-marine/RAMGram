@@ -17,10 +17,12 @@ public class SettingController {
 
     public void logout() {
         userRepository.setLastSeen(LoggedUser.getLoggedUser().getId(), new Date());
+        LoggedUser.setLoggedUser(null);
     }
 
     public void deleteAccount() {
         userRepository.deleteAccount(LoggedUser.getLoggedUser().getId());
+        LoggedUser.setLoggedUser(null);
     }
 
     public boolean doesPasswordExist(String password) {
@@ -38,6 +40,7 @@ public class SettingController {
 
     public void deActiveAccount() {
         userRepository.deactivateAccount(LoggedUser.getLoggedUser().getId());
+        LoggedUser.setLoggedUser(null);
     }
 
     public String getUserLastSeenStatus(String username) {

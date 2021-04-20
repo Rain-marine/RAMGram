@@ -13,52 +13,51 @@ public class PrivacySettingMenu extends Menu {
 
     public PrivacySettingMenu() {
         settingController = new SettingController();
-        options = Arrays.asList("private & public", "last seen & online", "activation", "change password", "back");
+        options = Arrays.asList("private/public", "lastSeen/online", "activation", "change password", "back");
     }
 
     @Override
     public void run() {
         System.out.println("**Privacy & Security**");
-        boolean isValid;
-        String input;
-        do{
-            for (int i = 1; i < options.size() + 1; i++) {
-                System.out.println(i + " : " + options.get(i - 1));
+        showOption();
+        Input:
+        while (true) {
+            System.out.println("You are in privacy & security menu, type your request");
+            String input = scanner.nextLine();
+            if (!options.contains(input)) {
+                System.out.println("unknown input!");
+                continue;
             }
-            input = scanner.nextLine();
-            isValid = checkValidation(input);
-        }while(!isValid);
-
-        int inputInt = Integer.parseInt(input);
-        switch (inputInt) {
-            case 1 -> privatePublicChecker();
-            case 2 -> lastSeenChecker();
-            case 3 -> activationChecker();
-            case 4 -> changePassword();
-            default -> getMenu(5).run();
+            switch (input) {
+                case "private/public" -> privatePublicChecker();
+                case "lastSeen/online" -> lastSeenChecker();
+                case "activation" -> activationChecker();
+                case "change password" -> changePassword();
+                default -> {
+                    break Input;
+                }
+            }
         }
     }
 
     private void changePassword() {
         System.out.println("Enter your password! if You wanna back, Enter 'B' ");
-        boolean isValid;
-        String input;
-        do {
-            input = scanner.nextLine();
-            if (input.equals("B")) {
-                run();
+        boolean isValid = false;
+        while (!isValid) {
+            String input = scanner.nextLine();
+            if (input.equals("B"))
                 return;
-            }
             isValid = settingController.doesPasswordExist(input);
             if (!isValid)
                 System.out.println("Password is incorrect! Enter again!");
-        } while (!isValid);
+        }
 
         System.out.println("Enter your new password!");
-        input = scanner.nextLine();
-        settingController.changePassword(input);
+        String newPassword = scanner.nextLine();
+        settingController.changePassword(newPassword);
         System.out.println("Password changed!");
-        run();
+        System.out.println("press any key to continue");
+        scanner.nextLine();
     }
 
     private void activationChecker() {
@@ -67,40 +66,42 @@ public class PrivacySettingMenu extends Menu {
         if (input.equals("Y")) {
             settingController.deActiveAccount();
             new WelcomeMenu().run();
-        } else {
-            System.out.println("Account is still active and you get back to privacy setting!");
-            run();
+            return;
         }
+        System.out.println("Account is still active and you get back to privacy setting!");
+        System.out.println("press any key to continue");
+        scanner.nextLine();
     }
 
     private void lastSeenChecker() {
-        ArrayList<String> status = new ArrayList<>();
-        status.add("nobody");
-        status.add("everybody");
-        status.add("following");
+        ArrayList<String> status = new ArrayList<>() {
+            {
+                add("nobody");
+                add("everybody");
+                add("following");
+            }
+        };
 
         String lastSeenStatus = settingController.getUserLastSeenStatus(LoggedUser.getLoggedUser().getUsername());
         System.out.println("Your lastSeen is visible for " + lastSeenStatus);
         System.out.println("Do you wanna change your status?(type the status) or any character for back");
         int printedStatus = 0;
         for (String state : status) {
-            if (state.equals(lastSeenStatus))
-                continue;
-            System.out.println(printedStatus + 1 + " : " + state);
-            printedStatus++;
+            if (!state.equals(lastSeenStatus)) {
+                System.out.println(printedStatus + 1 + " : " + state);
+                printedStatus++;
+            }
         }
 
         String input = scanner.nextLine();
-        if (input.equals(lastSeenStatus) || !status.contains(lastSeenStatus)) {
+        if (input.equals(lastSeenStatus) || !status.contains(lastSeenStatus))
             System.out.println("Nothing changed! You get back to privacy setting!");
-        }
         else {
             settingController.changeLastSeenStatus(input);
             System.out.println("Now your lastSeen is visible for " + input);
         }
-        System.out.println("press enter to continue");
+        System.out.println("press any key to continue");
         scanner.nextLine();
-        run();
     }
 
     private void privatePublicChecker() {
@@ -112,12 +113,19 @@ public class PrivacySettingMenu extends Menu {
         String input = scanner.nextLine();
         if (input.equals("Y")) {
             settingController.changeAccountVisibility(!isPublic);
-        } else {
+            System.out.println("Account visibility changed!");
+        } else
             System.out.println("No change! \nYou get back to privacy setting!");
-            System.out.println("press enter to continue");
-            scanner.nextLine();
-            run();
-        }
+        System.out.println("press enter to continue");
+        scanner.nextLine();
+    }
+
+    private void showOption() {
+        System.out.println("private/public -> change account visibility!");
+        System.out.println("lastSeen/online -> change your last seen status!");
+        System.out.println("activation -> deActive your account!");
+        System.out.println("change password -> change your account password!");
+        System.out.println("back -> back to setting");
     }
 
     @Override
@@ -127,15 +135,6 @@ public class PrivacySettingMenu extends Menu {
 
     @Override
     public boolean checkValidation(String... input) {
-        try{
-            int inputInt = Integer.parseInt(input[0]);
-            if (inputInt > 0 && inputInt < 6) {
-                return true;
-            }
-            System.out.println("input must be between 1 and 5");
-        } catch (Exception e) {
-            System.out.println("You haven't entered a number!");
-        }
         return false;
     }
 }

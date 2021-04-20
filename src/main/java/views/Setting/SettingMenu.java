@@ -11,28 +11,37 @@ public class SettingMenu extends Menu {
     private final SettingController settingsController;
     public SettingMenu() {
         settingsController = new SettingController();
-        options = Arrays.asList("Privacy & Security", "Delete Account", "Log out", "Back");
+        options = Arrays.asList("privacy/security", "delete account", "log out", "back");
     }
 
     @Override
     public void run() {
         System.out.println("**Setting**");
-        boolean isValid;
-        String input;
-        do{
-            for (int i = 1; i < options.size() + 1; i++) {
-                System.out.println(i + " : " + options.get(i - 1));
+        showOption();
+        Input:
+        while (true) {
+            System.out.println("You are in setting menu, type your request");
+            String input = scanner.nextLine();
+            if (!options.contains(input)) {
+                System.out.println("unknown input!");
+                continue;
             }
-            input = scanner.nextLine();
-            isValid = checkValidation(input);
-        } while (!isValid);
-        int inputInt = Integer.parseInt(input);
-        switch (inputInt) {
-            case 1 -> getMenu(1).run();
-            case 2 -> deleteAccount();
-            case 3 -> logout();
-            default -> getMenu(4).run();
+            switch (input) {
+                case "privacy/security" -> getMenu(1).run();
+                case "delete account" -> deleteAccount();
+                case "log out" -> logout();
+                default -> {
+                    break Input;
+                }
+            }
         }
+    }
+
+    private void showOption() {
+        System.out.println("privacy/security -> change account visibility,last seen, password or deActive account");
+        System.out.println("delete account -> delete your account forever!");
+        System.out.println("log out -> log out and close app!");
+        System.out.println("back -> back to main menu");
     }
 
     private void logout() {
@@ -43,10 +52,9 @@ public class SettingMenu extends Menu {
             getMenu(3).run();
             return;
         }
-        if (input.equals("N")){
-            run();
-        } else
-            logout();
+        System.out.println("You get back to setting menu");
+        System.out.println("press any key to continue!");
+        scanner.nextLine();
     }
 
     private void deleteAccount() {
@@ -57,10 +65,9 @@ public class SettingMenu extends Menu {
             getMenu(3).run();
             return;
         }
-        if (input.equals("N")){
-            run();
-        } else
-            deleteAccount();
+        System.out.println("You get back to setting menu");
+        System.out.println("press any key to continue!");
+        scanner.nextLine();
     }
 
     @Override
@@ -74,15 +81,6 @@ public class SettingMenu extends Menu {
 
     @Override
     public boolean checkValidation(String... input) {
-        try {
-            int inputInt = Integer.parseInt(input[0]);
-            if (inputInt > 0 && inputInt < 5) {
-                return true;
-            }
-            System.out.println("input must be between 1 and 4");
-        } catch (Exception e) {
-            System.out.println("You haven't entered a number!");
-        }
         return false;
     }
 }
