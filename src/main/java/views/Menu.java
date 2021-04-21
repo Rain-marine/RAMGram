@@ -19,7 +19,9 @@ public abstract class Menu {
         this.scanner = scanner;
     }
 
-    public abstract boolean checkValidation(String... input);
+    public boolean checkValidation(String... input) {
+        return false;
+    }
 
     @Override
     public String toString() {

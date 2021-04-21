@@ -3,13 +3,14 @@ package views.Message;
 import controllers.MessageController;
 import models.LoggedUser;
 import models.Message;
+import models.Tweet;
 import models.User;
 import views.Menu;
 import views.View;
 
 import java.util.ArrayList;
 
-public class PeopleMessageMenu extends Menu implements View<ArrayList<Message>> {
+public class PeopleMessageMenu extends Menu{
     private final MessageController messageController;
 
     public PeopleMessageMenu() {
@@ -20,7 +21,7 @@ public class PeopleMessageMenu extends Menu implements View<ArrayList<Message>> 
     public void run() {
         System.out.println("**Message With Friends**");
         ArrayList<Message> messages = messageController.getPeopleMessage();
-        show(messages);
+        showMessages(messages);
         boolean isValid;
         String input;
         do{
@@ -50,8 +51,7 @@ public class PeopleMessageMenu extends Menu implements View<ArrayList<Message>> 
         return false;
     }
 
-    @Override
-    public void show(ArrayList<Message> messages) {
+    public void showMessages(ArrayList<Message> messages) {
         if (messages.size() == 0) {
             System.out.println("**YOU HAVE NO MESSAGE TO SHOW");
             return;

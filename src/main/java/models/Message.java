@@ -38,6 +38,10 @@ public class Message {
         this.receiver = receiver;
     }
 
+    public Message() {
+
+    }
+
     public long getId() {
         return id;
     }
