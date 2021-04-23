@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Menu {
-    protected static Scanner scanner;
+    protected static Scanner scanner = new Scanner(System.in);
     protected List<String> options;
 
     public abstract void run();
@@ -14,10 +14,6 @@ public abstract class Menu {
     }
 
     public abstract Menu getMenu(int option);
-
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public boolean checkValidation(String... input) {
         return false;
