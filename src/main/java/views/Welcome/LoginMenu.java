@@ -30,12 +30,14 @@ public class LoginMenu extends Menu {
             System.out.println("login successful. press enter to continue");
             scanner.nextLine();
             getMenu(1).run();
+
         }
         catch (InvalidInputException e) {
             System.err.println(e.getMessage());
             System.out.println("press enter to return to welcome menu");
             scanner.nextLine();
             getMenu(0).run();
+
         }
     }
 

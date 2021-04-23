@@ -29,7 +29,7 @@ public class MainMenu extends Menu {
     private void process(int request) {
         switch (request) {
             case 1 -> new PersonalPageMenu().run();
-            case 2 -> getMenu(2).run();
+            case 2 -> getMenu(2);
             case 3 -> getMenu(3).run();
             case 4 -> getMenu(4).run();
             default -> getMenu(5).run();

@@ -19,7 +19,7 @@ public class MyTweetMenu extends Menu {
                 put("save", 3);
                 put("forward", 4);
                 put("add comment", 5);
-                put("comment", 6);
+                put("comments", 6);
                 put("back", 7);
             }
         };
@@ -29,7 +29,8 @@ public class MyTweetMenu extends Menu {
     public void run() {
         List<Tweet> myTweets = tweetController.getAllTweets();
         if (myTweets.size() == 0) {
-            System.out.println("You have no tweet to show!");
+            System.out.println("You haven't written any tweets yet! press enter to go back to your personal page");
+            scanner.nextLine();
             new PersonalPageMenu().run();
             return;
         }

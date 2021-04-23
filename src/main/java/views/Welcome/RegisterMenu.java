@@ -21,9 +21,7 @@ public class RegisterMenu extends Menu {
             System.out.println("if you want to go back to Welcome Menu enter 1, enter anything else to continue ");
             String firstInput = scanner.nextLine();
             if (firstInput.equals("1")){
-                Menu nextMenu = getMenu(1);
-                nextMenu.setScanner(scanner);
-                nextMenu.run();
+                getMenu(1).run();
             }
             System.out.println("*Enter your full name:");
             String fullName = scanner.nextLine();

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Menu {
-    protected Scanner scanner;
+    protected static Scanner scanner;
     protected List<String> options;
 
     public abstract void run();

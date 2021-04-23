@@ -53,4 +53,19 @@ public class TweetRepository {
     public ArrayList<Tweet> getAllTweets(String username) {
         return null; // order by date desc // tweet where their parentTweet is null
     }
+
+    public ArrayList<Tweet> getTopTweets(String username) {
+        return null;
+        // public accounts
+        // account not muted/blocked by LoggedUser
+        //  account not blocked LoggedUser
+        // account not deActive
+        // tweet not reported by LoggedUser
+    }
+
+    public ArrayList<Tweet> getFollowingTweets(String username) {
+        return null;
+        //account followed by Logged user
+        //account not muted by Logged user
+    }
 }
