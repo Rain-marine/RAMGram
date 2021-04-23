@@ -14,7 +14,7 @@ public class SavedMessageMenu extends Menu{
 
     public SavedMessageMenu() {
         messageController = new MessageController();
-        options = Arrays.asList("Back", "new message");
+        options = Arrays.asList("back", "new message");
     }
 
 
@@ -30,12 +30,13 @@ public class SavedMessageMenu extends Menu{
             System.out.println("You are in saved message menu, type your request");
             String input = scanner.nextLine();
             if (!options.contains(input)) {
-                System.out.println("unknown input!");
+                System.out.println("Invalid input!");
                 continue;
             }
             if ("new message".equals(input))
                 getNewMessage();
             else
+                //ToDo new message menu
                 break;
         }
     }
