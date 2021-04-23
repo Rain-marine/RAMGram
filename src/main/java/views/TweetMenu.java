@@ -17,7 +17,7 @@ public class TweetMenu extends Menu {
     private final List<Tweet> parentList;
 
 
-    public TweetMenu(UserController userController, UserController userController1, List<Tweet> listOfTweets, Menu previousMenu) {
+11    public TweetMenu(List<Tweet> listOfTweets, Menu previousMenu) {
         this.userController = new UserController();
         this.tweetController = new TweetController();
         commands = new HashMap<>() {
@@ -104,8 +104,10 @@ public class TweetMenu extends Menu {
                             continue;
                         case 4:
                             tweetController.retweet(currentTweet);
+                            break ;
                         case 5:
                             forwardTweet(currentTweet);
+                            break ;
                         case 6:
                             //ToDo try catch if user is already blocked
                             userController.blockUser(currentTweet.getUser());
@@ -121,8 +123,10 @@ public class TweetMenu extends Menu {
                             continue;
                         case 9:
                             new ProfilePage(currentTweet.getUser()).run();
+                            break;
                         case 10:
                             addNewComment(currentTweet);
+                            break ;
                         case 11:
                             if (currentTweet.getComments().size() == 0) {
                                 System.out.println("No Comment to show");
@@ -131,6 +135,7 @@ public class TweetMenu extends Menu {
                                 currentTweet = tweetsList.get(0);
                                 break Show;
                             }
+                            break ;
 
                     }
                 } else {
