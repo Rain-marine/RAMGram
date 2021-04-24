@@ -1,33 +1,32 @@
 package views.Message;
 
+import controllers.ChatController;
 import controllers.MessageController;
-import models.LoggedUser;
-import models.Message;
-import models.Tweet;
-import models.User;
+import models.*;
 import views.Menu;
 import views.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PeopleMessageMenu extends Menu{
-    private final MessageController messageController;
+    private final ChatController chatController;
 
     public PeopleMessageMenu() {
-        messageController = new MessageController();
+        chatController = new ChatController();
     }
 
     @Override
     public void run() {
         System.out.println("**Message With People**");
-        ArrayList<Message> messages = messageController.getPeopleMessage();
-        showMessages(messages);
+        List<Chat> chats = chatController.getChats();
+
         boolean isValid;
         String input;
         do{
             System.out.println("Please enter a number to see the message or 0 for back to Message Menu");
             input = scanner.nextLine();
-            isValid = checkValidation(input, String.valueOf(messages.size()));
+            isValid = checkValidation(input, String.valueOf(chats.size()));
         }while(!isValid);
 
 
