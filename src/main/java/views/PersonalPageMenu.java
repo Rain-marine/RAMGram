@@ -9,7 +9,7 @@ public class PersonalPageMenu extends Menu {
     private final TweetController tweetController;
 
     public PersonalPageMenu() {
-        options = Arrays.asList("New Tweet", "Your Tweets", "Edit", "Faction", "Information", "Notification", "Back");
+        options = Arrays.asList("New Tweet", "Your Tweets", "Edit", "Factions", "Information", "Notification", "Back");
         tweetController = new TweetController();
     }
 
@@ -54,9 +54,7 @@ public class PersonalPageMenu extends Menu {
     }
 
     private void showMyTweets() {
-        while(true) {
 
-        }
 
     }
 
@@ -66,7 +64,7 @@ public class PersonalPageMenu extends Menu {
         String tweet = scanner.nextLine();
         System.out.println("Are you sure?(Y/N)");
         String input = scanner.nextLine();
-        if (input.equals("Y")){
+        if (input.equalsIgnoreCase("Y")){
             tweetController.addTweet(tweet);
             System.out.println("Tweet Published!.\nPress any key to continue!");
         } else {

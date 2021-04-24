@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class MessageMenu extends Menu {
 
     public MessageMenu() {
-        options = Arrays.asList("saved message", "people message", "back");
+        options = Arrays.asList("saved messages", "people messages", "back");
     }
 
     @Override
@@ -17,14 +17,17 @@ public class MessageMenu extends Menu {
         Input:
         while (true) {
             System.out.println("You are in message menu, type your request");
+            for (int i = 1; i < options.size() + 1; i++) {
+                System.out.println(options.get(i - 1));
+            }
             String input = scanner.nextLine();
             if (!options.contains(input)) {
-                System.out.println("unknown input!");
+                System.out.println("Invalid input!");
                 continue;
             }
-            switch(input) {
-                case "saved message" -> getMenu(1).run();
-                case "people message" -> getMenu(2).run();
+            switch (input) {
+                case "saved messages" -> getMenu(1).run();
+                case "people messages" -> getMenu(2).run();
                 default -> {
                     break Input;
                 }

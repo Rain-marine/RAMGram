@@ -1,6 +1,7 @@
 package views;
 
 import controllers.TweetController;
+import controllers.UserController;
 import models.Tweet;
 
 import java.util.HashMap;
@@ -9,110 +10,145 @@ import java.util.List;
 public class MyTweetMenu extends Menu {
     private final TweetController tweetController;
     private final HashMap<String, Integer> commands;
+    private final UserController userController;
+    private List<Tweet> tweetsList;
 
     public MyTweetMenu() {
-        tweetController = new TweetController();
+        this.userController = new UserController();
+        this.tweetController = new TweetController();
+        this.tweetsList = tweetController.getUserAllTweets();
         commands = new HashMap<>() {
             {
+                put("back", 0);
                 put("next", 1);
-                put("before", 2);
+                put("previous", 2);
                 put("save", 3);
-                put("forward", 4);
-                put("add comment", 5);
-                put("comments", 6);
-                put("back", 7);
+                put("forward", 5);
+                put("profile", 9);
+                put("add comment", 10);
+                put("comments", 11);
             }
         };
+
+    }
+
+
+    public void setTweetsList(List<Tweet> tweetsList) {
+        this.tweetsList = tweetsList;
     }
 
     @Override
     public void run() {
-        List<Tweet> myTweets = tweetController.getAllTweets();
-        if (myTweets.size() == 0) {
-            System.out.println("You haven't written any tweets yet! press enter to go back to your personal page");
+        if (tweetsList.size() == 0) {
+            System.out.println("there are no tweet to show!press enter to go back to main menu");
             scanner.nextLine();
-            new PersonalPageMenu().run();
+            new MainMenu().run();
             return;
         }
-        Tweet currentTweet = myTweets.get(0);
+        Tweet currentTweet = tweetsList.get(0);
         showCommands();
         while (true) {
-            System.out.println("Date : " + currentTweet.getTweetDateTime());
-            System.out.println(currentTweet.getUser().getUsername() + " : " +
-                    currentTweet.getText() + "\n" +
-                    currentTweet.getUsersWhoLiked().size() + " people liked");
+            System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + currentTweet.getUser().getUsername() + ConsoleColors.RESET +
+                    " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + currentTweet.getTweetDateTime().toString() + "\n"
+                    + ConsoleColors.PURPLE_BACKGROUND + ConsoleColors.BLACK_BOLD + currentTweet.getText() + "\n"
+                    + ConsoleColors.RESET + ConsoleColors.YELLOW_BOLD_BRIGHT + currentTweet.getUsersWhoLiked().size()
+                    + " people liked");
             Show:
             while (true) {
                 String input = scanner.nextLine();
                 if (commands.containsKey(input)) {
                     switch (commands.get(input)) {
-                        case 1:
-                            if (myTweets.indexOf(currentTweet) == myTweets.size() - 1) {
-                                System.out.println("There is no tweet to show");
-                                continue;
-                            } else {
-                                currentTweet = myTweets.get(myTweets.indexOf(currentTweet) + 1);
-                                break Show;
-                            }
-                        case 2:
-                            if (myTweets.indexOf(currentTweet) == 0) {
-                                System.out.println("There is no tweet to show");
-                                continue;
-                            } else {
-                                currentTweet = myTweets.get(myTweets.indexOf(currentTweet) - 1);
-                                break Show;
-                            }
-                        case 3:
-                            tweetController.saveTweet(currentTweet.getId());
-                            System.out.println("Tweet Saved!");
-                        case 4:
-                            forwardTweet(currentTweet);
-                        case 5:
-                            addNewComment(currentTweet);
-                        case 6:
-                            if (currentTweet.getComments().size() == 0) {
-                                System.out.println("No Comment to show");
-                                continue;
-                            } else {
-                                myTweets = currentTweet.getComments();
-                                break Show;
-                            }
-                        case 7:
+                        case 0:
                             if (currentTweet.getParentTweet() == null) {
-                                new PersonalPageMenu().run();
+                                getMenu(0).run();
                                 return;
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
-                                myTweets = currentTweet.getParentTweet() == null ? tweetController.getAllTweets() : currentTweet.getParentTweet().getComments();
+                                //ToDo: fix the getAllTweets part
+                                tweetsList = currentTweet.getParentTweet() == null ? tweetController.getUserAllTweets() : currentTweet.getParentTweet().getComments();
                                 break Show;
                             }
+                        case 1:
+                            if (tweetsList.indexOf(currentTweet) == tweetsList.size() - 1) {
+                                System.out.println("There is no more tweets to show");
+                                continue;
+                            } else {
+                                currentTweet = tweetsList.get(tweetsList.indexOf(currentTweet) + 1);
+                                break Show;
+                            }
+                        case 2:
+                            if (tweetsList.indexOf(currentTweet) == 0) {
+                                System.out.println("There is no previous tweet to show");
+                                continue;
+                            } else {
+                                currentTweet = tweetsList.get(tweetsList.indexOf(currentTweet) - 1);
+                                break Show;
+                            }
+                        case 3:
+                            //ToDo try catch tweet already saved
+                            tweetController.saveTweet(currentTweet.getId());
+                            System.out.println("Tweet Saved!");
+                            continue;
+                        case 5:
+                            //ToDo
+                            forwardTweet(currentTweet);
+                            break;
+                        case 9:
+                            new ProfilePage(currentTweet.getUser()).run();
+                            break;
+                        case 10:
+                            addNewComment(currentTweet);
+                            break;
+                        case 11:
+                            if (currentTweet.getComments().size() == 0) {
+                                System.out.println("No Comment to show");
+                            } else {
+                                tweetsList = currentTweet.getComments();
+                                currentTweet = tweetsList.get(0);
+                                break Show;
+                            }
+                            break;
+
                     }
+                } else {
+                    System.out.println("Invalid input. Try again.");
                 }
+
             }
         }
     }
 
-    private void addNewComment(Tweet tweet) {
 
+    private void addNewComment(Tweet parentTweet) {
+        System.out.println("write your comment and press enter");
+        String comment = scanner.nextLine();
+        tweetController.addComment(comment, parentTweet);
     }
 
     private void forwardTweet(Tweet tweet) {
+        System.out.println("type username of receiver and press enter");
+        String receiver = scanner.nextLine();
 
     }
 
     private void showCommands() {
-        System.out.println("next -> next tweet or comment");
-        System.out.println("before -> previous tweet or comment");
-        System.out.println("save -> add tweet to your favorite");
-        System.out.println("forward -> send tweet for another user");
-        System.out.println("add comment -> add comment");
-        System.out.println("comment -> show comments");
-        System.out.println("back -> back to previous step");
+        System.out.println("type the command code. here's the list of command and what they do"
+                + "\n" + "back -> back to previous step"
+                + "\n" + "next -> next tweet or comment"
+                + "\n" + "previous -> previous tweet or comment"
+                + "\n" + "save -> add tweet to your favorite"
+                + "\n" + "forward -> send tweet for another user"
+                + "\n" + "profile -> go to profile writer of the tweet"
+                + "\n" + "add comment -> add comment"
+                + "\n" + "comment -> show comments");
+
     }
 
     @Override
     public Menu getMenu(int option) {
-        return null;
+        if (option == 0)
+            return new PersonalPageMenu();
+        return new MainMenu();
     }
 
     @Override

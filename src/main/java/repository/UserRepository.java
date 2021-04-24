@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UserRepository {
@@ -219,5 +220,22 @@ public class UserRepository {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public void addRetweet(long tweetId, long userId) {
+        //add tweet to user's retweet list
+    }
+
+    public void addFavoriteTweet(User loggedUser, long tweetId) {
+        //add tweet to user's favorite tweets
+    }
+
+    public ArrayList<Long> getFollowing(long userId) {
+        return  null;
+    }
+
+    public ArrayList<Long> getMuted(long userId) {
+        //return user id's that are muted by userId
+        return null;
     }
 }

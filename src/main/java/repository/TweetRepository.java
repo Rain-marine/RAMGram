@@ -50,11 +50,12 @@ public class TweetRepository {
         }
     }
 
-    public ArrayList<Tweet> getAllTweets(String username) {
-        return null; // order by date desc // tweet where their parentTweet is null
+    public ArrayList<Tweet> getAllTweets(long userId) {
+        //tweets which: 1- tweet's user is userId  2- are in users retweet list
+        return null; // order all by date desc // tweet where their parentTweet is null
     }
 
-    public ArrayList<Tweet> getTopTweets(String username) {
+    public ArrayList<Tweet> getTopTweets(long userId) {
         return null;
         // public accounts
         // account not muted/blocked by LoggedUser
@@ -63,9 +64,21 @@ public class TweetRepository {
         // tweet not reported by LoggedUser
     }
 
-    public ArrayList<Tweet> getFollowingTweets(String username) {
+    public ArrayList<Tweet> getFollowingTweets(long userId) {
         return null;
         //account followed by Logged user
         //account not muted by Logged user
+    }
+
+    public void addComment(Tweet parentTweet, Tweet commentTweet) {
+        //add comment tweet to comments of parent tweet
+    }
+
+    public void increaseRetweetCount(long tweetId) {
+        //tweet retweet count++
+    }
+
+    public void increaseReportCount(long tweetId) {
+        //tweet report count++
     }
 }

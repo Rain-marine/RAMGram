@@ -24,7 +24,7 @@ public class WelcomeMenu extends Menu {
         } while (!isValid);
         int inputInt = Integer.parseInt(input);
         Menu nextMenu = getMenu(inputInt);
-        nextMenu.setScanner(scanner);
+        //nextMenu.setScanner(scanner);
         nextMenu.run();
     }
 

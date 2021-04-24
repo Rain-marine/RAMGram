@@ -20,6 +20,9 @@ public class TweetMenu extends Menu {
     public TweetMenu(List<Tweet> listOfTweets, Menu previousMenu) {
         this.userController = new UserController();
         this.tweetController = new TweetController();
+        this.parentList = listOfTweets;
+        this.tweetsList = listOfTweets;
+        this.previousMenu = previousMenu;
         commands = new HashMap<>() {
             {
                 put("back", 0);
@@ -36,9 +39,6 @@ public class TweetMenu extends Menu {
                 put("comments", 11);
             }
         };
-        this.parentList = listOfTweets;
-        this.tweetsList = listOfTweets;
-        this.previousMenu = previousMenu;
 
     }
 
@@ -62,7 +62,7 @@ public class TweetMenu extends Menu {
         showCommands();
         while (true) {
             System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + currentTweet.getUser().getUsername() + ConsoleColors.RESET +
-                    " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + currentTweet.getTweetDateTime() + "\n"
+                    " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + currentTweet.getTweetDateTime().toString() + "\n"
                     + ConsoleColors.PURPLE_BACKGROUND + ConsoleColors.BLACK_BOLD + currentTweet.getText() + "\n"
                     + ConsoleColors.RESET + ConsoleColors.YELLOW_BOLD_BRIGHT + currentTweet.getUsersWhoLiked().size()
                     + " people liked");
@@ -103,11 +103,13 @@ public class TweetMenu extends Menu {
                             System.out.println("Tweet Saved!");
                             continue;
                         case 4:
+                            //ToDo
                             tweetController.retweet(currentTweet);
-                            break ;
+                            break;
                         case 5:
+                            //ToDo
                             forwardTweet(currentTweet);
-                            break ;
+                            break;
                         case 6:
                             //ToDo try catch if user is already blocked
                             userController.blockUser(currentTweet.getUser());
@@ -126,7 +128,7 @@ public class TweetMenu extends Menu {
                             break;
                         case 10:
                             addNewComment(currentTweet);
-                            break ;
+                            break;
                         case 11:
                             if (currentTweet.getComments().size() == 0) {
                                 System.out.println("No Comment to show");
@@ -135,7 +137,7 @@ public class TweetMenu extends Menu {
                                 currentTweet = tweetsList.get(0);
                                 break Show;
                             }
-                            break ;
+                            break;
 
                     }
                 } else {
@@ -147,28 +149,32 @@ public class TweetMenu extends Menu {
     }
 
 
-    private void addNewComment(Tweet tweet) {
-
+    private void addNewComment(Tweet parentTweet) {
+        System.out.println("write your comment and press enter");
+        String comment = scanner.nextLine();
+        tweetController.addComment(comment, parentTweet);
     }
 
     private void forwardTweet(Tweet tweet) {
+        System.out.println("type username of receiver and press enter");
+        String receiver = scanner.nextLine();
 
     }
 
     private void showCommands() {
-        System.out.println("type the command code. here's the list of command and what they do");
-        System.out.println("back -> back to previous step");
-        System.out.println("next -> next tweet or comment");
-        System.out.println("before -> previous tweet or comment");
-        System.out.println("save -> add tweet to your favorite");
-        System.out.println("retweet -> retweet the tweet you are seeing");
-        System.out.println("forward -> send tweet for another user");
-        System.out.println("block -> block writer of the tweet");
-        System.out.println("mute-> mute writer of the tweet");
-        System.out.println("spam -> report tweet spam");
-        System.out.println("profile -> go to profile writer of the tweet");
-        System.out.println("add comment -> add comment");
-        System.out.println("comment -> show comments");
+        System.out.println("type the command code. here's the list of command and what they do"
+                + "\n" + "back -> back to previous step"
+                + "\n" + "next -> next tweet or comment"
+                + "\n" + "previous -> previous tweet or comment"
+                + "\n" + "save -> add tweet to your favorite"
+                + "\n" + "retweet -> retweet the tweet you are seeing"
+                + "\n" + "forward -> send tweet for another user"
+                + "\n" + "block -> block writer of the tweet"
+                + "\n" + "mute-> mute writer of the tweet"
+                + "\n" + "spam -> report tweet spam"
+                + "\n" + "profile -> go to profile writer of the tweet"
+                + "\n" + "add comment -> add comment"
+                + "\n" + "comment -> show comments");
 
     }
 

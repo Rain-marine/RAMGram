@@ -4,6 +4,7 @@ import controllers.MessageController;
 import models.LoggedUser;
 import models.Message;
 import models.Tweet;
+import views.ConsoleColors;
 import views.Menu;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ public class SavedMessageMenu extends Menu{
 
     @Override
     public void run() {
-        System.out.println("**Saved Message**");
+        System.out.println("**Saved Messages**");
         showOption();
         ArrayList<Message> savedMessage = messageController.getSavedMessage();
         showMessages(savedMessage);
         ArrayList<Tweet> tweets = messageController.getSavedTweets();
         showTweets(tweets);
         while (true) {
-            System.out.println("You are in saved message menu, type your request");
+            System.out.println("You are in saved messages menu, type your request");
             String input = scanner.nextLine();
             if (!options.contains(input)) {
                 System.out.println("Invalid input!");
@@ -71,7 +72,7 @@ public class SavedMessageMenu extends Menu{
 
     public void showMessages(ArrayList<Message> messages) {
         if (messages.size() == 0) {
-            System.out.println("YOU HAVE NO SAVED MESSAGE, TYPE new message TO ADD NEW MESSAGE");
+            System.out.println("YOU HAVE NO SAVED MESSAGES, TYPE *new message* TO ADD NEW MESSAGE");
             return;
         }
         for (Message message : messages) {
@@ -85,7 +86,10 @@ public class SavedMessageMenu extends Menu{
             return;
         }
         for (Tweet tweet : tweets) {
-            System.out.println(tweet.getUser().getUsername() + " : " + tweet.getText() + "\tDate : " + tweet.getTweetDateTime().toString());
+            System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + tweet.getUser().getUsername() + ConsoleColors.RESET +
+                    " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + tweet.getTweetDateTime().toString() + "\n"
+                    + ConsoleColors.PURPLE_BACKGROUND + ConsoleColors.BLACK_BOLD + tweet.getText()
+                    + "\n" +ConsoleColors.RESET +ConsoleColors.YELLOW_BOLD_BRIGHT+ "___________________________");
         }
     }
 }

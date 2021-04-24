@@ -19,7 +19,7 @@ public class MenuManager {
         allMenus.add(new WelcomeMenu());
         while(true) {
             Menu recent = allMenus.get(allMenus.size() - 1);
-            recent.setScanner(scanner);
+            //recent.setScanner(scanner);
 
             recent.run();
 

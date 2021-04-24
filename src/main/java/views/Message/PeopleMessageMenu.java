@@ -19,7 +19,7 @@ public class PeopleMessageMenu extends Menu{
 
     @Override
     public void run() {
-        System.out.println("**Message With Friends**");
+        System.out.println("**Message With People**");
         ArrayList<Message> messages = messageController.getPeopleMessage();
         showMessages(messages);
         boolean isValid;

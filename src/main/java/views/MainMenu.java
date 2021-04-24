@@ -28,8 +28,8 @@ public class MainMenu extends Menu {
 
     private void process(int request) {
         switch (request) {
-            case 1 -> new PersonalPageMenu().run();
-            case 2 -> getMenu(2);
+            case 1 -> getMenu(1).run();
+            case 2 -> getMenu(2).run();
             case 3 -> getMenu(3).run();
             case 4 -> getMenu(4).run();
             default -> getMenu(5).run();
@@ -39,6 +39,7 @@ public class MainMenu extends Menu {
     @Override
     public Menu getMenu(int option) {
         return switch (option) {
+            case 1 -> new PersonalPageMenu();
             case 2 -> new TimelineMenu();
             case 3 -> new ExplorerMenu();
             case 4 -> new MessageMenu();
