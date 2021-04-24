@@ -143,6 +143,22 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     private List<Tweet> favoriteTweets;
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_retweet_tweets",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tweet_id"))
+    private List<Tweet> retweetTweets;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_reported_tweets",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tweet_id"))
+    private List<Tweet> reportedTweets;
+
     @ManyToMany
     @JoinTable(
             name = "user_favorite_messages",
@@ -236,6 +252,38 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public List<User> getFollowingRequest() {
+        return followingRequest;
+    }
+
+    public void setFollowingRequest(List<User> followingRequest) {
+        this.followingRequest = followingRequest;
+    }
+
+    public List<User> getFollowerRequest() {
+        return followerRequest;
+    }
+
+    public void setFollowerRequest(List<User> followerRequest) {
+        this.followerRequest = followerRequest;
+    }
+
+    public List<Tweet> getRetweetTweets() {
+        return retweetTweets;
+    }
+
+    public void setRetweetTweets(List<Tweet> retweetTweets) {
+        this.retweetTweets = retweetTweets;
+    }
+
+    public List<Tweet> getReportedTweets() {
+        return reportedTweets;
+    }
+
+    public void setReportedTweets(List<Tweet> reportedTweets) {
+        this.reportedTweets = reportedTweets;
     }
 
     public boolean isPublic() {

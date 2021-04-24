@@ -38,6 +38,12 @@ public class Tweet {
     @Column(name = "text")
     private String text;
 
+    @Column(name = "report_counter")
+    private int reportCounter;
+
+    @Column(name = "retweet_counter")
+    private int retweetCounter;
+
     public Tweet() {
     }
 
@@ -73,6 +79,21 @@ public class Tweet {
         this.user = user;
     }
 
+    public void setReportCounter(int reportCounter) {
+        this.reportCounter = reportCounter;
+    }
+
+    public void setRetweetCounter(int retweetCounter) {
+        this.retweetCounter = retweetCounter;
+    }
+
+    public int getReportCounter() {
+        return reportCounter;
+    }
+
+    public int getRetweetCounter() {
+        return retweetCounter;
+    }
 
     public List<User> getUsersWhoLiked() {
         return usersWhoLiked;
