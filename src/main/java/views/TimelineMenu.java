@@ -5,6 +5,7 @@ import controllers.UserController;
 import models.Tweet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TimelineMenu extends Menu {
     private final TweetController tweetController;
@@ -31,7 +32,7 @@ public class TimelineMenu extends Menu {
         if(option == 0)
             return new MainMenu();
         else {
-            ArrayList<Tweet> listOfTweets = tweetController.getFollowingTweets();
+            List<Tweet> listOfTweets = tweetController.getFollowingTweets();
             return new TweetMenu(listOfTweets, new TimelineMenu());
         }
     }

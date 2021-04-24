@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class UserRepository {
 
@@ -230,11 +231,12 @@ public class UserRepository {
         //add tweet to user's favorite tweets
     }
 
-    public ArrayList<Long> getFollowing(long userId) {
+    public List<Long> getFollowing(long userId) {
+        //Active
         return  null;
     }
 
-    public ArrayList<Long> getMuted(long userId) {
+    public List<Long> getMuted(long userId) {
         //return user id's that are muted by userId
         return null;
     }

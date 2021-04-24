@@ -25,6 +25,9 @@ public class Chat {
     @Column(name = "has_seen")
     private boolean hasSeen;
 
+    @Column(name = "unseen_count")
+    private int unseenCount;
+
     public Chat() {
     }
 

@@ -17,7 +17,7 @@ public class ExplorerController {
     }
 
     public ArrayList<Tweet> getTopTweets() {
-        return messageRepository.getRandomTweets();
+        return null;
     }
 
     public User getUserByUsername(String userToFind) {
