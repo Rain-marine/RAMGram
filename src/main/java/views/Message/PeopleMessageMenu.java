@@ -1,12 +1,12 @@
 package views.Message;
 
 import controllers.ChatController;
-import controllers.MessageController;
-import models.*;
+import models.Chat;
+import models.LoggedUser;
+import models.User;
 import views.Menu;
-import views.View;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PeopleMessageMenu extends Menu{
@@ -20,46 +20,57 @@ public class PeopleMessageMenu extends Menu{
     public void run() {
         System.out.println("**Message With People**");
         List<Chat> chats = chatController.getChats();
+        if (chats.size() == 0) {
+            System.out.println("YOU HAVE NO CHAT\nyou get back to message menu! enter any key to continue!");
+            scanner.nextLine();
+            return;
+        }
+        showChats(chats);
+        HashMap<String, Chat> usernameToChat = extractUserFromChat(chats);
+        while (true) {
+            System.out.println("enter username to see the chat! or enter *back for back to message menu!");
+            String input = scanner.nextLine();
+            if (input.equals("*back"))
+                break;
+            if (!usernameToChat.containsKey(input)) {
+                System.out.println("no user found!\nenter any key to continue!");
+                scanner.nextLine();
+            } else
+                new ChatMenu(usernameToChat.get(input)).run();
+        }
+    }
 
-        boolean isValid;
-        String input;
-        do{
-            System.out.println("Please enter a number to see the message or 0 for back to Message Menu");
-            input = scanner.nextLine();
-            isValid = checkValidation(input, String.valueOf(chats.size()));
-        }while(!isValid);
-
-
+    private HashMap<String, Chat> extractUserFromChat(List<Chat> chats) {
+        HashMap<String, Chat> usernameToChat = new HashMap<>();
+        for (Chat chat : chats) {
+            User userToShow = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
+                    ? chat.getUsers().get(1)
+                    : chat.getUsers().get(0);
+            usernameToChat.put(userToShow.getUsername(), chat);
+        }
+        return usernameToChat;
     }
 
     @Override
     public Menu getMenu(int option) {
-        return null;
+        return new MessageMenu();
     }
 
     @Override
     public boolean checkValidation(String... input) {
-        try{
-            int number = Integer.parseInt(input[0]);
-            if (number >= 0 && number <= Integer.parseInt(input[1]))
-                return true;
-            System.out.println("You must enter a number between 0 and " + input[1]);
-        } catch (Exception e) {
-            System.out.println("you haven't entered a number");
-        }
         return false;
     }
 
-    public void showMessages(ArrayList<Message> messages) {
-        if (messages.size() == 0) {
-            System.out.println("**YOU HAVE NO MESSAGE TO SHOW");
-            return;
-        }
-        for (int i = 1; i < messages.size() + 1; i++) {
-            User userToShow = messages.get(i-1).getSender().getUsername().equals(LoggedUser.getLoggedUser().getUsername())
-                    ? messages.get(i-1).getReceiver()
-                    : messages.get(i-1).getSender();
-            System.out.println(i + " : User : " + userToShow.getUsername());
+    public void showChats(List<Chat> chats) {
+        for (Chat chat : chats) {
+            User userToShow = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
+                    ? chat.getUsers().get(1)
+                    : chat.getUsers().get(0);
+
+            if (chat.isHasSeen())
+                System.out.println(userToShow.getUsername());
+            else
+                System.out.println(userToShow.getUsername() + "\t" + chat.getUnseenCount() + " Unseen Message");
         }
     }
 }

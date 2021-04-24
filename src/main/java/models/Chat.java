@@ -42,4 +42,28 @@ public class Chat {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public boolean isHasSeen() {
+        return hasSeen;
+    }
+
+    public void setHasSeen(boolean hasSeen) {
+        this.hasSeen = hasSeen;
+    }
+
+    public int getUnseenCount() {
+        return unseenCount;
+    }
+
+    public void setUnseenCount(int unseenCount) {
+        this.unseenCount = unseenCount;
+    }
 }
