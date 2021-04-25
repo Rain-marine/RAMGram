@@ -6,6 +6,7 @@ import models.Tweet;
 import repository.MessageRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MessageController {
     private final MessageRepository messageRepository;
@@ -28,5 +29,17 @@ public class MessageController {
 
     public ArrayList<Tweet> getSavedTweets() {
         return messageRepository.getFavoriteTweets(LoggedUser.getLoggedUser().getId());
+    }
+
+    public boolean canSendMessageToUser(String userToSendMessage) {
+        return false;
+    }
+
+    public boolean canSendMessageToGroup(String groupToSendMessage) {
+        return false;
+    }
+
+    public void sendMessage(String message, List<String> users, List<String> groups) {
+
     }
 }

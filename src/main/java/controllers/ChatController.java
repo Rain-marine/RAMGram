@@ -9,4 +9,8 @@ public class ChatController {
     public List<Chat> getChats() {
         return null;
     }
+
+    public void addMessageToChat(long chatId, Message message) {
+
+    }
 }
