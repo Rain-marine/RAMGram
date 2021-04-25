@@ -1,9 +1,10 @@
 package views;
 
+import controllers.ProfileAccessController;
 import controllers.TweetController;
 import controllers.UserController;
 import models.Tweet;
-import models.User;
+import views.profiles.FollowingProfile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +14,11 @@ public class TweetMenu extends Menu {
     private final HashMap<String, Integer> commands;
     private final UserController userController;
     private List<Tweet> tweetsList;
-    private Menu previousMenu;
+    private int previousMenu;
     private final List<Tweet> parentList;
 
 
-    public TweetMenu(List<Tweet> listOfTweets, Menu previousMenu) {
+    public TweetMenu(List<Tweet> listOfTweets, int previousMenu) {
         this.userController = new UserController();
         this.tweetController = new TweetController();
         this.parentList = listOfTweets;
@@ -42,7 +43,7 @@ public class TweetMenu extends Menu {
 
     }
 
-    public void setPreviousMenu(Menu previousMenu) {
+    public void setPreviousMenu(int previousMenu) {
         this.previousMenu = previousMenu;
     }
 
@@ -51,12 +52,12 @@ public class TweetMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         if (tweetsList.size() == 0) {
             System.out.println("there are no tweet to show!press enter to go back to main menu");
             scanner.nextLine();
             new MainMenu().run();
-            return;
+            return null;
         }
         Tweet currentTweet = tweetsList.get(0);
         showCommands();
@@ -73,8 +74,8 @@ public class TweetMenu extends Menu {
                     switch (commands.get(input)) {
                         case 0:
                             if (currentTweet.getParentTweet() == null) {
-                                previousMenu.run();
-                                return;
+                                getMenu(previousMenu).run();
+                                return null;
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
                                 //ToDo: fix the getAllTweets part
@@ -124,7 +125,15 @@ public class TweetMenu extends Menu {
                             System.out.println("Tweet was reported and won't be shown to you again! list will refresh when you reEnter page later");
                             continue;
                         case 9:
-                            new ProfilePage(currentTweet.getUser()).run();
+                            if (previousMenu == 0){
+                                new FollowingProfile(currentTweet.getUser(),getMenu(previousMenu)).run();
+                            }
+                            else {
+                                ProfileAccessController profileAccessController = new ProfileAccessController(
+                                        getMenu(previousMenu), currentTweet.getUser());
+                                Menu profile = profileAccessController.checkFollowing();
+                                profile.run();
+                            }
                             break;
                         case 10:
                             addNewComment(currentTweet);
@@ -180,7 +189,11 @@ public class TweetMenu extends Menu {
 
     @Override
     public Menu getMenu(int option) {
-        return null;
+        if (option == 0)
+            return new TimelineMenu();
+        if (option == 1)
+            return new ExplorerMenu();
+        return new MainMenu();
     }
 
     @Override

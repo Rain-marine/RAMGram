@@ -6,8 +6,7 @@ import models.LoggedUser;
 import models.User;
 import views.MainMenu;
 import views.Menu;
-
-import java.util.concurrent.TimeUnit;
+import views.profiles.FollowingProfile;
 
 public class LoginMenu extends Menu {
 
@@ -18,7 +17,7 @@ public class LoginMenu extends Menu {
         authController = new AuthController();
     }
 
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("Hi! your in login menu. \n Enter your username: ");
         String username = scanner.nextLine();
         System.out.println("Enter your password:");
@@ -39,6 +38,7 @@ public class LoginMenu extends Menu {
             getMenu(0).run();
 
         }
+        return null;
     }
 
     @Override

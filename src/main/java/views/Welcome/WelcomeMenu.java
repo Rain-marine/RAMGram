@@ -1,6 +1,7 @@
 package views.Welcome;
 
 import views.Menu;
+import views.profiles.FollowingProfile;
 
 import java.util.Arrays;
 
@@ -11,7 +12,7 @@ public class WelcomeMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("Hi. choose what you want to do");
         String input;
         boolean isValid;
@@ -26,6 +27,7 @@ public class WelcomeMenu extends Menu {
         Menu nextMenu = getMenu(inputInt);
         //nextMenu.setScanner(scanner);
         nextMenu.run();
+        return null;
     }
 
 

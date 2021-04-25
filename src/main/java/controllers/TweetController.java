@@ -21,8 +21,11 @@ public class TweetController {
         tweetRepository.insert(tweet);
     }
 
-    public List<Tweet> getUserAllTweets() {
-        return tweetRepository.getAllTweets(LoggedUser.getLoggedUser().getId());
+    public List<Tweet> getUserAllTweets(User user) {
+        List<Tweet> userAllTweets = user.getTweets();
+        userAllTweets.addAll(user.getRetweetTweets());
+        return userAllTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime)).
+                collect(Collectors.toList());
     }
 
     public List<Tweet> getTopTweets() {

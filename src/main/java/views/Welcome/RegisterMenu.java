@@ -2,6 +2,7 @@ package views.Welcome;
 
 import controllers.RegisterManager;
 import views.Menu;
+import views.profiles.FollowingProfile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ public class RegisterMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("Hi! to register complete this form. fields with * are necessary ");
         boolean registerSuccessful;
         do {
@@ -50,6 +51,7 @@ public class RegisterMenu extends Menu {
         System.out.println("press enter to continue");
         scanner.nextLine();
         getMenu(1).run();
+        return null;
     }
 
     public boolean checkRequiredInputs(String fullName,String username ,String password,String passwordRe , String email ,String phoneNumber , String bio , String birthDate){

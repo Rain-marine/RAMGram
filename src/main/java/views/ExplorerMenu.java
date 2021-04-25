@@ -1,22 +1,23 @@
 package views;
 
 import controllers.ExplorerController;
-import models.Tweet;
+import controllers.ProfileAccessController;
 import models.User;
+import views.profiles.FollowingProfile;
+import views.profiles.ProfileNotVisible;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ExplorerMenu extends Menu {
     public ExplorerMenu() {
-        options = Arrays.asList("Search", "Interested tweets, Back");
+        options = Arrays.asList("Search", "Interested tweets", "Back");
     }
 
     private ExplorerController explorerController = new ExplorerController();
 
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Explorer**");
         boolean isValid;
         String input;
@@ -32,41 +33,34 @@ public class ExplorerMenu extends Menu {
         int intInput = Integer.parseInt(input);
         if (intInput == 1)
             search();
-        else if (intInput == 2) {
-            while (true) {
-                showTopTweets();
-                System.out.println("Load More?(Y/N)");
-                input = scanner.nextLine();
-                if (input.equals("Y"))
-                    continue;
-                break;
-            }
-            getMenu(0).run();
-        } else
+        else if (intInput == 2)
+            showTopTweets();
+        else
             getMenu(3).run();
+        return null;
     }
 
     private void showTopTweets() {
-        ArrayList<Tweet> tweetsToShow = explorerController.getTopTweets();
-        for (Tweet tweet : tweetsToShow) {
-            System.out.println(tweet.getUser().getUsername() + " wrote in " + tweet.getTweetDateTime().toString()+
-                    "\n" + tweet.getText() + "\n" + "__________________________");
-
-        }
+        TweetMenu tweetMenu = new TweetMenu(explorerController.getTopTweets(),1);
+        tweetMenu.run();
     }
 
     private void search() {
-        System.out.println("type username you want to find");
-        String userToFind = scanner.nextLine();
-        User user = explorerController.getUserByUsername(userToFind);
-        if (user == null) {
-            System.out.println("username not found");
-            run();
+        System.out.println("type username you want to find or type" + ConsoleColors.PURPLE_BOLD + "*back*" + ConsoleColors.RESET
+                + "to go back to explorer page");
+        String usernameToFind = scanner.nextLine();
+        if (usernameToFind.equals("*back*")) {
+            getMenu(0).run();
         }
-        else{
-            new ProfilePage(user);
+        else {
+            User user = explorerController.getUserByUsername(usernameToFind);
+            if (user == null) {
+                new ProfileNotVisible().run();
+            } else {
+                ProfileAccessController profileAccessController = new ProfileAccessController(getMenu(0),user);
+                profileAccessController.checkAccessibility().run();
+            }
         }
-
     }
 
     @Override
