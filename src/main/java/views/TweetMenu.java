@@ -1,9 +1,9 @@
 package views;
 
+import controllers.ProfileAccessController;
 import controllers.TweetController;
 import controllers.UserController;
 import models.Tweet;
-import models.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -124,7 +124,10 @@ public class TweetMenu extends Menu {
                             System.out.println("Tweet was reported and won't be shown to you again! list will refresh when you reEnter page later");
                             continue;
                         case 9:
-                            new ProfilePage(currentTweet.getUser()).run();
+                            ProfileAccessController profileAccessController = new ProfileAccessController(previousMenu
+                                    ,currentTweet.getUser().getId());
+                            Menu profile = profileAccessController.checkAccessibility();
+                            profile.run();
                             break;
                         case 10:
                             addNewComment(currentTweet);

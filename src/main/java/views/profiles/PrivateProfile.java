@@ -1,13 +1,8 @@
-package views;
+package views.profiles;
 
-import models.User;
+import views.Menu;
 
-public class ProfilePage extends Menu {
-
-    public ProfilePage(User user) {
-
-    }
-
+public class PrivateProfile extends Menu {
     @Override
     public void run() {
 
