@@ -77,6 +77,8 @@ public class PersonalPageMenu extends Menu {
 
     @Override
     public Menu getMenu(int option) {
+        if (option == 0)
+            return new MainMenu();
         return null;
     }
 
