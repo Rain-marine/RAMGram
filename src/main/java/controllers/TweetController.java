@@ -22,7 +22,7 @@ public class TweetController {
     }
 
     public List<Tweet> getUserAllTweets(User user) {
-        List<Tweet> userAllTweets = user.getTweets();
+        List<Tweet> userAllTweets = tweetRepository.getAllTweets(user.getId());
         userAllTweets.addAll(user.getRetweetTweets());
         return userAllTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime)).
                 collect(Collectors.toList());
@@ -34,35 +34,32 @@ public class TweetController {
     }
 
     public List<Tweet> getFollowingTweets() {
-        //ToDo
         List<Tweet> followingTweets = new ArrayList<>();
-        List<Long> following = userRepository.getFollowing(LoggedUser.getLoggedUser().getId());
-        List<Long> muted = userRepository.getMuted(LoggedUser.getLoggedUser().getId());
+        User currentUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        List<User> following = currentUser.getFollowings();
+        List<User> muted = currentUser.getMutedUsers();
 
-        for (long userId : following) {
-            if (!muted.contains(userId)) {
-                followingTweets.addAll(tweetRepository.getAllTweets(userId));
+        for (User user : following) {
+            if (muted.stream().noneMatch(it -> it.getId() == user.getId())) {
+                followingTweets.addAll(getUserAllTweets(user));
             }
         }
         return followingTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime)).
                  collect(Collectors.toList());
-
-        //return tweetRepository.getFollowingTweets(LoggedUser.getLoggedUser().getId());
     }
 
     public void saveTweet(long tweetId) {
-        userRepository.addFavoriteTweet(LoggedUser.getLoggedUser(), tweetId);
+        userRepository.addFavoriteTweet(LoggedUser.getLoggedUser().getId(), tweetId);
 
     }
 
     public void retweet(Tweet currentTweet) {
-        tweetRepository.increaseRetweetCount(currentTweet.getId());
         userRepository.addRetweet(currentTweet.getId(),LoggedUser.getLoggedUser().getId());
     }
 
     public void reportSpam(Tweet currentTweet) {
         tweetRepository.increaseReportCount(currentTweet.getId());
-
+        userRepository.addReportedTweet(currentTweet.getId(), LoggedUser.getLoggedUser().getId());
     }
 
     public void addComment(String comment, Tweet parentTweet) {

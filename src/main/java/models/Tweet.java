@@ -24,7 +24,7 @@ public class Tweet {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> usersWhoLiked;
 
-    @OneToMany(mappedBy = "parentTweet")
+    @OneToMany(mappedBy = "parentTweet", cascade = CascadeType.PERSIST)
     private List<Tweet> comments;
 
     @ManyToOne
@@ -41,8 +41,12 @@ public class Tweet {
     @Column(name = "report_counter")
     private int reportCounter;
 
-    @Column(name = "retweet_counter")
-    private int retweetCounter;
+    @ManyToMany
+    @JoinTable(
+            name = "user_retweet_tweets",
+            joinColumns = @JoinColumn(name = "tweet_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> usersRetweeted;
 
     public Tweet() {
     }
@@ -83,16 +87,12 @@ public class Tweet {
         this.reportCounter = reportCounter;
     }
 
-    public void setRetweetCounter(int retweetCounter) {
-        this.retweetCounter = retweetCounter;
-    }
-
     public int getReportCounter() {
         return reportCounter;
     }
 
     public int getRetweetCounter() {
-        return retweetCounter;
+        return usersRetweeted.size();
     }
 
     public List<User> getUsersWhoLiked() {
