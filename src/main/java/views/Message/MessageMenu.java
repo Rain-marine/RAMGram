@@ -3,6 +3,7 @@ package views.Message;
 import controllers.MessageController;
 import models.Tweet;
 import views.Menu;
+import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class MessageMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Message Menu**");
         showOption();
         Input:
@@ -38,6 +39,7 @@ public class MessageMenu extends Menu {
                 }
             }
         }
+        return null;
     }
 
     private void sendMessage() {

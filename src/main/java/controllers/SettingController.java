@@ -26,7 +26,8 @@ public class SettingController {
     }
 
     public boolean doesPasswordExist(String password) {
-        return userRepository.doesPasswordExist(LoggedUser.getLoggedUser().getId(), password);
+        return userRepository.getById(LoggedUser.getLoggedUser().getId()).getPassword().equals(password);
+//        return userRepository.doesPasswordExist(LoggedUser.getLoggedUser().getId(), password);
     }
 
     public boolean isAccountPublic(String username) {

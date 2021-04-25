@@ -1,5 +1,6 @@
 package repository;
 
+import models.Tweet;
 import models.User;
 import repository.utils.EntityManagerProvider;
 
@@ -82,10 +83,6 @@ public class UserRepository {
             }
             e.printStackTrace();
         }
-    }
-
-    public boolean doesPasswordExist(long id, String password) {
-        return false;
     }
 
     public void changeAccountVisibility(long id, boolean newVisibility) {
@@ -225,19 +222,90 @@ public class UserRepository {
 
     public void addRetweet(long tweetId, long userId) {
         //add tweet to user's retweet list
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            Tweet tweet = em.find(Tweet.class, tweetId);
+            user.getRetweetTweets().add(tweet);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
-    public void addFavoriteTweet(User loggedUser, long tweetId) {
+    public void addFavoriteTweet(long userId, long tweetId) {
         //add tweet to user's favorite tweets
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            Tweet tweet = em.find(Tweet.class, tweetId);
+            user.getFavoriteTweets().add(tweet);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
-    public List<Long> getFollowing(long userId) {
-        //Active
-        return  null;
+    public void addReportedTweet(long tweetId, long userId){
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            Tweet tweet = em.find(Tweet.class, tweetId);
+            user.getReportedTweets().add(tweet);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
-    public List<Long> getMuted(long userId) {
-        //return user id's that are muted by userId
-        return null;
+    public void increaseReportCount(long userId) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            user.setReportedCount(user.getReportedCount() + 1);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }

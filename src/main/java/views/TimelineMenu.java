@@ -3,8 +3,8 @@ package views;
 import controllers.TweetController;
 import controllers.UserController;
 import models.Tweet;
+import views.profiles.FollowingProfile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TimelineMenu extends Menu {
@@ -17,7 +17,7 @@ public class TimelineMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("this is your Time Line page. here you see your followings' tweet. " +
                 "press enter to continue or enter 0 to go back to MainMenu");
         String input = scanner.nextLine();
@@ -25,6 +25,7 @@ public class TimelineMenu extends Menu {
             getMenu(0).run();
         else
             getMenu(1).run();
+        return null;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class TimelineMenu extends Menu {
             return new MainMenu();
         else {
             List<Tweet> listOfTweets = tweetController.getFollowingTweets();
-            return new TweetMenu(listOfTweets, new TimelineMenu());
+            return new TweetMenu(listOfTweets, 0);
         }
     }
 

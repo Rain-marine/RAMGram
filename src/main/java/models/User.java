@@ -136,7 +136,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Tweet> tweets;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_favorite_tweets",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -144,7 +144,7 @@ public class User {
     private List<Tweet> favoriteTweets;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_retweet_tweets",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -152,12 +152,15 @@ public class User {
     private List<Tweet> retweetTweets;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_reported_tweets",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     private List<Tweet> reportedTweets;
+
+    @Column(name = "reported_count",nullable = false)
+    private int reportedCount;
 
     @ManyToMany
     @JoinTable(
@@ -398,5 +401,11 @@ public class User {
         this.notifications = notifications;
     }
 
+    public int getReportedCount() {
+        return reportedCount;
+    }
 
+    public void setReportedCount(int reportedCount) {
+        this.reportedCount = reportedCount;
+    }
 }

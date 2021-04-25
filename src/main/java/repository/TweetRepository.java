@@ -6,7 +6,9 @@ import repository.utils.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.util.ArrayList;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 public class TweetRepository {
@@ -53,34 +55,96 @@ public class TweetRepository {
 
     public List<Tweet> getAllTweets(long userId) {
         //tweets which: 1- tweet's user is userId  2- are in users retweet list
-        return null; // order all by date desc // tweet where their parentTweet is null
+        // order all by date desc // tweet where their parentTweet is null
+        // 2 is wrong
+
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Tweet> cq = cb.createQuery(Tweet.class);
+            Root<Tweet> root = cq.from(Tweet.class);
+
+            cq.select(root);
+            cq.where(cb.and(cb.equal(root.get("user"), userId), cb.isNull(root.get("parentTweet"))));
+
+            cq.orderBy(cb.desc(root.get("tweetDateTime")));
+
+            TypedQuery<Tweet> typedQuery = em.createQuery(cq);
+
+            return typedQuery.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public List<Tweet> getTopTweets(long userId) {
-        return null;
-        // public accounts
         // account not muted/blocked by LoggedUser
         // account not blocked LoggedUser
-        // account not deActive
         // tweet not reported by LoggedUser
-    }
 
-    public List<Tweet> getFollowingTweets(long userId) {
-        return null;
+        EntityManager em = EntityManagerProvider.getEntityManager();
 
-        //account followed by Logged user
-        //account not muted by Logged user
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Tweet> cq = cb.createQuery(Tweet.class);
+            Root<Tweet> root = cq.from(Tweet.class);
+            Join<Tweet, User> tweetUserJoin = root.join("user");
+
+            cq.select(root);
+            Predicate activeAndPublic = cb.and(cb.equal(tweetUserJoin.get("isActive"), true),
+                    cb.equal(tweetUserJoin.get("isPublic"), true));
+            cq.where(cb.and(activeAndPublic, cb.isNull(root.get("parentTweet"))));
+
+            cq.orderBy(cb.desc(root.get("tweetDateTime")));
+
+            TypedQuery<Tweet> typedQuery = em.createQuery(cq);
+
+            return typedQuery.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public void addComment(Tweet parentTweet, Tweet commentTweet) {
-        //add comment tweet to comments of parent tweet
-    }
-
-    public void increaseRetweetCount(long tweetId) {
-        //tweet retweet count++
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Tweet tweet = em.find(Tweet.class, parentTweet.getId());
+            tweet.getComments().add(commentTweet);
+            em.persist(tweet);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void increaseReportCount(long tweetId) {
-        //tweet report count++
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Tweet tweet = em.find(Tweet.class, tweetId);
+            tweet.setReportCounter(tweet.getReportCounter() + 1);
+            em.persist(tweet);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }

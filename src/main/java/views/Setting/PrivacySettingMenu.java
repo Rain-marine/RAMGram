@@ -4,6 +4,7 @@ import controllers.SettingController;
 import models.LoggedUser;
 import views.Menu;
 import views.Welcome.WelcomeMenu;
+import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class PrivacySettingMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Privacy & Security**");
         showOption();
         Input:
@@ -38,6 +39,7 @@ public class PrivacySettingMenu extends Menu {
                 }
             }
         }
+        return null;
     }
 
     private void changePassword() {

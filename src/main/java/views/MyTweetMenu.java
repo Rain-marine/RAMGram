@@ -1,8 +1,11 @@
 package views;
 
+import controllers.ProfileAccessController;
 import controllers.TweetController;
 import controllers.UserController;
+import models.LoggedUser;
 import models.Tweet;
+import views.profiles.FollowingProfile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +19,7 @@ public class MyTweetMenu extends Menu {
     public MyTweetMenu() {
         this.userController = new UserController();
         this.tweetController = new TweetController();
-        this.tweetsList = tweetController.getUserAllTweets();
+        this.tweetsList = tweetController.getUserAllTweets(LoggedUser.getLoggedUser());
         commands = new HashMap<>() {
             {
                 put("back", 0);
@@ -38,12 +41,12 @@ public class MyTweetMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         if (tweetsList.size() == 0) {
             System.out.println("there are no tweet to show!press enter to go back to main menu");
             scanner.nextLine();
             new MainMenu().run();
-            return;
+            return null;
         }
         Tweet currentTweet = tweetsList.get(0);
         showCommands();
@@ -60,12 +63,12 @@ public class MyTweetMenu extends Menu {
                     switch (commands.get(input)) {
                         case 0:
                             if (currentTweet.getParentTweet() == null) {
-                                getMenu(0).run();
-                                return;
+                                getMenu(3).run();
+                                return null;
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
                                 //ToDo: fix the getAllTweets part
-                                tweetsList = currentTweet.getParentTweet() == null ? tweetController.getUserAllTweets() : currentTweet.getParentTweet().getComments();
+                                tweetsList = currentTweet.getParentTweet() == null ? tweetController.getUserAllTweets(LoggedUser.getLoggedUser()) : currentTweet.getParentTweet().getComments();
                                 break Show;
                             }
                         case 1:
@@ -94,7 +97,10 @@ public class MyTweetMenu extends Menu {
                             forwardTweet(currentTweet);
                             break;
                         case 9:
-                            new ProfilePage(currentTweet.getUser()).run();
+                            ProfileAccessController profileAccessController = new ProfileAccessController(
+                                    getMenu(3), currentTweet.getUser());
+                            Menu profile = profileAccessController.checkFollowing();
+                            profile.run();
                             break;
                         case 10:
                             addNewComment(currentTweet);
@@ -146,7 +152,7 @@ public class MyTweetMenu extends Menu {
 
     @Override
     public Menu getMenu(int option) {
-        if (option == 0)
+        if (option == 3)
             return new PersonalPageMenu();
         return new MainMenu();
     }

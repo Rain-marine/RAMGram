@@ -6,6 +6,7 @@ import models.Message;
 import models.Tweet;
 import views.ConsoleColors;
 import views.Menu;
+import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class SavedMessageMenu extends Menu{
 
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Saved Messages**");
         showOption();
         ArrayList<Message> savedMessage = messageController.getSavedMessage();
@@ -40,6 +41,7 @@ public class SavedMessageMenu extends Menu{
                 //ToDo new message menu
                 break;
         }
+        return null;
     }
 
 

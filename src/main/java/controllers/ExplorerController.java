@@ -6,6 +6,7 @@ import repository.MessageRepository;
 import repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExplorerController {
     private final UserRepository userRepository;
@@ -16,7 +17,7 @@ public class ExplorerController {
         userRepository = new UserRepository();
     }
 
-    public ArrayList<Tweet> getTopTweets() {
+    public List<Tweet> getTopTweets() {
         return null;
     }
 
