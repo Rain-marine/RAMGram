@@ -13,8 +13,15 @@ import java.util.stream.Collectors;
 
 public class TweetController {
 
-    private UserRepository userRepository;
-    private TweetRepository tweetRepository;
+    private final UserRepository userRepository;
+    private final TweetRepository tweetRepository;
+
+    public TweetController() {
+
+        userRepository = new UserRepository();
+        tweetRepository = new TweetRepository();
+    }
+
 
     public void addTweet(String text){
         Tweet tweet = new Tweet(LoggedUser.getLoggedUser(),text);

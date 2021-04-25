@@ -159,7 +159,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     private List<Tweet> reportedTweets;
 
-    @Column(name = "reported_count")
+    @Column(name = "reported_count",nullable = false)
     private int reportedCount;
 
     @ManyToMany

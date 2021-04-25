@@ -38,7 +38,7 @@ public class Tweet {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "report_counter")
+    @Column(name = "report_counter",nullable = false)
     private int reportCounter;
 
     @ManyToMany
