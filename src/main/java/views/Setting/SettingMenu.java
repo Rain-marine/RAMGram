@@ -4,6 +4,7 @@ import controllers.SettingController;
 import views.MainMenu;
 import views.Menu;
 import views.Welcome.WelcomeMenu;
+import views.profiles.FollowingProfile;
 
 import java.util.Arrays;
 
@@ -15,7 +16,7 @@ public class SettingMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Setting**");
         showOption();
         Input:
@@ -35,6 +36,7 @@ public class SettingMenu extends Menu {
                 }
             }
         }
+        return null;
     }
 
     private void showOption() {

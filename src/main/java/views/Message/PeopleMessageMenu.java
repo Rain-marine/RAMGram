@@ -1,10 +1,9 @@
 package views.Message;
 
 import controllers.ChatController;
-import controllers.MessageController;
 import models.*;
 import views.Menu;
-import views.View;
+import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class PeopleMessageMenu extends Menu{
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Message With People**");
         List<Chat> chats = chatController.getChats();
 
@@ -30,6 +29,7 @@ public class PeopleMessageMenu extends Menu{
         }while(!isValid);
 
 
+        return null;
     }
 
     @Override

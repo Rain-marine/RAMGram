@@ -1,12 +1,20 @@
 package views.profiles;
 
-import views.MainMenu;
+import models.User;
 import views.Menu;
 
-public class ProfileNotFound extends Menu {
-    @Override
-    public void run() {
+public class ProfileNotVisible extends Menu {
 
+    //back: search/explorer
+
+    public ProfileNotVisible() {
+
+    }
+
+    @Override
+    public FollowingProfile run() {
+
+        return null;
     }
 
     @Override

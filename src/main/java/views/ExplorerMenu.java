@@ -1,12 +1,12 @@
 package views;
 
 import controllers.ExplorerController;
-import models.Tweet;
+import controllers.ProfileAccessController;
 import models.User;
+import views.profiles.FollowingProfile;
+import views.profiles.ProfileNotVisible;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ExplorerMenu extends Menu {
     public ExplorerMenu() {
@@ -17,7 +17,7 @@ public class ExplorerMenu extends Menu {
 
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Explorer**");
         boolean isValid;
         String input;
@@ -37,27 +37,28 @@ public class ExplorerMenu extends Menu {
             showTopTweets();
         else
             getMenu(3).run();
+        return null;
     }
 
     private void showTopTweets() {
-        TweetMenu tweetMenu = new TweetMenu(explorerController.getTopTweets(),getMenu(0));
+        TweetMenu tweetMenu = new TweetMenu(explorerController.getTopTweets(),1);
         tweetMenu.run();
     }
 
     private void search() {
         System.out.println("type username you want to find or type" + ConsoleColors.PURPLE_BOLD + "*back*" + ConsoleColors.RESET
                 + "to go back to explorer page");
-        String userToFind = scanner.nextLine();
-        if (userToFind.equals("*back*")) {
+        String usernameToFind = scanner.nextLine();
+        if (usernameToFind.equals("*back*")) {
             getMenu(0).run();
         }
         else {
-            User user = explorerController.getUserByUsername(userToFind);
+            User user = explorerController.getUserByUsername(usernameToFind);
             if (user == null) {
-                System.out.println("username not found");
-                run();
+                new ProfileNotVisible().run();
             } else {
-                new ProfilePage(user).run();
+                ProfileAccessController profileAccessController = new ProfileAccessController(getMenu(0),user);
+                profileAccessController.checkAccessibility().run();
             }
         }
     }

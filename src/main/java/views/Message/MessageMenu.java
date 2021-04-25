@@ -2,6 +2,7 @@ package views.Message;
 
 import views.MainMenu;
 import views.Menu;
+import views.profiles.FollowingProfile;
 
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ public class MessageMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public FollowingProfile run() {
         System.out.println("**Message Menu**");
         Input:
         while (true) {
@@ -33,6 +34,7 @@ public class MessageMenu extends Menu {
                 }
             }
         }
+        return null;
     }
 
     @Override
