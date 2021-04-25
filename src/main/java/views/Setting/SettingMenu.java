@@ -16,7 +16,7 @@ public class SettingMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Setting**");
         showOption();
         Input:
@@ -36,7 +36,6 @@ public class SettingMenu extends Menu {
                 }
             }
         }
-        return null;
     }
 
     private void showOption() {

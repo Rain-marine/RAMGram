@@ -14,7 +14,7 @@ public class PersonalPageMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Personal Page**");
         boolean isValid;
         String input;
@@ -35,7 +35,6 @@ public class PersonalPageMenu extends Menu {
             case 6 -> showNotifications();
             default -> getMenu(0).run();
         }
-        return null;
     }
 
     private void showNotifications() {

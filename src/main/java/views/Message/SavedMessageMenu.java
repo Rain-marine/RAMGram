@@ -21,7 +21,7 @@ public class SavedMessageMenu extends Menu{
 
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Saved Messages**");
         showOption();
         ArrayList<Message> savedMessage = messageController.getSavedMessage();
@@ -41,7 +41,7 @@ public class SavedMessageMenu extends Menu{
                 //ToDo new message menu
                 break;
         }
-        return null;
+
     }
 
 

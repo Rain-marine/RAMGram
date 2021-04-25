@@ -13,7 +13,7 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Main Menu**");
         boolean isValid;
         String input;
@@ -25,7 +25,7 @@ public class MainMenu extends Menu {
             isValid = checkValidation(input);
         } while (!isValid);
         process(Integer.parseInt(input));
-        return null;
+
     }
 
     private void process(int request) {

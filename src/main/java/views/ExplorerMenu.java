@@ -1,7 +1,8 @@
 package views;
 
-import controllers.ExplorerController;
 import controllers.ProfileAccessController;
+import controllers.TweetController;
+import controllers.UserController;
 import models.User;
 import views.profiles.FollowingProfile;
 import views.profiles.ProfileNotVisible;
@@ -13,11 +14,12 @@ public class ExplorerMenu extends Menu {
         options = Arrays.asList("Search", "Interested tweets", "Back");
     }
 
-    private ExplorerController explorerController = new ExplorerController();
+    private TweetController tweetController = new TweetController();
+    private UserController userController = new UserController();
 
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Explorer**");
         boolean isValid;
         String input;
@@ -37,11 +39,11 @@ public class ExplorerMenu extends Menu {
             showTopTweets();
         else
             getMenu(3).run();
-        return null;
+
     }
 
     private void showTopTweets() {
-        TweetMenu tweetMenu = new TweetMenu(explorerController.getTopTweets(),1);
+        TweetMenu tweetMenu = new TweetMenu(tweetController.getTopTweets(),1);
         tweetMenu.run();
     }
 
@@ -53,7 +55,7 @@ public class ExplorerMenu extends Menu {
             getMenu(0).run();
         }
         else {
-            User user = explorerController.getUserByUsername(usernameToFind);
+            User user = userController.getUserByUsername(usernameToFind);
             if (user == null) {
                 new ProfileNotVisible().run();
             } else {

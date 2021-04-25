@@ -41,12 +41,12 @@ public class MyTweetMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         if (tweetsList.size() == 0) {
             System.out.println("there are no tweet to show!press enter to go back to main menu");
             scanner.nextLine();
             new MainMenu().run();
-            return null;
+
         }
         Tweet currentTweet = tweetsList.get(0);
         showCommands();
@@ -64,7 +64,7 @@ public class MyTweetMenu extends Menu {
                         case 0:
                             if (currentTweet.getParentTweet() == null) {
                                 getMenu(3).run();
-                                return null;
+
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
                                 //ToDo: fix the getAllTweets part

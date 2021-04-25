@@ -12,7 +12,7 @@ public class WelcomeMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("Hi. choose what you want to do");
         String input;
         boolean isValid;
@@ -27,7 +27,6 @@ public class WelcomeMenu extends Menu {
         Menu nextMenu = getMenu(inputInt);
         //nextMenu.setScanner(scanner);
         nextMenu.run();
-        return null;
     }
 
 

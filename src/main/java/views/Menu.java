@@ -9,7 +9,7 @@ public abstract class Menu {
     protected static Scanner scanner = new Scanner(System.in);
     protected List<String> options;
 
-    public abstract FollowingProfile run();
+    public abstract void run();
 
     public List<String> getOptions() {
         return options;

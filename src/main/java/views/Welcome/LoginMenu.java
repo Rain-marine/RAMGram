@@ -17,7 +17,7 @@ public class LoginMenu extends Menu {
         authController = new AuthController();
     }
 
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("Hi! your in login menu. \n Enter your username: ");
         String username = scanner.nextLine();
         System.out.println("Enter your password:");
@@ -38,7 +38,6 @@ public class LoginMenu extends Menu {
             getMenu(0).run();
 
         }
-        return null;
     }
 
     @Override

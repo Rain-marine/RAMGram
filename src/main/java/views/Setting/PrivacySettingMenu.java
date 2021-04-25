@@ -18,7 +18,7 @@ public class PrivacySettingMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Privacy & Security**");
         showOption();
         Input:
@@ -39,7 +39,6 @@ public class PrivacySettingMenu extends Menu {
                 }
             }
         }
-        return null;
     }
 
     private void changePassword() {

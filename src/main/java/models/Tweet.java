@@ -55,7 +55,6 @@ public class Tweet {
         this.user = user;
         this.tweetDateTime = new Date();
         this.text = text;
-        this.id = System.currentTimeMillis();
     }
 
 

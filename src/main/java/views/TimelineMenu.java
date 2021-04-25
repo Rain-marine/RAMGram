@@ -17,7 +17,7 @@ public class TimelineMenu extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("this is your Time Line page. here you see your followings' tweet. " +
                 "press enter to continue or enter 0 to go back to MainMenu");
         String input = scanner.nextLine();
@@ -25,7 +25,7 @@ public class TimelineMenu extends Menu {
             getMenu(0).run();
         else
             getMenu(1).run();
-        return null;
+
     }
 
     @Override

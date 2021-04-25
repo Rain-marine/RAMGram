@@ -9,16 +9,16 @@ import views.Menu;
 import java.util.HashMap;
 import java.util.List;
 
-public class PeopleMessageMenu extends Menu{
+public class PeopleChatListMenu extends Menu{
     private final ChatController chatController;
 
-    public PeopleMessageMenu() {
+    public PeopleChatListMenu() {
         chatController = new ChatController();
     }
 
     @Override
     public void run() {
-        System.out.println("**Message With People**");
+        System.out.println("**Your Chats With People**");
         List<Chat> chats = chatController.getChats();
         if (chats.size() == 0) {
             System.out.println("YOU HAVE NO CHAT\nyou get back to message menu! enter any key to continue!");

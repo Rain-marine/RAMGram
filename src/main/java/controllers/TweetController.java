@@ -36,7 +36,7 @@ public class TweetController {
     }
 
     public List<Tweet> getTopTweets() {
-        //ToDo
+
         return tweetRepository.getTopTweets(LoggedUser.getLoggedUser().getId());
     }
 

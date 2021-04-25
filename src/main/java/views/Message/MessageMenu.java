@@ -3,7 +3,6 @@ package views.Message;
 import controllers.MessageController;
 import models.Tweet;
 import views.Menu;
-import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,12 +12,12 @@ public class MessageMenu extends Menu {
     private final MessageController messageController;
 
     public MessageMenu() {
-        options = Arrays.asList("saved messages", "saved tweets", "send message", "people messages", "back");
+        options = Arrays.asList("saved messages", "saved tweets", "new message", "people messages", "back");
         messageController = new MessageController();
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
         System.out.println("**Message Menu**");
         showOption();
         Input:
@@ -32,20 +31,20 @@ public class MessageMenu extends Menu {
             switch (input) {
                 case "saved messages" -> getMenu(1).run();
                 case "saved tweets" -> showSavedTweets();
-                case "send message" -> sendMessage();
+                case "new message" -> sendMessage();
                 case "people messages" -> getMenu(2).run();
                 default -> {
                     break Input;
                 }
             }
         }
-        return null;
+
     }
 
     private void sendMessage() {
         System.out.println("Type users and groups of receiver like this ->" +
                 " User : \"UsernameToSend\" or Group : \"GroupNameToSend\"," +
-                "type write message to write your message!" +
+                "type \"write message\" to write your message!" +
                 " type \"*back\" to back to message menu");
         List<String> users = new ArrayList<>();
         List<String> groups = new ArrayList<>();
@@ -104,7 +103,7 @@ public class MessageMenu extends Menu {
     private void showOption() {
         System.out.println("saved messages -> see messages that you type for yourself or forwarded from your chats!\n" +
                 "saved tweets -> see tweets that saved for yourself!\n" +
-                "send message -> send message to your follower/following or groups!\n" +
+                "new message -> send message to your follower/following or groups!\n" +
                 "people message -> see your chats with your follower/following\n" +
                 "back -> back to previous menu!");
     }
@@ -113,7 +112,7 @@ public class MessageMenu extends Menu {
     public Menu getMenu(int option) {
         return switch (option) {
             case 1 -> new SavedMessageMenu();
-            case 2 -> new PeopleMessageMenu();
+            case 2 -> new PeopleChatListMenu();
             default -> new MessageMenu();
         };
     }

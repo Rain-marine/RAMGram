@@ -12,9 +12,8 @@ public class PrivateProfile extends Menu {
     }
 
     @Override
-    public FollowingProfile run() {
+    public void run() {
 
-        return null;
     }
 
     @Override
