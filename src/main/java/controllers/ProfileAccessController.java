@@ -3,10 +3,7 @@ package controllers;
 import models.LoggedUser;
 import models.User;
 import views.Menu;
-import views.profiles.FollowingProfile;
-import views.profiles.PrivateProfile;
-import views.profiles.ProfileNotVisible;
-import views.profiles.PublicProfile;
+import views.profiles.*;
 
 import java.util.List;
 
@@ -33,6 +30,13 @@ public class ProfileAccessController {
             return new ProfileNotVisible();
         }
         else {
+            //have I blocked them?
+            List<User> loggedUserBlacklist = loggedUser.getBlackList();
+            for (User user : loggedUserBlacklist) {
+                if (user.getId() == otherUserId) {
+                    return new BlockedProfile(otherUser, previousMenu);
+                }
+            }
             //am I following them?
             List<User> loggedUserFollowing = loggedUser.getFollowings();
             for (User user : loggedUserFollowing) {

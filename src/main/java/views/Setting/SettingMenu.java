@@ -18,10 +18,10 @@ public class SettingMenu extends Menu {
     @Override
     public void run() {
         System.out.println("**Setting**");
-        showOption();
         Input:
         while (true) {
             System.out.println("You are in setting menu, type your request");
+            showOption();
             String input = scanner.nextLine();
             if (!options.contains(input)) {
                 System.out.println("unknown input!");
@@ -31,6 +31,7 @@ public class SettingMenu extends Menu {
                 case "privacy/security" -> getMenu(1).run();
                 case "delete account" -> deleteAccount();
                 case "log out" -> logout();
+                case "back" -> getMenu(0).run();
                 default -> {
                     break Input;
                 }

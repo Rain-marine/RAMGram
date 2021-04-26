@@ -1,9 +1,13 @@
 package views;
 
 import controllers.TweetController;
+import models.LoggedUser;
+import models.Tweet;
+import models.User;
 import views.profiles.FollowingProfile;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class PersonalPageMenu extends Menu {
     private final TweetController tweetController;
@@ -38,24 +42,40 @@ public class PersonalPageMenu extends Menu {
     }
 
     private void showNotifications() {
+        //ToDo
+        //new notification menu
 
     }
 
     private void showMyInfo() {
+        User user = LoggedUser.getLoggedUser();
+        System.out.println("Username: " + user.getUsername() +"\nName: "+user.getFullName()
+        +"\nEmail: "+user.getEmail()
+        +"\nBirthday: " + user.getBirthday().toString()
+        +"\nPhone Number: "+user.getPhoneNumber()
+        +"\nBio: " +user.getBio());
+        System.out.println("press enter to go back");
+        scanner.nextLine();
+        run();
 
     }
 
     private void showMyLists() {
+        //ToDo
+        //new Factions class
+
+        System.out.println("press enter to go back");
+        scanner.nextLine();
+        run();
 
     }
 
     private void editPage() {
-
+        new EditInfo().run();
     }
 
     private void showMyTweets() {
-
-
+        new MyTweetMenu().run();
     }
 
 

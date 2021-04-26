@@ -1,29 +1,27 @@
 package views.profiles;
 
-import controllers.NotificationController;
-import controllers.SettingController;
-import controllers.UserController;
+import controllers.*;
+import models.Tweet;
 import models.User;
-import views.ConsoleColors;
-import views.ExplorerMenu;
-import views.Menu;
+import views.*;
 
 import java.util.Arrays;
+import java.util.List;
 
-public class PrivateProfile extends Menu {
-    //back to search/explorer
+public class BlockedProfile extends Menu {
     private final User user;
     private final SettingController settingController;
     private final UserController userController;
-    private final NotificationController notificationController;
     private String lastSeen;
     private String phoneNumber;
     private String email;
     private String birthday;
     private String bio;
+    private final Menu previousMenu;
+    private final TweetController tweetController;
 
 
-    public PrivateProfile(User user) {
+    public BlockedProfile(User user, Menu previousMenu) {
         this.user = user;
         settingController = new SettingController();
         userController = new UserController();
@@ -31,10 +29,10 @@ public class PrivateProfile extends Menu {
         this.phoneNumber = settingController.phoneNumberForLoggedUser(user);
         this.email = settingController.emailForLoggedUser(user);
         this.birthday = settingController.birthdayForLoggedUser(user);
-        notificationController = new NotificationController();
         this.bio = user.getBio();
-        options = Arrays.asList("Follow", "Block", "Report User", "Back");
-
+        this.previousMenu = previousMenu;
+        options = Arrays.asList("Tweets", "Unblock", "Report User", "Back");
+        tweetController = new TweetController();
     }
 
     @Override
@@ -44,17 +42,17 @@ public class PrivateProfile extends Menu {
         String input;
         do {
             for (int i = 1; i < options.size() + 1; i++) {
-                System.out.println(i + " : " + options.get(i-1));
+                System.out.println(i + " : " + options.get(i - 1));
             }
             input = scanner.nextLine();
             isValid = checkValidation(input);
-        } while(!isValid);
+        } while (!isValid);
         int inputInt = Integer.parseInt(input);
         switch (inputInt) {
-            case 1 -> sendFollowRequestToUser();
-            case 2 -> blockUser();
+            case 1 -> showTweets();
+            case 2 -> unblockUser();
             case 3 -> reportUser();
-            case 4 -> getMenu(1).run();
+            case 4 -> previousMenu.run();
             default -> getMenu(0).run();
         }
 
@@ -62,26 +60,28 @@ public class PrivateProfile extends Menu {
     }
 
 
+    private void showTweets() {
+        List<Tweet> listOfTweets = tweetController.getUserAllTweets(user);
+        new TweetMenu(listOfTweets, 1).run();
+    }
+
+
     private void reportUser() {
         userController.reportUser(user);
-        System.out.println("user reported. this does not mean you unfollowed them or will not see their tweets henceforth ");
+        System.out.println("user reported.");
         run();
     }
 
-    private void blockUser() {
-        userController.blockUser(user);
-        System.out.println("user blocked");
-        new BlockedProfile(user,getMenu(1)).run();
-
+    private void unblockUser() {
+        userController.unblockUser(user);
+        System.out.println("user unblocked");
+        ProfileAccessController profileAccessController = new ProfileAccessController(previousMenu,user);
+        profileAccessController.checkAccessibility().run();
     }
 
-    private void sendFollowRequestToUser() {
-        notificationController.sendFollowRequestToUser(user);
-        System.out.println("follow request sent!");
-        run();
-    }
 
-    public void showInfo(){
+    public void showInfo() {
+        System.out.println("*you have blocked this user*");
         System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + user.getUsername() + ConsoleColors.RESET + " Profile" +
                 "\nName: " + user.getFullName() + "\nLast seen: " + lastSeen);
         if (!bio.equals(""))
@@ -102,12 +102,12 @@ public class PrivateProfile extends Menu {
     public Menu getMenu(int option) {
         if (option == 1)
             return new ExplorerMenu();
-        return null;
+        return new MainMenu();
     }
 
     @Override
     public boolean checkValidation(String... input) {
-        try{
+        try {
             int inputInt = Integer.parseInt(input[0]);
             if (inputInt > 0 && inputInt < 5) {
                 return true;
@@ -119,3 +119,4 @@ public class PrivateProfile extends Menu {
         return false;
     }
 }
+

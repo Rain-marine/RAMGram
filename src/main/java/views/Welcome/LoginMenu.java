@@ -25,7 +25,6 @@ public class LoginMenu extends Menu {
         int option;
         try {
             User user = authController.login(username, password);
-            LoggedUser.setLoggedUser(user);
             System.out.println("login successful. press enter to continue");
             scanner.nextLine();
             getMenu(1).run();

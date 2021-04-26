@@ -47,14 +47,16 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
+    public enum Level {NOONE , FOLLOWING , ALL}
+
     @Column(name = "is_birthday_visible")
-    private boolean isBirthDayVisible;
+    private Level isBirthDayVisible;
 
     @Column(name = "is_email_visible")
-    private boolean isEmailVisible;
+    private Level isEmailVisible;
 
     @Column(name = "is_phone_number_visible")
-    private boolean isPhoneNumberVisible;
+    private Level isPhoneNumberVisible;
 
     public User(String username, String fullName, String email, String password) {
         this.id = System.currentTimeMillis();
@@ -63,6 +65,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.isActive = true;
+        this.isBirthDayVisible = Level.NOONE;
+        this.isEmailVisible = Level.NOONE;
+        this.isPhoneNumberVisible = Level.NOONE;
+        this.lastSeenStatus = "nobody";
+
     }
 
     public User(String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday) {
@@ -345,27 +352,27 @@ public class User {
         this.tweets = tweets;
     }
 
-    public boolean isBirthDayVisible() {
+    public Level isBirthDayVisible() {
         return isBirthDayVisible;
     }
 
-    public void setBirthDayVisible(boolean birthDayVisible) {
+    public void setBirthDayVisible(Level birthDayVisible) {
         isBirthDayVisible = birthDayVisible;
     }
 
-    public boolean isEmailVisible() {
+    public Level isEmailVisible() {
         return isEmailVisible;
     }
 
-    public void setEmailVisible(boolean emailVisible) {
+    public void setEmailVisible(Level emailVisible) {
         isEmailVisible = emailVisible;
     }
 
-    public boolean isPhoneNumberVisible() {
+    public Level isPhoneNumberVisible() {
         return isPhoneNumberVisible;
     }
 
-    public void setPhoneNumberVisible(boolean phoneNumberVisible) {
+    public void setPhoneNumberVisible(Level phoneNumberVisible) {
         isPhoneNumberVisible = phoneNumberVisible;
     }
 
