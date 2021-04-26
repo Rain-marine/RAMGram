@@ -308,4 +308,37 @@ public class UserRepository {
             em.close();
         }
     }
+
+    public void changeNumberStatus(long id, User.Level status) {
+    }
+
+    public void changeEmailStatus(long id, User.Level status) {
+    }
+
+    public void changeBirthdayStatus(long id, User.Level status) {
+    }
+
+    public void changeUsername(String newUsername) {
+        //change logged user username to newUsername
+    }
+
+    public void changeBio(String newBio) {
+    }
+
+    public void changeFullName(String newName) {
+    }
+
+    public void changeBirthdayDate(Date birthday) {
+    }
+
+    public void changeEmail(String newEmail) {
+
+    }
+
+    public void changePhoneNumber(String newNumber) {
+    }
+
+    public void unblock(User user) {
+        //remove user from logged user blacklist
+    }
 }
