@@ -3,8 +3,6 @@ package controllers;
 import models.*;
 import repository.MessageRepository;
 import repository.UserRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MessageController {
@@ -64,6 +62,5 @@ public class MessageController {
     }
 
     public void sendMessage(String message, List<String> users, List<String> groups) {
-
     }
 }
