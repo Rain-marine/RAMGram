@@ -17,7 +17,7 @@ public class ChatMenu extends Menu {
     private final User frontUser;
     private final ChatController chatController;
 
-    public ChatMenu(Chat chat) {
+    public ChatMenu(Chat chat) { // ToDo : save previous menu!!
         this.chat = chat;
         this.frontUser = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
                 ? chat.getUsers().get(1)

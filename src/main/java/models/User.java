@@ -179,6 +179,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications;
 
+    //Todo
+    private List<Chat> userChats;
+
     public User() {
 
     }

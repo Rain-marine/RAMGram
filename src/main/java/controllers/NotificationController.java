@@ -19,11 +19,11 @@ public class NotificationController {
         //remove user from logged user's following
         //remove logged user from user's followers
         //remove user from all factions of loggeduser
+        //notif for user
     }
     public void unfollowUserWithoutNotif(User user) {
         //remove user from logged user's following
         //remove logged user from user's followers
         //remove user from all factions of loggeduser
-        //notif for user
     }
 }
