@@ -56,11 +56,6 @@ public class PeopleChatListMenu extends Menu{
         return new MessageMenu();
     }
 
-    @Override
-    public boolean checkValidation(String... input) {
-        return false;
-    }
-
     public void showChats(List<Chat> chats) {
         for (Chat chat : chats) {
             User userToShow = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())

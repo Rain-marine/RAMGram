@@ -2,17 +2,21 @@ package repository;
 
 import models.Message;
 import models.Tweet;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class MessageRepository {
 
 
-    public ArrayList<Message> getFavoriteMessages(long id) {
+    public List<Message> getFavoriteMessages(long id) {
+
         return  null;
     }
 
-    public ArrayList<Tweet> getFavoriteTweets(long id) {
+    public List<Tweet> getFavoriteTweets(long id) {
         return null;
+    }
+
+    public void insert(Message message) {
+
     }
 }

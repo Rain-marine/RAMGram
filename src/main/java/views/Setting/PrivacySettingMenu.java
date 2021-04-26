@@ -5,7 +5,6 @@ import models.LoggedUser;
 import models.User;
 import views.Menu;
 import views.Welcome.WelcomeMenu;
-import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,12 +53,11 @@ public class PrivacySettingMenu extends Menu {
     }
 
     private void changeNumberVisibility() {
-
         User.Level numberStatus = settingController.getUserNumberStatus(LoggedUser.getLoggedUser());
         System.out.println("Your phone number is visible for " + numberStatus);
         System.out.println("Do you wanna change your status?(type the status) or any other character to go back");
         for (String state : status) {
-                System.out.println(state);
+            System.out.println(state);
         }
         String input = scanner.nextLine();
         if (!status.contains(input))
@@ -90,7 +88,6 @@ public class PrivacySettingMenu extends Menu {
         }
         System.out.println("press any key to continue");
         scanner.nextLine();
-
     }
 
     private void changeBirthdayVisibility() {
@@ -198,10 +195,5 @@ public class PrivacySettingMenu extends Menu {
     @Override
     public Menu getMenu(int option) {
         return new SettingMenu();
-    }
-
-    @Override
-    public boolean checkValidation(String... input) {
-        return false;
     }
 }

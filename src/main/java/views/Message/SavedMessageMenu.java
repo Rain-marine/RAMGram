@@ -3,15 +3,12 @@ package views.Message;
 import controllers.MessageController;
 import models.LoggedUser;
 import models.Message;
-import models.Tweet;
-import views.ConsoleColors;
 import views.Menu;
-import views.profiles.FollowingProfile;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class SavedMessageMenu extends Menu{
+public class SavedMessageMenu extends Menu {
     private final MessageController messageController;
 
     public SavedMessageMenu() {
@@ -24,10 +21,8 @@ public class SavedMessageMenu extends Menu{
     public void run() {
         System.out.println("**Saved Messages**");
         showOption();
-        ArrayList<Message> savedMessage = messageController.getSavedMessage();
+        List<Message> savedMessage = messageController.getSavedMessage();
         showMessages(savedMessage);
-        ArrayList<Tweet> tweets = messageController.getSavedTweets();
-        showTweets(tweets);
         while (true) {
             System.out.println("You are in saved messages menu, type your request");
             String input = scanner.nextLine();
@@ -38,30 +33,29 @@ public class SavedMessageMenu extends Menu{
             if ("new message".equals(input))
                 getNewMessage();
             else
-                //ToDo new message menu
                 break;
         }
-
     }
-
 
 
     private void showOption() {
         System.out.println("new message -> add message for yourself");
-        System.out.println("back -> back to message menu!");
+        System.out.println("back -> back to previous menu!");
     }
 
     private void getNewMessage() {
         System.out.println("type your message");
         String message = scanner.nextLine();
         Message messageToSave = new Message(message, LoggedUser.getLoggedUser(), LoggedUser.getLoggedUser());
-        ArrayList<Message> messages = new ArrayList<>(){
+        ArrayList<Message> messages = new ArrayList<>() {
             {
                 add(messageToSave);
             }
         };
         messageController.insert(messageToSave);
         showMessages(messages);
+        System.out.println("enter any key to continue!");
+        scanner.nextLine();
     }
 
     @Override
@@ -72,26 +66,13 @@ public class SavedMessageMenu extends Menu{
             return new SavedMessageMenu();
     }
 
-    public void showMessages(ArrayList<Message> messages) {
+    public void showMessages(List<Message> messages) {
         if (messages.size() == 0) {
-            System.out.println("YOU HAVE NO SAVED MESSAGES, TYPE *new message* TO ADD NEW MESSAGE");
+            System.out.println("YOU HAVE NO SAVED MESSAGES, TYPE \"new message\" TO ADD NEW MESSAGE");
             return;
         }
         for (Message message : messages) {
             System.out.println(message.getSender().getUsername() + " : " + message.getText() + "\tDate : " + message.getDate().toString());
-        }
-    }
-
-    private void showTweets(ArrayList<Tweet> tweets) {
-        if (tweets.size() == 0) {
-            System.out.println("YOU HAVE NO SAVED TWEETS");
-            return;
-        }
-        for (Tweet tweet : tweets) {
-            System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + tweet.getUser().getUsername() + ConsoleColors.RESET +
-                    " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + tweet.getTweetDateTime().toString() + "\n"
-                    + ConsoleColors.PURPLE_BACKGROUND + ConsoleColors.BLACK_BOLD + tweet.getText()
-                    + "\n" +ConsoleColors.RESET +ConsoleColors.YELLOW_BOLD_BRIGHT+ "___________________________");
         }
     }
 }
