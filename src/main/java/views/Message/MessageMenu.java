@@ -2,6 +2,7 @@ package views.Message;
 
 import controllers.MessageController;
 import models.Tweet;
+import views.MainMenu;
 import views.Menu;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class MessageMenu extends Menu {
     public void run() {
         System.out.println("**Message Menu**");
         showOption();
-        Input:
         while (true) {
             System.out.println("You are in message menu, type your request");
             String input = scanner.nextLine();
@@ -33,9 +33,7 @@ public class MessageMenu extends Menu {
                 case "saved tweets" -> showSavedTweets();
                 case "new message" -> sendMessage();
                 case "people messages" -> getMenu(2).run();
-                default -> {
-                    break Input;
-                }
+                default -> getMenu(3).run();
             }
         }
 
@@ -48,12 +46,12 @@ public class MessageMenu extends Menu {
                 " type \"*back\" to back to message menu");
         List<String> users = new ArrayList<>();
         List<String> groups = new ArrayList<>();
-        while(true) {
+        while (true) {
             String input = scanner.nextLine();
             if (input.equals("*back"))
                 return;
             if (input.equals("write message")) {
-                if(users.size() == 0 && groups.size() == 0) {
+                if (users.size() == 0 && groups.size() == 0) {
                     System.out.println("First specify receiver(s)");
                     continue;
                 }
@@ -65,24 +63,22 @@ public class MessageMenu extends Menu {
                 break;
             }
             String[] inputSplit = input.split(":");
-            if(inputSplit.length != 2 || !inputSplit[0].trim().equals("User") && !inputSplit[0].trim().equals("Group")){
+            if (inputSplit.length != 2 || !inputSplit[0].trim().equals("User") && !inputSplit[0].trim().equals("Group")) {
                 System.out.println("Invalid input!! type again");
                 continue;
             }
-            if(inputSplit[0].trim().equals("User")) {
-                if(messageController.canSendMessageToUser(inputSplit[1].trim())) {
+            if (inputSplit[0].trim().equals("User")) {
+                if (messageController.canSendMessageToUser(inputSplit[1].trim())) {
                     users.add(inputSplit[1].trim());
                     System.out.println("Added! type another username or groupName!");
-                }
-                else
+                } else
                     System.out.println("You cannot send message to this user! type another username!");
                 continue;
             }
-            if(messageController.canSendMessageToGroup(inputSplit[1].trim())) {
+            if (messageController.canSendMessageToGroup(inputSplit[1].trim())) {
                 groups.add(inputSplit[1].trim());
                 System.out.println("Added! type another username or groupName!");
-            }
-            else{
+            } else {
                 System.out.println("You cannot send message to this Group! type another GroupName!");
             }
         }
@@ -113,6 +109,7 @@ public class MessageMenu extends Menu {
         return switch (option) {
             case 1 -> new SavedMessageMenu();
             case 2 -> new PeopleChatListMenu();
+            case 3 -> new MainMenu();
             default -> new MessageMenu();
         };
     }

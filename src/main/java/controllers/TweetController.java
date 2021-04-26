@@ -28,7 +28,9 @@ public class TweetController {
         tweetRepository.insert(tweet);
     }
 
-    public List<Tweet> getUserAllTweets(User user) {
+    public List<Tweet> getUserAllTweets(User user2) {
+        String username = user2.getUsername();
+        User user = userRepository.getByUsername(username);
         List<Tweet> userAllTweets = tweetRepository.getAllTweets(user.getId());
         userAllTweets.addAll(user.getRetweetTweets());
         return userAllTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime)).
