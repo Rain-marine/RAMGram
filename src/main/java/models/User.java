@@ -403,7 +403,7 @@ public class User {
         this.lastSeenStatus = lastSeenStatus;
     }
 
-    public List getNotifications() {
+    public List<Notification> getNotifications() {
         return notifications;
     }
 

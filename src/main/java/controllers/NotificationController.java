@@ -4,6 +4,7 @@ import models.*;
 import repository.NotificationRepository;
 import repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -68,5 +69,30 @@ public class NotificationController {
                 }
             }
         }
+    }
+
+    public List<Notification> getFollowingRequestsNotifications() {
+        User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        List<Notification> notifications = user.getNotifications();
+        List<Notification> followNotification = new ArrayList<>();
+        for (Notification notification : notifications) {
+            if (notification.getReceiver().getUsername().equals(LoggedUser.getLoggedUser().getUsername())){
+                if (notification.getType() == NotificationType.FOLLOW_REQ)
+                    followNotification.add(notification);
+            }
+        }
+        return followNotification;
+    }
+
+    public void acceptFollowRequest(Notification notification) {
+
+    }
+
+    public void rejectFollowRequestWithNotification(Notification notification) {
+
+    }
+
+    public void rejectFollowRequestWithoutNotification(Notification notification) {
+
     }
 }

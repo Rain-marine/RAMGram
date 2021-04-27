@@ -2,12 +2,8 @@ package views;
 
 import controllers.TweetController;
 import models.LoggedUser;
-import models.Tweet;
 import models.User;
-import views.profiles.FollowingProfile;
-
 import java.util.Arrays;
-import java.util.List;
 
 public class PersonalPageMenu extends Menu {
     private final TweetController tweetController;
