@@ -38,6 +38,7 @@ public class TweetMenu extends Menu {
                 put("profile", 9);
                 put("add comment", 10);
                 put("comments", 11);
+                put("like" , 12);
             }
         };
 
@@ -183,7 +184,7 @@ public class TweetMenu extends Menu {
                 + "\n" + "spam -> report tweet spam"
                 + "\n" + "profile -> go to profile writer of the tweet"
                 + "\n" + "add comment -> add comment"
-                + "\n" + "comment -> show comments");
+                + "\n" + "comments -> show comments");
 
     }
 

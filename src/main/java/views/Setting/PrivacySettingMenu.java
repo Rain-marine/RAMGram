@@ -186,10 +186,10 @@ public class PrivacySettingMenu extends Menu {
         System.out.println("lastSeen/online -> change your last seen status!");
         System.out.println("activation -> deActive your account!");
         System.out.println("change password -> change your account password!");
-        System.out.println("back -> back to setting");
         System.out.println("change birthday visibility -> change who can see your birthday");
         System.out.println("change number visibility -> change who can see your phone number");
         System.out.println("change email visibility -> change who can see your email");
+        System.out.println("back -> back to setting");
     }
 
     @Override

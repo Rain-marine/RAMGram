@@ -25,7 +25,7 @@ public class ExplorerMenu extends Menu {
         String input;
 
         do {
-            for (int i = 1; i < options.size() + 1; i++) {
+            for (int i = 0; i < options.size(); i++) {
                 System.out.println(i + " : " + options.get(i));
             }
             input = scanner.nextLine();
@@ -33,9 +33,9 @@ public class ExplorerMenu extends Menu {
         } while (!isValid);
 
         int intInput = Integer.parseInt(input);
-        if (intInput == 1)
+        if (intInput == 0)
             search();
-        else if (intInput == 2)
+        else if (intInput == 1)
             showTopTweets();
         else
             getMenu(3).run();
@@ -76,10 +76,10 @@ public class ExplorerMenu extends Menu {
     public boolean checkValidation(String... input) {
         try {
             int inputInt = Integer.parseInt(input[0]);
-            if (inputInt == 1 || inputInt == 2) {
+            if (inputInt == 0 || inputInt == 1 || inputInt == 2) {
                 return true;
             }
-            System.out.println("input should be either 1 or 2");
+            System.out.println("input should be between 0 to 2");
         } catch (Exception e) {
             System.out.println("You haven't entered a number!");
         }
