@@ -10,8 +10,10 @@ public class Notification {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user")
-    private User user;
+    @JoinColumn(name = "user") //todo : name of column?
+    private User sender;
+
+    private User receiver;//todo
 
     @Column(name = "message")
     private String message;
@@ -23,12 +25,18 @@ public class Notification {
     public Notification() {
     }
 
-    public User getUser() {
-        return user;
+    public Notification(User user, User receiver, NotificationType type){
+        this.sender = user;
+        this.receiver = receiver;
+        this.type = type;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User user) {
+        this.sender = user;
     }
 
     public NotificationType getType() {
@@ -45,5 +53,13 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 }

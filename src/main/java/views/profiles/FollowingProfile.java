@@ -71,13 +71,13 @@ public class FollowingProfile extends Menu {
     }
 
     private void unfollowUserWithoutNotif() {
-        notificationController.unfollowUserWithoutNotif(user);
+        notificationController.unfollowUserWithoutNotification(user);
         ProfileAccessController profileAccessController = new ProfileAccessController(previousMenu,user);
         profileAccessController.checkAccessibility().run();
     }
 
     private void unfollowUserWithNotif() {
-        notificationController.unfollowUserWithNotif(user);
+        notificationController.unfollowUserWithNotification(user);
         ProfileAccessController profileAccessController = new ProfileAccessController(previousMenu,user);
         profileAccessController.checkAccessibility().run();
     }
