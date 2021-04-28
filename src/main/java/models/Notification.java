@@ -62,4 +62,12 @@ public class Notification {
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

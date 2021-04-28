@@ -27,4 +27,8 @@ public class NotificationRepository {
     public void removeUserFromGroup(long userId, long removedUser, int groupId) {
         //rove removedUser from userId group that it's ID = groupId
     }
+
+    public void deleteNotification(long userId, long notificationId) {
+        //delete notificationId from userId notification list
+    }
 }

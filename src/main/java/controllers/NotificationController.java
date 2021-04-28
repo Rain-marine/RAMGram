@@ -76,7 +76,7 @@ public class NotificationController {
         List<Notification> notifications = user.getNotifications();
         List<Notification> followNotification = new ArrayList<>();
         for (Notification notification : notifications) {
-            if (notification.getReceiver().getUsername().equals(LoggedUser.getLoggedUser().getUsername())){
+            if (notification.getReceiver().getUsername().equals(LoggedUser.getLoggedUser().getUsername())) {
                 if (notification.getType() == NotificationType.FOLLOW_REQ)
                     followNotification.add(notification);
             }
@@ -84,15 +84,54 @@ public class NotificationController {
         return followNotification;
     }
 
-    public void acceptFollowRequest(Notification notification) {
+    public List<Notification> getYourFollowingRequestNotification() {
+        User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        List<Notification> notifications = user.getNotifications();
+        List<Notification> followNotification = new ArrayList<>();
+        for (Notification notification : notifications) {
+            if (notification.getSender().getUsername().equals(LoggedUser.getLoggedUser().getUsername())) {
+                if (notification.getType() == NotificationType.FOLLOW_REQ)
+                    followNotification.add(notification);
+            }
+        }
+        return followNotification;
+    }
 
+    public List<Notification> getSystemNotification() {
+        User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        List<Notification> notifications = user.getNotifications();
+        List<Notification> followNotification = new ArrayList<>();
+        for (Notification notification : notifications) {
+            if (notification.getReceiver().getUsername().equals(LoggedUser.getLoggedUser().getUsername())) {
+                if (notification.getType() != NotificationType.FOLLOW_REQ)
+                    followNotification.add(notification);
+            }
+        }
+        return followNotification;
+    }
+
+    public void acceptFollowRequest(Notification notification) {
+        deleteNotification(notification);
+
+        notificationRepository.addNewFollower(LoggedUser.getLoggedUser().getId(), notification.getSender().getId());
+        notificationRepository.addNewFollowing(notification.getSender().getId(), LoggedUser.getLoggedUser().getId());
     }
 
     public void rejectFollowRequestWithNotification(Notification notification) {
+        User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        User requestSender = userRepository.getById(notification.getSender().getId());
+        Notification rejectFollowRequest = new Notification(loggedUser, requestSender, NotificationType.FOLLOW_REQ_REJECT);
+        notificationRepository.insert(rejectFollowRequest);
 
+        deleteNotification(notification);
     }
 
     public void rejectFollowRequestWithoutNotification(Notification notification) {
+        deleteNotification(notification);
+    }
 
+    private void deleteNotification(Notification notification) {
+        notificationRepository.deleteNotification(LoggedUser.getLoggedUser().getId(), notification.getId());
+        notificationRepository.deleteNotification(notification.getSender().getId(), notification.getId());
     }
 }

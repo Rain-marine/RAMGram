@@ -21,6 +21,7 @@ public class NotificationMenu extends Menu {
         showOptions();
         Input:
         while (true) {
+            System.out.println("You are in notification menu! enter your request!");
             String input = scanner.nextLine();
             if (!options.contains(input)) {
                 System.out.println("Invalid input!! Enter again");
@@ -41,6 +42,37 @@ public class NotificationMenu extends Menu {
             }
         }
         new PersonalPageMenu().run();
+    }
+
+    private void handleSystemNotification() {
+        List<Notification> notifications = notificationController.getSystemNotification();
+        if (notifications.size() == 0) {
+            System.out.println("You have no system notification!");
+        } else {
+            for (int i = 0; i < notifications.size(); i++) {
+                switch (notifications.get(i).getType()) {
+                    case UNFOLLOW -> System.out.println(i + 1 + " : " + notifications.get(i).getSender().getUsername() + " unfollowed you!");
+                    case START_FOLLOW -> System.out.println(i + 1 + " : " + notifications.get(i).getSender().getUsername() + " started follow you!");
+                    case FOLLOW_REQ_REJECT -> System.out.println(i + 1 + " : " + notifications.get(i).getSender().getUsername() + " reject your follow request!");
+                }
+            }
+        }
+        System.out.println("press any key to back to notification menu!");
+        scanner.nextLine();
+    }
+
+    private void handleYourFollowingRequestNotification() {
+        List<Notification> notifications = notificationController.getYourFollowingRequestNotification();
+        if (notifications.size() == 0) {
+            System.out.println("You have no request! consider maybe people reject your request without notification!");
+        } else {
+            for (int i = 0; i < notifications.size(); i++) {
+                System.out.println(i + 1 + " : " + notifications.get(i).getReceiver().getUsername());
+            }
+            System.out.println("if someone accept or reject your request, then it will not be displayed here!");
+        }
+        System.out.println("press any key to continue to notification menu!");
+        scanner.nextLine();
     }
 
     private void handleFollowingRequestNotification() {

@@ -38,9 +38,7 @@ public class PersonalPageMenu extends Menu {
     }
 
     private void showNotifications() {
-        //ToDo
-        //new notification menu
-
+        new NotificationMenu().run();
     }
 
     private void showMyInfo() {
