@@ -310,16 +310,71 @@ public class UserRepository {
     }
 
     public void changeNumberStatus(long id, User.Level status) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, id);
+            user.setPhoneNumberVisible(status);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void changeEmailStatus(long id, User.Level status) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, id);
+            user.setEmailVisible(status);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void changeBirthdayStatus(long id, User.Level status) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, id);
+            user.setBirthDayVisible(status);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void changeUsername(String newUsername) {
         //change logged user username to newUsername
+        //Wrong!!!!
     }
 
     public void changeBio(String newBio) {

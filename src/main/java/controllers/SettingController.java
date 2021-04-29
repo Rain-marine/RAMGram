@@ -2,11 +2,9 @@ package controllers;
 
 
 import models.LoggedUser;
-import models.Tweet;
 import models.User;
 import repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -152,7 +150,7 @@ public class SettingController {
         User.Level status = switch (newStatus) {
             case "following" -> User.Level.FOLLOWING;
             case "everybody" -> User.Level.ALL;
-            default -> User.Level.NOONE;
+            default -> User.Level.NONE;
         };
         userRepository.changeNumberStatus(LoggedUser.getLoggedUser().getId(), status);
     }
@@ -161,7 +159,7 @@ public class SettingController {
         User.Level status = switch (newStatus) {
             case "following" -> User.Level.FOLLOWING;
             case "everybody" -> User.Level.ALL;
-            default -> User.Level.NOONE;
+            default -> User.Level.NONE;
         };
         userRepository.changeEmailStatus(LoggedUser.getLoggedUser().getId(), status);
     }
@@ -170,7 +168,7 @@ public class SettingController {
         User.Level status = switch (newStatus) {
             case "following" -> User.Level.FOLLOWING;
             case "everybody" -> User.Level.ALL;
-            default -> User.Level.NOONE;
+            default -> User.Level.NONE;
         };
         userRepository.changeBirthdayStatus(LoggedUser.getLoggedUser().getId(), status);
     }

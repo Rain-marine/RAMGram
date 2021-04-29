@@ -112,9 +112,8 @@ public class TweetRepository {
         try {
             et = em.getTransaction();
             et.begin();
-            Tweet tweet = em.find(Tweet.class, parentTweet.getId());
-            tweet.getComments().add(commentTweet);
-            em.persist(tweet);
+            commentTweet.setParentTweet(parentTweet);
+            em.persist(commentTweet);
             et.commit();
         } catch (Exception e) {
             System.err.println(e.getMessage());

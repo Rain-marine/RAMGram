@@ -47,37 +47,19 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
-    public enum Level {NOONE , FOLLOWING , ALL}
+    public enum Level {NONE, FOLLOWING, ALL}
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "is_birthday_visible")
     private Level isBirthDayVisible;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "is_email_visible")
     private Level isEmailVisible;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "is_phone_number_visible")
     private Level isPhoneNumberVisible;
-
-    public User(String username, String fullName, String email, String password) {
-        this.id = System.currentTimeMillis();
-        this.username = username;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.isActive = true;
-        this.isBirthDayVisible = Level.NOONE;
-        this.isEmailVisible = Level.NOONE;
-        this.isPhoneNumberVisible = Level.NOONE;
-        this.lastSeenStatus = "nobody";
-
-    }
-
-    public User(String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday) {
-        this(username, fullName, email, password);
-        this.phoneNumber = phoneNumber;
-        this.bio = bio;
-        this.birthday = birthday;
-    }
 
     @ManyToMany
     @JoinTable(
@@ -86,14 +68,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private List<User> followers;
 
-
     @ManyToMany
     @JoinTable(
             name = "follower_following",
             joinColumns = @JoinColumn(name = "follower_id"),
             inverseJoinColumns = @JoinColumn(name = "following_id"))
     private List<User> followings;
-
 
     @ManyToMany
     @JoinTable(
@@ -102,26 +82,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "blocked_id"))
     private List<User> blackList;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_black_list",
-//            joinColumns = @JoinColumn(name = "blocked_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private List<User> blockedByList;
-
     @ManyToMany
     @JoinTable(
             name = "user_muted",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "muted_id"))
     private List<User> mutedUsers;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_muted",
-//            joinColumns = @JoinColumn(name = "muted_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private List<User> mutedByUsers;
 
     @ManyToMany
     @JoinTable(
@@ -166,7 +132,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     private List<Tweet> reportedTweets;
 
-    @Column(name = "reported_count",nullable = false)
+    @Column(name = "reported_count", nullable = false)
     private int reportedCount;
 
     @ManyToMany
@@ -176,16 +142,40 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "receiver")
     private List<Notification> notifications;
 
-    //Todo
+    @ManyToMany
+    @JoinTable(
+            name = "user_chat",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id"))
     private List<Chat> userChats;
 
     public User() {
 
     }
 
+    public User(String username, String fullName, String email, String password) {
+        this.id = System.currentTimeMillis();
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.isActive = true;
+        this.isBirthDayVisible = Level.NONE;
+        this.isEmailVisible = Level.NONE;
+        this.isPhoneNumberVisible = Level.NONE;
+        this.lastSeenStatus = "nobody";
+
+    }
+
+    public User(String username, String fullName, String email, String password, String phoneNumber, String bio, Date birthday) {
+        this(username, fullName, email, password);
+        this.phoneNumber = phoneNumber;
+        this.bio = bio;
+        this.birthday = birthday;
+    }
 
     public String getUsername() {
         return username;

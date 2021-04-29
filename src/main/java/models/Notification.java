@@ -10,10 +10,12 @@ public class Notification {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user") //todo : name of column?
+    @JoinColumn(name = "sender")
     private User sender;
 
-    private User receiver;//todo
+    @ManyToOne
+    @JoinColumn(name = "receiver")
+    private User receiver;
 
     @Column(name = "message")
     private String message;
