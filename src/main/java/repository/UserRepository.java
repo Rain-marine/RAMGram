@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserRepository {
 
@@ -82,6 +83,49 @@ public class UserRepository {
                 et.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    public void mute(long userId, long mutedId) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            User mutedUser = em.find(User.class, mutedId);
+            user.getMutedUsers().add(mutedUser);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void unmute(long userId, long mutedId) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            user.setMutedUsers(user.getMutedUsers().stream().filter(it -> it.getId() != mutedId).collect(Collectors.toList()));
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
