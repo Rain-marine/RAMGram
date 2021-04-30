@@ -22,8 +22,8 @@ public class Factions extends Menu {
     public void run() {
         List<Group> groups = factionsController.getFactions();
         HashMap<String, Group> groupNameToGroup = extractGroupName(groups);
-        showFactions(groups);
         while (true) {
+            showFactions(groups);
             System.out.println("enter faction name! or \"new faction\"! or \"*back\" for back to previous menu!");
             String input = scanner.nextLine();
             if (input.equals("*back"))
@@ -32,6 +32,19 @@ public class Factions extends Menu {
                 createNewFaction(groupNameToGroup);
                 continue;
             }
+            if(!groups.contains(input)){
+                System.out.println("Invalid input!");
+                continue;
+            }
+            if (input.equals("followers")){
+                showFollowers();
+            } else if (input.equals("followings")){
+                showFollowings();
+            } else if (input.equals("black list")){
+                showBlackList();
+            } else {
+                showUserFaction(groupNameToGroup.get(input));
+            }
         }
         //ToDo
         //show factions list , new faction
@@ -39,6 +52,34 @@ public class Factions extends Menu {
         //show users in that faction
         //commands: delete faction, delete person from it, add person to it, type username to see their profile
 
+    }
+
+    private void showUserFaction(Group group) {
+        new UserFaction().run();
+    }
+
+    private void showBlackList() {
+        new BlackListFaction().run();
+        System.out.println("enter any key to continue!");
+        scanner.nextLine();
+    }
+
+    private void showFollowings() {
+        new FollowingsFaction().run();
+        System.out.println("enter any key to continue!");
+        scanner.nextLine();
+    }
+
+    private void showFollowers() {
+        new FollowersFaction().run();
+        System.out.println("enter any key to continue!");
+        scanner.nextLine();
+    }
+
+    private HashMap<String, User> extractUsernameToUser(List<User> followers) {
+        HashMap<String, User> usernameToUser = new HashMap<>();
+        followers.forEach(user -> usernameToUser.put(user.getUsername(),user));
+        return usernameToUser;
     }
 
     private void createNewFaction(HashMap<String, Group> groupNameToGroup) {
@@ -70,7 +111,7 @@ public class Factions extends Menu {
                     continue;
                 }
                 factionsController.insertNewFaction(name, users);
-                System.out.println("group created!. you ger back to previous menu!");
+                System.out.println("group created!. you get back to previous menu!");
                 return;
             }
             if (factionsController.canAddToGroup(username)) {
@@ -89,13 +130,14 @@ public class Factions extends Menu {
         }
         groupNameToGroup.put("followers", null);
         groupNameToGroup.put("followings", null);
+        groupNameToGroup.put("black list", null);
         return groupNameToGroup;
     }
 
     private void showFactions(List<Group> groups) {
-        System.out.println(1 + " : followers\n2 : followings");
+        System.out.println(1 + " : followers\n2 : followings\n3 : black list");
         for (int i = 0; i < groups.size(); i++) {
-            System.out.println(i + 3 + " : " + groups.get(i).getName());
+            System.out.println(i + 4 + " : " + groups.get(i).getName());
         }
     }
 

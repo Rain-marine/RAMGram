@@ -25,11 +25,6 @@ public class MessageController {
         return user.getFavoriteMessages();
     }
 
-
-    public void insert(Message message) {
-        messageRepository.insert(message);
-    }
-
     public List<Tweet> getSavedTweets() {
         User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
         return user.getFavoriteTweets();

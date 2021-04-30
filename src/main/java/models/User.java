@@ -109,7 +109,7 @@ public class User {
             name = "user_following_request",
             joinColumns = @JoinColumn(name = "following_id"),
             inverseJoinColumns = @JoinColumn(name = "follower_id"))
-    private List<User> followerRequest;
+    private List<User> followerRequest; // todo : it is not necessary
 
     @OneToMany(mappedBy = "owner")
     private List<Group> groups;

@@ -87,4 +87,8 @@ public class UserController {
     public void unblockUser(User user) {
         userRepository.unblock(LoggedUser.getLoggedUser().getId(), user.getId());
     }
+
+    public boolean isAccountPublic(String username) {
+        return userRepository.getByUsername(username).isPublic();
+    }
 }

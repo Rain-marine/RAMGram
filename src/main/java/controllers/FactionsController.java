@@ -46,4 +46,34 @@ public class FactionsController {
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         return loggedUser.getGroups();
     }
+
+    public List<User> getActiveFollowers() {
+        List<User> followers = userRepository.getById(LoggedUser.getLoggedUser().getId()).getFollowers();
+        List<User> activeFollowers = new ArrayList<>();
+        followers.forEach(following -> {
+            if (following.isActive())
+                activeFollowers.add(following);
+        });
+        return activeFollowers;
+    }
+
+    public List<User> getActiveFollowings() {
+        List<User> followings = userRepository.getById(LoggedUser.getLoggedUser().getId()).getFollowings();
+        List<User> activeFollowings = new ArrayList<>();
+        followings.forEach(following -> {
+            if (following.isActive())
+                activeFollowings.add(following);
+        });
+        return activeFollowings;
+    }
+
+    public List<User> getActiveBlockedUsers() {
+        List<User> blockedUsers = userRepository.getById(LoggedUser.getLoggedUser().getId()).getBlackList();
+        List<User> activeBlockedUsers = new ArrayList<>();
+        blockedUsers.forEach(following -> {
+            if(following.isActive())
+                activeBlockedUsers.add(following);
+        });
+        return activeBlockedUsers;
+    }
 }
