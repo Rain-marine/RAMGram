@@ -31,6 +31,10 @@ public class Chat {
     public Chat() {
     }
 
+    public Chat(List<User> users){
+        this.users = users;
+    };
+
     public long getId() {
         return id;
     }

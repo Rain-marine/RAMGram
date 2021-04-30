@@ -1,12 +1,10 @@
 package repository;
 
 import models.Message;
-import models.Tweet;
 import repository.utils.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.util.List;
 
 public class MessageRepository {
 
@@ -27,5 +25,9 @@ public class MessageRepository {
         } finally {
             em.close();
         }
+    }
+
+    public void addMessageToSavedMessage(long userId, Message message) {
+
     }
 }

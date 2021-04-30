@@ -47,6 +47,14 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
+    public List<Chat> getUserChats() {
+        return userChats;
+    }
+
+    public void setUserChats(List<Chat> userChats) {
+        this.userChats = userChats;
+    }
+
     public enum Level {NONE, FOLLOWING, ALL}
 
     @Enumerated(EnumType.STRING)

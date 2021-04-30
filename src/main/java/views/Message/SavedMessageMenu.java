@@ -52,7 +52,7 @@ public class SavedMessageMenu extends Menu {
                 add(messageToSave);
             }
         };
-        messageController.insert(messageToSave);
+        messageController.insertSavedMessage(messageToSave);
         showMessages(messages);
         System.out.println("enter any key to continue!");
         scanner.nextLine();

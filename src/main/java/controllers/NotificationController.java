@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import repository.FactionRepository;
 import repository.NotificationRepository;
 import repository.UserRepository;
 
@@ -10,12 +11,14 @@ import java.util.List;
 
 public class NotificationController {
     private final NotificationRepository notificationRepository;
+    private final FactionRepository factionRepository;
     private final UserRepository userRepository;
 
 
     public NotificationController() {
         notificationRepository = new NotificationRepository();
         userRepository = new UserRepository();
+        factionRepository = new FactionRepository();
     }
 
     public void sendFollowRequestToUser(User user) {
@@ -48,7 +51,7 @@ public class NotificationController {
         for (Group group : loggedUserGroups) {
             for (User member : group.getMembers()) {
                 if (member.getUsername().equals(receiver.getUsername())) {
-                    notificationRepository.removeUserFromGroup(loggedUser.getId(), receiver.getId(), group.getId());
+                    factionRepository.removeUserFromGroup(receiver.getId(), group.getId());
                     break;
                 }
             }
@@ -64,7 +67,7 @@ public class NotificationController {
         for (Group group : loggedUserGroups) {
             for (User member : group.getMembers()) {
                 if (member.getUsername().equals(user.getUsername())) {
-                    notificationRepository.removeUserFromGroup(loggedUser.getId(), user.getId(), group.getId());
+                    factionRepository.removeUserFromGroup(user.getId(), group.getId());
                     break;
                 }
             }
@@ -131,7 +134,7 @@ public class NotificationController {
     }
 
     private void deleteNotification(Notification notification) {
-        notificationRepository.deleteNotification(LoggedUser.getLoggedUser().getId(), notification.getId());
-        notificationRepository.deleteNotification(notification.getSender().getId(), notification.getId());
+        notificationRepository.deleteNotification(notification.getId());
+        notificationRepository.deleteNotification(notification.getId());
     }
 }

@@ -46,7 +46,6 @@ public class UserController {
                 }
             }
         }
-
     }
 
     public void muteUser(User user) {
@@ -57,8 +56,8 @@ public class UserController {
         return userRepository.getByUsername(usernameToFind);
     }
 
-    public void reportUser(User user) { // todo : reportUser
-        //reportedCount should increase?
+    public void reportUser(User user) {
+        userRepository.increaseReportCount(user.getId());
     }
 
     public void ChangeUsername(String newUsername) {

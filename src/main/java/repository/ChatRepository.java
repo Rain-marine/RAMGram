@@ -1,6 +1,7 @@
 package repository;
 
 import models.Chat;
+import models.Message;
 import models.Tweet;
 import models.User;
 import repository.utils.EntityManagerProvider;
@@ -36,5 +37,15 @@ public class ChatRepository {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public void addMessageToChat(long chatId, Message message) {
+        //add message to chat
+        //set hasSeen to false
+        //UnseenCount += 1
+    }
+
+    public void insert(Chat chat) {
+
     }
 }

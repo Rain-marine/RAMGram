@@ -27,6 +27,10 @@ public class NotificationRepository {
         }
     }
 
+    public void deleteNotification(long notificationId) {
+
+    }
+
     public void addNewFollower(long userId, long newFollowerId) {
         //add newFollowerId to userId followers list
     }
@@ -41,13 +45,5 @@ public class NotificationRepository {
 
     public void removeFromFollowers(long userId, long removedFollowerId) {
         //remove removedFollowerId from userId followers list
-    }
-
-    public void removeUserFromGroup(long userId, long removedUser, int groupId) {
-        //rove removedUser from userId group that it's ID = groupId
-    }
-
-    public void deleteNotification(long userId, long notificationId) {
-        //delete notificationId from userId notification list
     }
 }
