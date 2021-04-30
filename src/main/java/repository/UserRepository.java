@@ -416,28 +416,28 @@ public class UserRepository {
         }
     }
 
-    public void changeUsername(String newUsername) {
-        //change logged user username to newUsername
-        //Wrong!!!!
-    }
-
-    public void changeBio(String newBio) {
-    }
-
-    public void changeFullName(String newName) {
-    }
-
-    public void changeBirthdayDate(Date birthday) {
-    }
-
-    public void changeEmail(String newEmail) {
+    public void changeUsername(long userId, String newUsername) {
 
     }
 
-    public void changePhoneNumber(String newNumber) {
+    public void changeBio(long userId, String newBio) {
     }
 
-    public void unblock(User user) {
-        //remove user from logged user blacklist
+    public void changeFullName(long userId, String newName) {
+    }
+
+    public void changeBirthdayDate(long userId, Date birthday) {
+    }
+
+    public void changeEmail(long userId, String newEmail) {
+
+    }
+
+    public void changePhoneNumber(long userId, String newNumber) {
+    }
+
+
+    public void unblock(long loggedUserId, long blockedUser) {
+        //remove blockedUser from logged user blacklist
     }
 }

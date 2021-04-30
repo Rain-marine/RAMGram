@@ -25,4 +25,16 @@ public class FactionRepository {
             em.close();
         }
     }
+
+    public void addUserToBlackList(long loggedUserId, long userToBlockId) {
+        //add userToBlockId to loggedUser black list.
+    }
+
+    public void addUserToMutedList(long loggedUserId, long userToMutedId) {
+        //add userToMutedId to loggedUser muted list.
+    }
+
+    public void removeUserFromGroup(long removedUserId, int groupId) {
+        //remove removedUserId from group with groupId ID.
+    }
 }

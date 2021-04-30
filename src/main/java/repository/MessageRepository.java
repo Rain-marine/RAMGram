@@ -10,17 +10,6 @@ import java.util.List;
 
 public class MessageRepository {
 
-
-    public List<Message> getFavoriteMessages(long id) {
-        //Use the list in User object
-        return  null;
-    }
-
-    public List<Tweet> getFavoriteTweets(long id) {
-        //Same as above
-        return null;
-    }
-
     public void insert(Message message) {
         EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;

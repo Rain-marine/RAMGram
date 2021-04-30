@@ -15,7 +15,8 @@ public class MessageController {
     }
 
     public List<Message> getSavedMessage(){
-        return messageRepository.getFavoriteMessages(LoggedUser.getLoggedUser().getId());
+        User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        return user.getFavoriteMessages();
     }
 
 
@@ -24,7 +25,8 @@ public class MessageController {
     }
 
     public List<Tweet> getSavedTweets() {
-        return messageRepository.getFavoriteTweets(LoggedUser.getLoggedUser().getId());
+        User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        return user.getFavoriteTweets();
     }
 
     public boolean canSendMessageToUser(String userToSendMessage) {
