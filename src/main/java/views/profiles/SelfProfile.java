@@ -2,6 +2,7 @@ package views.profiles;
 
 import models.LoggedUser;
 import models.User;
+import views.ConsoleColors;
 import views.MainMenu;
 import views.Menu;
 import views.PersonalPageMenu;
@@ -17,6 +18,7 @@ public class SelfProfile extends Menu{
     @Override
     public void run() {
         User user = LoggedUser.getLoggedUser();
+        System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Hello "+user.getFullName()+". This is your profile");
         try {
             String birthday = user.getBirthday().toString();
             System.out.println("Username: " + user.getUsername() + "\nName: " + user.getFullName()
@@ -31,7 +33,7 @@ public class SelfProfile extends Menu{
                     + "\nPhone Number: " + user.getPhoneNumber()
                     + "\nBio: " + user.getBio());
         } finally {
-            System.out.println("press enter to go back");
+            System.out.println("press enter to go back"+ConsoleColors.RESET);
             scanner.nextLine();
             previousMenu.run();
         }

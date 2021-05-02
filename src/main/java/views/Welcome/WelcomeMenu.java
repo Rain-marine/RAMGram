@@ -1,5 +1,6 @@
 package views.Welcome;
 
+import views.ConsoleColors;
 import views.Menu;
 import views.profiles.FollowingProfile;
 
@@ -8,12 +9,12 @@ import java.util.Arrays;
 public class WelcomeMenu extends Menu {
 
     public WelcomeMenu() {
-        options = Arrays.asList("LoginManager", "RegisterManager");
+        options = Arrays.asList("Login", "Register");
     }
 
     @Override
     public void run() {
-        System.out.println("Hi. choose what you want to do");
+        System.out.println(ConsoleColors.PURPLE_BOLD +"Hi. choose what you want to do");
         String input;
         boolean isValid;
         do {
@@ -46,10 +47,10 @@ public class WelcomeMenu extends Menu {
             if (inputInt == 1 || inputInt == 2) {
                 return true;
             }
-            System.out.println("input should be either 1 or 2! press Enter to try again");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "input should be either 1 or 2! press Enter to try again"+ConsoleColors.RESET);
             scanner.nextLine();
         } catch (Exception e) {
-            System.out.println("You haven't entered a number! press Enter to try again");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"You haven't entered a number! press Enter to try again"+ConsoleColors.RESET);
             scanner.nextLine();
         }
         return false;

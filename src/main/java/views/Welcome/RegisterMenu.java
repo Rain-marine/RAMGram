@@ -1,6 +1,7 @@
 package views.Welcome;
 
 import controllers.RegisterManager;
+import views.ConsoleColors;
 import views.Menu;
 import views.profiles.FollowingProfile;
 
@@ -16,7 +17,7 @@ public class RegisterMenu extends Menu {
 
     @Override
     public void run() {
-        System.out.println("Hi! to register complete this form. fields with * are necessary ");
+        System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+ "Hi! to register complete this form. fields with * are necessary ");
         boolean registerSuccessful;
         do {
             System.out.println("if you want to go back to Welcome Menu enter 1, enter anything else to continue ");
@@ -55,48 +56,48 @@ public class RegisterMenu extends Menu {
 
     public boolean checkRequiredInputs(String fullName,String username ,String password,String passwordRe , String email ,String phoneNumber , String bio , String birthDate){
         if (fullName.equals("")){
-            System.out.println("you must enter your fullName");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"you must enter your fullName"+ConsoleColors.RESET);
             return false;
         }
         if (username.equals("")){
-            System.out.println("you must enter your username");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"you must enter your username"+ConsoleColors.RESET);
             return false;
         }
         if (password.equals("")){
-            System.out.println("you must enter your password");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"you must enter your password"+ConsoleColors.RESET);
             return false;
         }
         if (passwordRe.equals("")){
-            System.out.println("you must Re-enter your password");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"you must Re-enter your password"+ConsoleColors.RESET);
             return false;
         }
         if (email.equals("")){
-            System.out.println("you must enter your email");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"you must enter your email"+ConsoleColors.RESET);
             return false;
         }
 
         if (!password.equals(passwordRe)){
-            System.out.println("passwords don't match");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"passwords don't match"+ConsoleColors.RESET);
             return false;
         }
 
         if (!registerManager.isUsernameAvailable(username)){
-            System.out.println("username exists. please enter another username");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"username exists. please enter another username"+ConsoleColors.RESET);
             return false;
         }
 
         if(!email.contains("@") || !email.contains(".")){
-            System.out.println("invalid email address");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"invalid email address"+ConsoleColors.RESET);
             return false;
         }
 
         if (!registerManager.isEmailAvailable(email)){
-            System.out.println("email exists");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+ "email exists"+ConsoleColors.RESET);
             return false;
         }
         if (!(phoneNumber.equals(""))){
             if(!registerManager.isPhoneNumberAvailable(phoneNumber)){
-                System.out.println("phone number exists");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"phone number exists"+ConsoleColors.RESET);
                 return false;
             }
         }
@@ -104,7 +105,7 @@ public class RegisterMenu extends Menu {
             try {
                 new SimpleDateFormat("yyyy/MM/dd").parse(birthDate);
             } catch (ParseException e) {
-                System.out.println("birthday format not valid");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+ "birthday format not valid"+ConsoleColors.RESET);
                 return false;
             }
         }

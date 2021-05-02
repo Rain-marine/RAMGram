@@ -93,7 +93,7 @@ public class TweetRepository {
 
             cq.select(root);
             Predicate activeAndPublic = cb.and(cb.equal(tweetUserJoin.get("isActive"), true),
-                    cb.equal(tweetUserJoin.get("isPublic"), true));
+                    cb.equal(tweetUserJoin.get("isPublic"), true),cb.notEqual(tweetUserJoin.get("id"), userId));
             cq.where(cb.and(activeAndPublic, cb.isNull(root.get("parentTweet"))));
 
             cq.orderBy(cb.desc(root.get("tweetDateTime")));

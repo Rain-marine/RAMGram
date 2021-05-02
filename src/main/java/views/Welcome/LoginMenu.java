@@ -4,6 +4,7 @@ import controllers.AuthController;
 import exceptions.InvalidInputException;
 import models.LoggedUser;
 import models.User;
+import views.ConsoleColors;
 import views.MainMenu;
 import views.Menu;
 import views.profiles.FollowingProfile;
@@ -18,7 +19,7 @@ public class LoginMenu extends Menu {
     }
 
     public void run() {
-        System.out.println("Hi! your in login menu. \n Enter your username: ");
+        System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT+ "Hi! your in login menu. \n Enter your username: ");
         String username = scanner.nextLine();
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
