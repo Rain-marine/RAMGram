@@ -2,6 +2,7 @@ package controllers;
 
 import models.LoggedUser;
 import models.User;
+import repository.UserRepository;
 import views.Menu;
 import views.profiles.*;
 
@@ -14,14 +15,16 @@ public class ProfileAccessController {
     private final User otherUser;
     private final Menu previousMenu;
     private final long otherUserId;
+    private final UserRepository userRepository;
 
-    public ProfileAccessController(Menu previousMenu, User otherUser ) {
-        //previous menu may only be explorer
-        this.loggedUser = LoggedUser.getLoggedUser();
-        this.otherUser = otherUser;
-        this.previousMenu = previousMenu;
+    public ProfileAccessController(Menu previousMenu, User otherUser1 ) {
+        userRepository = new UserRepository();
+        this.loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        this.otherUser = userRepository.getById(otherUser1.getId());
+        this.previousMenu = previousMenu;        //previous menu may only be explorer
         this.loggedUserId = LoggedUser.getLoggedUser().getId();
         this.otherUserId = otherUser.getId();
+
     }
 
     public Menu checkAccessibility() {
