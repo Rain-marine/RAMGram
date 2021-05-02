@@ -146,7 +146,7 @@ public class MyTweetMenu extends Menu {
                 + "\n" + "forward -> send tweet for another user"
                 + "\n" + "profile -> go to profile writer of the tweet"
                 + "\n" + "add comment -> add comment"
-                + "\n" + "comment -> show comments");
+                + "\n" + "comments -> show comments");
 
     }
 

@@ -1,8 +1,8 @@
 package views;
 
 import controllers.TweetController;
-import models.LoggedUser;
-import models.User;
+import views.profiles.SelfProfile;
+
 import java.util.Arrays;
 
 public class PersonalPageMenu extends Menu {
@@ -42,17 +42,9 @@ public class PersonalPageMenu extends Menu {
     }
 
     private void showMyInfo() {
-        User user = LoggedUser.getLoggedUser();
-        System.out.println("Username: " + user.getUsername() +"\nName: "+user.getFullName()
-        +"\nEmail: "+user.getEmail()
-        +"\nBirthday: " + user.getBirthday().toString()
-        +"\nPhone Number: "+user.getPhoneNumber()
-        +"\nBio: " +user.getBio());
-        System.out.println("press enter to go back");
-        scanner.nextLine();
-        run();
+        new SelfProfile(new PersonalPageMenu()).run();
+        }
 
-    }
 
     private void showMyLists() {
         //ToDo
@@ -78,7 +70,7 @@ public class PersonalPageMenu extends Menu {
         String tweet = scanner.nextLine();
         System.out.println("Are you sure?(Y/N)");
         String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("Y")){
+        if (input.equals("Y")){
             tweetController.addTweet(tweet);
             System.out.println("Tweet Published!.\nPress any key to continue!");
         } else {

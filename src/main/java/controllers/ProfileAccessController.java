@@ -22,12 +22,15 @@ public class ProfileAccessController {
         this.loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         this.otherUser = userRepository.getById(otherUser1.getId());
         this.previousMenu = previousMenu;        //previous menu may only be explorer
-        this.loggedUserId = LoggedUser.getLoggedUser().getId();
+        this.loggedUserId = loggedUser.getId();
         this.otherUserId = otherUser.getId();
 
     }
 
     public Menu checkAccessibility() {
+        //is it myself? :)
+        if(otherUserId==loggedUserId)
+            return new SelfProfile(previousMenu);
         //is Active>
         if (!otherUser.isActive()){
             return new ProfileNotVisible();
@@ -58,7 +61,7 @@ public class ProfileAccessController {
             if (otherUser.isPublic()){
                 return new PublicProfile(otherUser,previousMenu);
             }
-            return new PrivateProfile(otherUser);
+            return new PrivateProfile(otherUser, previousMenu);
 
 
         }

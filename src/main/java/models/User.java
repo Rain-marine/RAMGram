@@ -31,7 +31,7 @@ public class User {
     private String bio;
 
     @Column(name = "last_seen_status")
-    private String lastSeenStatus; // "nobody" , "everyone", "following"
+    private String lastSeenStatus; // "nobody" , "everybody", "following"
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_seen")

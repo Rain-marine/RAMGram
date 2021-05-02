@@ -17,6 +17,7 @@ public class FollowersFaction extends Menu {
     public FollowersFaction() {
         factionsController = new FactionsController();
         userController = new UserController();
+
     }
 
     @Override

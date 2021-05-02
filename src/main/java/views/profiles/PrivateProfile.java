@@ -16,6 +16,7 @@ public class PrivateProfile extends Menu {
     private final SettingController settingController;
     private final UserController userController;
     private final NotificationController notificationController;
+    private final Menu previousMenu;
     private String lastSeen;
     private String phoneNumber;
     private String email;
@@ -23,8 +24,9 @@ public class PrivateProfile extends Menu {
     private String bio;
 
 
-    public PrivateProfile(User user) {
+    public PrivateProfile(User user, Menu previousMenu) {
         this.user = user;
+        this.previousMenu = previousMenu;
         settingController = new SettingController();
         userController = new UserController();
         this.lastSeen = settingController.lastSeenForLoggedUser(user);
@@ -34,7 +36,6 @@ public class PrivateProfile extends Menu {
         notificationController = new NotificationController();
         this.bio = user.getBio();
         options = Arrays.asList("Follow", "Block", "Report User", "Back");
-
     }
 
     @Override

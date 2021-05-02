@@ -146,16 +146,14 @@ public class PrivacySettingMenu extends Menu {
         String lastSeenStatus = settingController.getUserLastSeenStatus(LoggedUser.getLoggedUser().getUsername());
         System.out.println("Your lastSeen is visible for " + lastSeenStatus);
         System.out.println("Do you wanna change your status?(type the status) or any other character to go back");
-        int printedStatus = 0;
         for (String state : status) {
             if (!state.equals(lastSeenStatus)) {
-                System.out.println(printedStatus + 1 + " : " + state);
-                printedStatus++;
+                System.out.println(state);
             }
         }
 
         String input = scanner.nextLine();
-        if (input.equals(lastSeenStatus) || !status.contains(lastSeenStatus))
+        if (input.equals(lastSeenStatus) || !status.contains(input))
             System.out.println("Nothing changed! You get back to privacy setting!");
         else {
             settingController.changeLastSeenStatus(input);

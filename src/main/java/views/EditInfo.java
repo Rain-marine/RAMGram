@@ -54,7 +54,7 @@ public class EditInfo extends Menu {
     }
 
     private void changePhoneNumber() {
-        System.out.println("enter your new email. type \"*back*\" to go back");
+        System.out.println("enter your new phone number. type \"*back*\" to go back");
         String newNumber = scanner.nextLine();
         if (newNumber.equals("*back*")) {
             run();

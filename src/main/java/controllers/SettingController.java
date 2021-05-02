@@ -59,8 +59,8 @@ public class SettingController {
     }
 
     public String lastSeenForLoggedUser(User user) {
-        String status = user.getLastSeenStatus();
-        if (status.equals("everyone"))
+        String status = userRepository.getById(user.getId()).getLastSeenStatus();
+        if (status.equals("everybody"))
             return (user.getLastSeen().toString());
         else if (status.equals("following")){
             List<User> userFollowing = user.getFollowings();
@@ -135,15 +135,15 @@ public class SettingController {
     }
 
     public User.Level getUserNumberStatus(User loggedUser) {
-        return loggedUser.isPhoneNumberVisible();
+        return userRepository.getById(loggedUser.getId()).isPhoneNumberVisible();
     }
 
     public User.Level getUserEmailStatus(User loggedUser) {
-        return loggedUser.isEmailVisible();
+        return userRepository.getById(loggedUser.getId()).isEmailVisible();
     }
 
     public User.Level getUserBirthdayStatus(User loggedUser) {
-        return loggedUser.isBirthDayVisible();
+        return userRepository.getById(loggedUser.getId()).isBirthDayVisible();
     }
 
     public void changeNumberStatus(String newStatus) {
