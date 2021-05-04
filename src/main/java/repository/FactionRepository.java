@@ -37,4 +37,20 @@ public class FactionRepository {
     public void removeUserFromGroup(long removedUserId, int groupId) {
         //remove removedUserId from group with groupId ID.
     }
+
+    public Group getFactionById(int id) {
+        return null;
+    }
+
+    public void deleteFaction(int id) {
+
+    }
+
+    public void deleteUserFromFaction(int groupId, long userId) {
+
+    }
+
+    public void addUserToFaction(int groupId, long userId) {
+
+    }
 }

@@ -27,6 +27,7 @@ public class ChatMenu extends Menu {
 
     @Override
     public void run() {
+        chatController.seeChat(chat);
         List<Message> messages = chat.getMessages().stream().sorted(Comparator.comparing(Message::getDate)).collect(Collectors.toList());
         System.out.println(frontUser.getUsername() + "\t" + frontUser.getLastSeen()); // fix last seen
         showMessages(messages);
@@ -44,7 +45,7 @@ public class ChatMenu extends Menu {
     private void getNewMessage() {
         System.out.println("Type your message!");
         String message = scanner.nextLine();
-        chatController.addMessageToChat(chat.getId(), new Message(message, LoggedUser.getLoggedUser(), frontUser));
+        chatController.addMessageToChat(chat.getId(), message, frontUser);
         System.out.println("You : " + message + " Date : " + new Date());
         System.out.println("press any key to continue!");
         scanner.nextLine();

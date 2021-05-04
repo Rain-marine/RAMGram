@@ -76,4 +76,21 @@ public class FactionsController {
         });
         return activeBlockedUsers;
     }
+
+    public List<User> getGroupMembers(Group group) {
+        Group faction = factionRepository.getFactionById(group.getId());
+        return faction.getMembers();
+    }
+
+    public void deleteFaction(Group group) {
+        factionRepository.deleteFaction(group.getId());
+    }
+
+    public void deleteUserFromFaction(Group group, User user) {
+        factionRepository.deleteUserFromFaction(group.getId(), user.getId());
+    }
+
+    public void addUserToFaction(Group group, String username) {
+        factionRepository.addUserToFaction(group.getId(), userRepository.getByUsername(username).getId());
+    }
 }

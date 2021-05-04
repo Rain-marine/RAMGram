@@ -1,6 +1,7 @@
 package views;
 
 import controllers.TweetController;
+import views.Factions.Factions;
 import views.profiles.SelfProfile;
 
 import java.util.Arrays;
@@ -47,9 +48,7 @@ public class PersonalPageMenu extends Menu {
 
 
     private void showMyLists() {
-        //ToDo
-        //new Factions class
-
+        new Factions().run();
         System.out.println("press enter to go back");
         scanner.nextLine();
         run();

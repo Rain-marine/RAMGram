@@ -44,7 +44,7 @@ public class FollowersFaction extends Menu {
             if(userController.isAccountPublic(input)){
                 new PublicProfile(usernameToUser.get(input), new FollowersFaction()).run();
             } else {
-                new PrivateProfile(usernameToUser.get(input), new FollowersFaction()).run(); // todo : previous menu in privateProfile
+                new PrivateProfile(usernameToUser.get(input), new FollowersFaction()).run();
             }
             break;
         }

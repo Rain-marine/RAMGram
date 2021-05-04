@@ -48,4 +48,9 @@ public class ChatRepository {
     public void insert(Chat chat) {
 
     }
+
+    public void clearUnSeenCount(long chatId) {
+        //set unseen count to 0
+        // set hasSeen to true
+    }
 }

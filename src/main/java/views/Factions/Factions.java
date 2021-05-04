@@ -4,6 +4,7 @@ import controllers.FactionsController;
 import models.Group;
 import models.User;
 import views.Menu;
+import views.PersonalPageMenu;
 import views.profiles.FollowingProfile;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class Factions extends Menu {
         factionsController = new FactionsController();
     }
 
-    //back to personal page menu
     @Override
     public void run() {
         List<Group> groups = factionsController.getFactions();
@@ -27,35 +27,29 @@ public class Factions extends Menu {
             System.out.println("enter faction name! or \"new faction\"! or \"*back\" for back to previous menu!");
             String input = scanner.nextLine();
             if (input.equals("*back"))
-                return;
+                break;
             if (input.equals("new faction")) {
                 createNewFaction(groupNameToGroup);
                 continue;
             }
-            if(!groups.contains(input)){
+            if(!groupNameToGroup.containsKey(input)){
                 System.out.println("Invalid input!");
                 continue;
             }
-            if (input.equals("followers")){
-                showFollowers();
-            } else if (input.equals("followings")){
-                showFollowings();
-            } else if (input.equals("black list")){
-                showBlackList();
-            } else {
-                showUserFaction(groupNameToGroup.get(input));
+            switch (input) {
+                case "followers" -> showFollowers();
+                case "followings" -> showFollowings();
+                case "black list" -> showBlackList();
+                default -> showUserFaction(groupNameToGroup.get(input));
             }
         }
-        //ToDo
-        //show factions list , new faction
-        //type faction name to access it
-        //show users in that faction
-        //commands: delete faction, delete person from it, add person to it, type username to see their profile
-
+        new PersonalPageMenu().run();
     }
 
     private void showUserFaction(Group group) {
-        new UserFaction().run();
+        new UserFaction(group).run();
+        System.out.println("enter any key to continue!");
+        scanner.nextLine();
     }
 
     private void showBlackList() {
@@ -139,14 +133,6 @@ public class Factions extends Menu {
         for (int i = 0; i < groups.size(); i++) {
             System.out.println(i + 4 + " : " + groups.get(i).getName());
         }
-    }
-
-    public void editFaction(String factionName) {
-
-    }
-
-    public void seeUserProfile(User userToSee) {
-        new FollowingProfile(userToSee, new Factions()).run();
     }
 
     @Override
