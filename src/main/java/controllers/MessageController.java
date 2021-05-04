@@ -126,4 +126,55 @@ public class MessageController {
 
         return groupNameToGroup;
     }
+
+    public void sendMessageToUser(String text, User tweetUser, String receiver) {
+        String message = "Tweet forwarded from " + tweetUser.getUsername() + "\n" + text;
+        User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        User receiveUser = userRepository.getByUsername(receiver);
+        Message newMessage = new Message(message, loggedUser, receiveUser);
+
+        for (Chat chat : loggedUser.getUserChats()) {
+            if (chat.getUsers().size() == 2 &&
+                    (chat.getUsers().get(0).getUsername().equals(receiver)
+                            || chat.getUsers().get(1).getUsername().equals(receiver))) {
+                chatRepository.addMessageToChat(chat.getId(), newMessage);
+                return;
+            }
+        }
+        Chat newChat = new Chat(new ArrayList<>() {
+            {
+                add(loggedUser);
+                add(receiveUser);
+            }
+        });
+        newChat.setMessages(new ArrayList<>() {
+            {
+                add(newMessage);
+            }
+        });
+        newChat.setHasSeen(false);
+        newChat.setUnseenCount(1);
+        chatRepository.insert(newChat);
+    }
+
+    public Chat getChatWithUsername(String username) {
+        User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        User receiveUser = userRepository.getByUsername(username);
+        for (Chat chat : loggedUser.getUserChats()) {
+            if (chat.getUsers().size() == 2 &&
+                    (chat.getUsers().get(0).getUsername().equals(username)
+                            || chat.getUsers().get(1).getUsername().equals(username)))
+                return chat;
+        }
+
+        Chat newChat = new Chat(new ArrayList<>() {
+            {
+                add(loggedUser);
+                add(receiveUser);
+            }
+        });
+        newChat.setMessages(new ArrayList<>());
+        chatRepository.insert(newChat);
+        return null;
+    }
 }

@@ -36,7 +36,7 @@ public class PeopleChatListMenu extends Menu{
                 System.out.println("no user found!\nenter any key to continue!");
                 scanner.nextLine();
             } else
-                new ChatMenu(usernameToChat.get(input)).run();
+                new ChatMenu(usernameToChat.get(input), new PeopleChatListMenu()).run();
         }
     }
 

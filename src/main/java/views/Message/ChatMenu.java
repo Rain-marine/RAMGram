@@ -16,12 +16,14 @@ public class ChatMenu extends Menu {
     private final Chat chat;
     private final User frontUser;
     private final ChatController chatController;
+    private final Menu previousMenu;
 
-    public ChatMenu(Chat chat) { // ToDo : save previous menu!!
+    public ChatMenu(Chat chat, Menu previousMenu) {
         this.chat = chat;
         this.frontUser = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
                 ? chat.getUsers().get(1)
                 : chat.getUsers().get(0);
+        this.previousMenu = previousMenu;
         chatController = new ChatController();
     }
 
@@ -39,7 +41,7 @@ public class ChatMenu extends Menu {
             } else
                 break;
         }
-
+        previousMenu.run();
     }
 
     private void getNewMessage() {

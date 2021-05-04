@@ -1,9 +1,11 @@
 package views.profiles;
 
 import controllers.*;
+import models.Chat;
 import models.Tweet;
 import models.User;
 import views.*;
+import views.Message.ChatMenu;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +14,7 @@ public class FollowingProfile extends Menu {
     private final User user;
     private final SettingController settingController;
     private final UserController userController;
+    private final MessageController messageController;
     private final NotificationController notificationController;
     private final TweetController tweetController;
     private final Menu previousMenu;
@@ -36,6 +39,7 @@ public class FollowingProfile extends Menu {
         options = Arrays.asList("Unfollow And Notify User", "Unfollow Without Notification", "Message", "Tweets"
                 , "Block", "Report User", "Back");
         tweetController = new TweetController();
+        messageController = new MessageController();
     }
 
 
@@ -67,7 +71,10 @@ public class FollowingProfile extends Menu {
     }
 
     private void message() {
-        //ToDo
+        Chat chat = messageController.getChatWithUsername(user.getUsername());
+        if (chat == null)
+            chat = messageController.getChatWithUsername(user.getUsername());
+        new ChatMenu(chat, new FollowingProfile(user, previousMenu)).run();
     }
 
     private void unfollowUserWithoutNotif() {

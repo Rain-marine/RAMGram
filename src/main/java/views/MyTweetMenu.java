@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MessageController;
 import controllers.ProfileAccessController;
 import controllers.TweetController;
 import controllers.UserController;
@@ -13,6 +14,7 @@ import java.util.List;
 public class MyTweetMenu extends Menu {
     private final TweetController tweetController;
     private final HashMap<String, Integer> commands;
+    private final MessageController messageController;
     private final UserController userController;
     private List<Tweet> tweetsList;
 
@@ -33,6 +35,7 @@ public class MyTweetMenu extends Menu {
             }
         };
 
+        messageController = new MessageController();
     }
 
 
@@ -93,7 +96,6 @@ public class MyTweetMenu extends Menu {
                             System.out.println("Tweet Saved!");
                             continue;
                         case 5:
-                            //ToDo
                             forwardTweet(currentTweet);
                             break;
                         case 9:
@@ -132,9 +134,19 @@ public class MyTweetMenu extends Menu {
     }
 
     private void forwardTweet(Tweet tweet) {
-        System.out.println("type username of receiver and press enter");
-        String receiver = scanner.nextLine();
-
+        //todo : forward tweet is done!. check?
+        while(true) {
+            System.out.println("type username of receiver and press enter or *back to return!");
+            String receiver = scanner.nextLine();
+            if(receiver.equals("*back"))
+                return;
+            if(messageController.canSendMessageToUser(receiver)) {
+                messageController.sendMessageToUser(tweet.getText(), tweet.getUser(), receiver);
+                System.out.println("The tweet forwarded!");
+                return;
+            }
+            System.out.println("The username is invalid!");
+        }
     }
 
     private void showCommands() {
