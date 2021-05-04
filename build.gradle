@@ -1,5 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+javafx {
+    version = "15.0.1"
+    modules = [ 'javafx.controls' , 'javafx.fxml']
 }
 
 group 'org.example'
@@ -8,6 +15,8 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
+
+
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
@@ -23,3 +32,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+mainClassName = 'Main'
