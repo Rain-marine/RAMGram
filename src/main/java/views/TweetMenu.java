@@ -148,6 +148,10 @@ public class TweetMenu extends Menu {
                                 break Show;
                             }
                             break;
+                        case 12:
+                            tweetController.like(currentTweet);
+                            System.out.println("liked successfully");
+                            continue;
 
                     }
                 } else {
