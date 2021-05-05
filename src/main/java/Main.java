@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 import views.MenuManager;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 
 public class Main extends Application {
@@ -21,8 +22,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+//        Logger logger = Logger.getLogger(Main.class);
+//        BasicConfigurator.configure();
+//        logger.info("This is my first log4j's statement");
         MenuManager manager = new MenuManager(new Scanner(System.in));
-        manager.run();
-//        launch(args);
+//        manager.run();
+        launch(args);
     }
 }

@@ -78,4 +78,7 @@ public class TweetController {
         tweetRepository.addComment(parentTweet,commentTweet);
     }
 
+    public void like(Tweet Tweet) {
+        tweetRepository.like(LoggedUser.getLoggedUser().getId(), Tweet.getId());
+    }
 }
