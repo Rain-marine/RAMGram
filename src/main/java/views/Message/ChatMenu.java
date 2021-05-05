@@ -30,6 +30,7 @@ public class ChatMenu extends Menu {
     @Override
     public void run() {
         chatController.seeChat(chat);
+        //todo : lazy exception, create getChatById in chat repo
         List<Message> messages = chat.getMessages().stream().sorted(Comparator.comparing(Message::getDate)).collect(Collectors.toList());
         System.out.println(frontUser.getUsername() + "\t" + frontUser.getLastSeen()); // fix last seen
         showMessages(messages);
