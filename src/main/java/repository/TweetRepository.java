@@ -53,6 +53,31 @@ public class TweetRepository {
         }
     }
 
+    public List<Tweet> getUserAllTweets(long userId) {
+        //tweets which: 1- tweet's user is userId  2- are in users retweet list
+        // order all by date desc
+        // 2 is wrong
+
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Tweet> cq = cb.createQuery(Tweet.class);
+            Root<Tweet> root = cq.from(Tweet.class);
+
+            cq.select(root);
+            cq.where(cb.equal(root.get("user"), userId));
+
+            cq.orderBy(cb.asc(root.get("tweetDateTime")));
+
+            TypedQuery<Tweet> typedQuery = em.createQuery(cq);
+
+            return typedQuery.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public List<Tweet> getAllTweets(long userId) {
         //tweets which: 1- tweet's user is userId  2- are in users retweet list
         // order all by date desc // tweet where their parentTweet is null
@@ -156,4 +181,6 @@ public class TweetRepository {
             return null;
         }
     }
+
+
 }

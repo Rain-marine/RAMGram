@@ -51,29 +51,6 @@ public class FactionRepository {
         }
     }
 
-    public void addUserToMutedList(long loggedUserId, long userToMutedId) {
-        //add userToMutedId to loggedUser muted list.
-        EntityManager em = EntityManagerProvider.getEntityManager();
-        EntityTransaction et = null;
-        try {
-            et = em.getTransaction();
-            et.begin();
-            User user = em.find(User.class, loggedUserId);
-            User userToMute = em.find(User.class, userToMutedId);
-            user.getBlackList().add(userToMute);
-            em.persist(user);
-            et.commit();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            if (et != null) {
-                et.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
-
     public void removeUserFromGroup(long removedUserId, int groupId) {
         //remove removedUserId from group with groupId ID.
         EntityManager em = EntityManagerProvider.getEntityManager();

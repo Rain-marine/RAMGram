@@ -23,22 +23,17 @@ public class UserController {
 
     public void blockUser(User userToBlock) {
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
-
-        factionRepository.addUserToBlackList(loggedUser.getId(), userToBlock.getId());
-        List<Group> groups = loggedUser.getGroups();
-        List<User> followings = loggedUser.getFollowings();
-        List<User> followers = loggedUser.getFollowers();
-        for (User user : followers)
+        for (User user : loggedUser.getFollowers())
             if(user.getUsername().equals(userToBlock.getUsername())) {
                 notificationRepository.removeFromFollowers(loggedUser.getId(), user.getId());
                 break;
             }
-        for (User user : followings)
+        for (User user : loggedUser.getFollowings())
             if(user.getUsername().equals(userToBlock.getUsername())) {
                 notificationRepository.removeFromFollowings(loggedUser.getId(), user.getId());
                 break;
             }
-        for (Group group : groups) {
+        for (Group group : loggedUser.getGroups()) {
             for (User member : group.getMembers()) {
                 if(member.getUsername().equals(userToBlock.getUsername())) {
                     factionRepository.removeUserFromGroup(member.getId(), group.getId());
@@ -46,10 +41,11 @@ public class UserController {
                 }
             }
         }
+        factionRepository.addUserToBlackList(loggedUser.getId(), userToBlock.getId());
     }
 
     public void muteUser(User user) {
-        factionRepository.addUserToMutedList(LoggedUser.getLoggedUser().getId(), user.getId());
+        userRepository.mute(LoggedUser.getLoggedUser().getId(), user.getId());
     }
 
     public User getUserByUsername(String usernameToFind) {

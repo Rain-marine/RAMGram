@@ -28,7 +28,7 @@ public class TweetController {
         tweetRepository.insert(tweet);
     }
 
-    public List<Tweet> getUserAllTweets(User user2) {
+    public List<Tweet> getAllTweets(User user2) {
         String username = user2.getUsername();
         User user = userRepository.getByUsername(username);
         List<Tweet> userAllTweets = tweetRepository.getAllTweets(user.getId());
@@ -38,8 +38,20 @@ public class TweetController {
     }
 
     public List<Tweet> getTopTweets() {
+        User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        List<Tweet> topTweets = tweetRepository.getTopTweets(LoggedUser.getLoggedUser().getId());
+        List<Tweet> topTweets2 = new ArrayList<>();
+        for (Tweet topTweet : topTweets) {
+            User topTweetUser = userRepository.getById(topTweet.getUser().getId());
+            if (topTweetUser.getBlackList().stream().noneMatch(it -> it.getId() == LoggedUser.getLoggedUser().getId())) {
+                if(loggedUser.getMutedUsers().stream().noneMatch(it -> it.getId() == topTweetUser.getId()))
+                    topTweets2.add(topTweet);
+            }
+        }
+        return topTweets2;
 
-        return tweetRepository.getTopTweets(LoggedUser.getLoggedUser().getId());
+
+
     }
 
     public List<Tweet> getFollowingTweets() {
@@ -50,7 +62,7 @@ public class TweetController {
 
         for (User user : following) {
             if (muted.stream().noneMatch(it -> it.getId() == user.getId())) {
-                followingTweets.addAll(getUserAllTweets(user));
+                followingTweets.addAll(getAllTweets(user));
             }
         }
         return followingTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime)).
@@ -71,10 +83,10 @@ public class TweetController {
         userRepository.addReportedTweet(currentTweet.getId(), LoggedUser.getLoggedUser().getId());
     }
 
-    public void addComment(String comment, Tweet parentTweet) {
-        Tweet commentTweet = new Tweet(LoggedUser.getLoggedUser(),comment);
-        commentTweet.setParentTweet(parentTweet);
-        tweetRepository.insert(commentTweet);
+    public void addComment(String comment, Tweet rawParentTweet) {
+        Tweet parentTweet = tweetRepository.getById(rawParentTweet.getId());
+        Tweet commentTweet = new Tweet(userRepository.getById(LoggedUser.getLoggedUser().getId()),comment);
+        //tweetRepository.insert(commentTweet);
         tweetRepository.addComment(parentTweet,commentTweet);
     }
 

@@ -90,7 +90,7 @@ public class FollowingProfile extends Menu {
     }
 
     private void showTweets() {
-        List<Tweet> listOfTweets = tweetController.getUserAllTweets(user);
+        List<Tweet> listOfTweets = tweetController.getAllTweets(user);
         new TweetMenu(listOfTweets, 1).run();
     }
 

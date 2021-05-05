@@ -6,7 +6,6 @@ import controllers.TweetController;
 import controllers.UserController;
 import models.LoggedUser;
 import models.Tweet;
-import views.profiles.FollowingProfile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ public class MyTweetMenu extends Menu {
     public MyTweetMenu() {
         this.userController = new UserController();
         this.tweetController = new TweetController();
-        this.tweetsList = tweetController.getUserAllTweets(LoggedUser.getLoggedUser());
+        this.tweetsList = tweetController.getAllTweets(LoggedUser.getLoggedUser());
         commands = new HashMap<>() {
             {
                 put("back", 0);
@@ -72,7 +71,7 @@ public class MyTweetMenu extends Menu {
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
                                 //ToDo: fix the getAllTweets part
-                                tweetsList = currentTweet.getParentTweet() == null ? tweetController.getUserAllTweets(LoggedUser.getLoggedUser()) : currentTweet.getParentTweet().getComments();
+                                tweetsList = currentTweet.getParentTweet() == null ? tweetController.getAllTweets(LoggedUser.getLoggedUser()) : currentTweet.getParentTweet().getComments();
                                 break Show;
                             }
                         case 1:

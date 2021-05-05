@@ -48,7 +48,7 @@ public class ExplorerMenu extends Menu {
     }
 
     private void search() {
-        System.out.println("type username you want to find or type " + ConsoleColors.PURPLE_BOLD + "*back*" + ConsoleColors.RESET
+        System.out.println("type username you want to find or type " + ConsoleColors.CYAN_BOLD + "*back*" + ConsoleColors.PURPLE_BOLD_BRIGHT
                 + " to go back to explorer page");
         String usernameToFind = scanner.nextLine();
         if (usernameToFind.equals("*back*")) {
