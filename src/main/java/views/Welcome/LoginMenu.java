@@ -7,6 +7,7 @@ import models.User;
 import views.ConsoleColors;
 import views.MainMenu;
 import views.Menu;
+import views.profiles.DeActiveSelfProfile;
 import views.profiles.FollowingProfile;
 
 public class LoginMenu extends Menu {
@@ -26,9 +27,14 @@ public class LoginMenu extends Menu {
         int option;
         try {
             User user = authController.login(username, password);
-            System.out.println("login successful. press enter to continue");
-            scanner.nextLine();
-            getMenu(1).run();
+            if(user.isActive()) {
+                System.out.println("login successful. press enter to continue");
+                scanner.nextLine();
+                getMenu(1).run();
+            }
+            else{
+                new DeActiveSelfProfile(username).run();
+            }
 
         }
         catch (InvalidInputException e) {

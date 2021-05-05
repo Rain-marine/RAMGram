@@ -62,6 +62,7 @@ public class TweetMenu extends Menu {
         }
         Tweet currentTweet = tweetsList.get(0);
         showCommands();
+        Outer:
         while (true) {
             System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + currentTweet.getUser().getUsername() + ConsoleColors.RESET +
                     " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + currentTweet.getTweetDateTime().toString() + "\n"
@@ -75,7 +76,8 @@ public class TweetMenu extends Menu {
                     switch (commands.get(input)) {
                         case 0:
                             if (currentTweet.getParentTweet() == null) {
-                                getMenu(previousMenu).run();
+                                break Outer;
+
 
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
@@ -149,9 +151,10 @@ public class TweetMenu extends Menu {
                             }
                             break;
                         case 12:
-                            tweetController.like(currentTweet);
-                            System.out.println("liked successfully");
-                            continue;
+                            if (!tweetController.like(currentTweet))
+                                System.out.println("you've already liked this tweet!");
+                            else
+                                System.out.println("liked successfully");
 
                     }
                 } else {
@@ -159,7 +162,9 @@ public class TweetMenu extends Menu {
                 }
 
             }
+
         }
+        getMenu(previousMenu).run();
     }
 
 
@@ -188,7 +193,8 @@ public class TweetMenu extends Menu {
                 + "\n" + "spam -> report tweet spam"
                 + "\n" + "profile -> go to profile writer of the tweet"
                 + "\n" + "add comment -> add comment"
-                + "\n" + "comments -> show comments");
+                + "\n" + "comments -> show comments"
+                + "\n" + "like -> like the tweet");
 
     }
 

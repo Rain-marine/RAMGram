@@ -1,7 +1,9 @@
 package views.profiles;
 
+import controllers.UserController;
 import models.LoggedUser;
 import models.User;
+import repository.UserRepository;
 import views.ConsoleColors;
 import views.MainMenu;
 import views.Menu;
@@ -10,14 +12,15 @@ import views.PersonalPageMenu;
 public class SelfProfile extends Menu{
 
     private final Menu previousMenu;
-
+    private final UserController userController;
     public SelfProfile(Menu previousMenu) {
         this.previousMenu = previousMenu;
+        userController = new UserController();
     }
 
     @Override
     public void run() {
-        User user = LoggedUser.getLoggedUser();
+        User user = userController.getUserByUsername(LoggedUser.getLoggedUser().getUsername());
         System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Hello "+user.getFullName()+". This is your profile");
         try {
             String birthday = user.getBirthday().toString();

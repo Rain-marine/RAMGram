@@ -20,8 +20,11 @@ public class AuthController {
                 throw new InvalidInputException("Wrong password");
             else {
                 LoggedUser.setLoggedUser(user);
-                userRepository.setLastSeen(user.getId(),new Date());
+                if (user.isActive()) {
+                    userRepository.setLastSeen(user.getId(), new Date());
+                }
                 return user;
+
             }
 
         }

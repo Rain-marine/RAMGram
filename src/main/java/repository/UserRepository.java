@@ -169,6 +169,27 @@ public class UserRepository {
         }
     }
 
+    public void activateAccount(long id) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, id);
+            user.setActive(true);
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
     public void deactivateAccount(long id) {
         EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
@@ -494,4 +515,6 @@ public class UserRepository {
             em.close();
         }
     }
+
+
 }

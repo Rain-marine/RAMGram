@@ -78,7 +78,13 @@ public class TweetController {
         tweetRepository.addComment(parentTweet,commentTweet);
     }
 
-    public void like(Tweet Tweet) {
-        tweetRepository.like(LoggedUser.getLoggedUser().getId(), Tweet.getId());
+    public boolean like(Tweet tweet) {
+        Tweet completeTweet = tweetRepository.getById(tweet.getId());
+        for (User user : completeTweet.getUsersWhoLiked()) {
+            if (user.getUsername().equals(LoggedUser.getLoggedUser().getUsername()))
+                return false;
+        }
+        tweetRepository.like(LoggedUser.getLoggedUser().getId(), tweet.getId());
+        return true;
     }
 }

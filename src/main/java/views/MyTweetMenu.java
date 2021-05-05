@@ -53,6 +53,7 @@ public class MyTweetMenu extends Menu {
         }
         Tweet currentTweet = tweetsList.get(0);
         showCommands();
+        Outer:
         while (true) {
             System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + currentTweet.getUser().getUsername() + ConsoleColors.RESET +
                     " wrote in " + ConsoleColors.BLUE_BOLD_BRIGHT + currentTweet.getTweetDateTime().toString() + "\n"
@@ -66,7 +67,7 @@ public class MyTweetMenu extends Menu {
                     switch (commands.get(input)) {
                         case 0:
                             if (currentTweet.getParentTweet() == null) {
-                                getMenu(3).run();
+                                break Outer;
 
                             } else {
                                 currentTweet = currentTweet.getParentTweet();
@@ -124,6 +125,7 @@ public class MyTweetMenu extends Menu {
 
             }
         }
+        getMenu(3).run();
     }
 
 

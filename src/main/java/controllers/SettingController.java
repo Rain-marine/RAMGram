@@ -171,4 +171,9 @@ public class SettingController {
         };
         userRepository.changeBirthdayStatus(LoggedUser.getLoggedUser().getId(), status);
     }
+
+    public void activateAccount(String username) {
+        User deActiveUser = userRepository.getByUsername(username);
+        userRepository.activateAccount(deActiveUser.getId());
+    }
 }

@@ -146,4 +146,14 @@ public class TweetRepository {
             em.close();
         }
     }
+
+    public Tweet getById(long tweetId) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
+        try {
+            return em.find(Tweet.class, tweetId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
