@@ -40,7 +40,7 @@ public class MessageMenu extends Menu {
     }
 
     private void sendMessage() {
-        System.out.println("Type users and groups of receiver like this ->" +
+        System.out.println("Type users and groups of receiver like this -> \n" +
                 " User : \"UsernameToSend\" or Group : \"GroupNameToSend\"," +
                 "type \"write message\" to write your message!" +
                 " type \"*back\" to back to message menu");
