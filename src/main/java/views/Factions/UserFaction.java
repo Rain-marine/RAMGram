@@ -56,8 +56,8 @@ public class UserFaction extends Menu {
             System.out.println("Faction is empty!");
             return;
         }
-        for (int i = 0; i < members.size(); i++) {
-            System.out.println(i + 1 + " : " + members.get(i));
+        for (User member : members) {
+            System.out.println(member);
         }
     }
 

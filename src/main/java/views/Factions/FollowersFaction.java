@@ -28,8 +28,8 @@ public class FollowersFaction extends Menu {
             scanner.nextLine();
             return;
         }
-        for (int i = 0; i < followers.size(); i++) {
-            System.out.println(i + 1 + " : " + followers.get(i).getUsername());
+        for (User follower : followers) {
+            System.out.println(follower.getUsername());
         }
         HashMap<String, User> usernameToUser = extractUsernameToUser(followers);
         while (true) {

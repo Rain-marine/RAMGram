@@ -31,11 +31,15 @@ public class NotificationController {
     public void FollowUser(User user) {
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         User receiver = userRepository.getById(user.getId());
-        Notification followNotification = new Notification(loggedUser,receiver, NotificationType.START_FOLLOW);
+        if(loggedUser.getFollowings().stream().noneMatch(it -> it.getId() == receiver.getId())) {
+            Notification followNotification = new Notification(loggedUser, receiver, NotificationType.START_FOLLOW);
+            followNotification.setMessage(NotificationType.START_FOLLOW.getMessage());
+            notificationRepository.insert(followNotification);
+            notificationRepository.addNewFollower(receiver.getId(), loggedUser.getId());
+            notificationRepository.addNewFollowing(loggedUser.getId(), receiver.getId());
+        }
 
-        notificationRepository.insert(followNotification);
-        notificationRepository.addNewFollower(receiver.getId(), loggedUser.getId());
-        notificationRepository.addNewFollowing(loggedUser.getId(), receiver.getId());
+
     }
 
     public void unfollowUserWithNotification(User user) {
@@ -47,8 +51,7 @@ public class NotificationController {
         notificationRepository.removeFromFollowings(loggedUser.getId(), receiver.getId());
         notificationRepository.removeFromFollowers(receiver.getId(), loggedUser.getId());
 
-        List<Group> loggedUserGroups = loggedUser.getGroups();
-        for (Group group : loggedUserGroups) {
+        for (Group group : loggedUser.getGroups()) {
             for (User member : group.getMembers()) {
                 if (member.getUsername().equals(receiver.getUsername())) {
                     factionRepository.removeUserFromGroup(receiver.getId(), group.getId());
@@ -133,8 +136,7 @@ public class NotificationController {
         deleteNotification(notification);
     }
 
-    private void deleteNotification(Notification notification) {
-        notificationRepository.deleteNotification(notification.getId());
+    public void deleteNotification(Notification notification) {
         notificationRepository.deleteNotification(notification.getId());
     }
 }

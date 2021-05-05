@@ -49,12 +49,13 @@ public class NotificationMenu extends Menu {
         if (notifications.size() == 0) {
             System.out.println("You have no system notification!");
         } else {
-            for (int i = 0; i < notifications.size(); i++) {
-                switch (notifications.get(i).getType()) {
-                    case UNFOLLOW -> System.out.println(i + 1 + " : " + notifications.get(i).getSender().getUsername() + " unfollowed you!");
-                    case START_FOLLOW -> System.out.println(i + 1 + " : " + notifications.get(i).getSender().getUsername() + " started follow you!");
-                    case FOLLOW_REQ_REJECT -> System.out.println(i + 1 + " : " + notifications.get(i).getSender().getUsername() + " reject your follow request!");
+            for (Notification notification : notifications) {
+                switch (notification.getType()) {
+                    case UNFOLLOW -> System.out.println(notification.getSender().getUsername() + " unfollowed you!");
+                    case START_FOLLOW -> System.out.println(notification.getSender().getUsername() + " started follow you!");
+                    case FOLLOW_REQ_REJECT -> System.out.println(notification.getSender().getUsername() + " reject your follow request!");
                 }
+                notificationController.deleteNotification(notification);
             }
         }
         System.out.println("press any key to back to notification menu!");
@@ -66,8 +67,8 @@ public class NotificationMenu extends Menu {
         if (notifications.size() == 0) {
             System.out.println("You have no request! consider maybe people reject your request without notification!");
         } else {
-            for (int i = 0; i < notifications.size(); i++) {
-                System.out.println(i + 1 + " : " + notifications.get(i).getReceiver().getUsername());
+            for (Notification notification : notifications) {
+                System.out.println(notification.getReceiver().getUsername());
             }
             System.out.println("if someone accept or reject your request, then it will not be displayed here!");
         }
@@ -84,8 +85,8 @@ public class NotificationMenu extends Menu {
 
         HashMap<String, Notification> userToNotification = extractUserFromNotification(followingRequestNotification);
         while (true) {
-            for (int i = 0; i < followingRequestNotification.size(); i++)
-                System.out.println(i + 1 + " : " + followingRequestNotification.get(i).getSender().getUsername());
+            for (Notification notification : followingRequestNotification)
+                System.out.println(notification.getSender().getUsername());
 
             System.out.println("enter the username to handle the request or \"*back\" to back");
             String input = scanner.nextLine();

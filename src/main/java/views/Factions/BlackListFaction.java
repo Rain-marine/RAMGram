@@ -23,8 +23,8 @@ public class BlackListFaction extends Menu {
             scanner.nextLine();
             return;
         }
-        for (int i = 0; i < blockedUsers.size(); i++) {
-            System.out.println(i + 1 + " : " + blockedUsers.get(i).getUsername());
+        for (User blockedUser : blockedUsers) {
+            System.out.println(blockedUser.getUsername());
         }
         HashMap<String, User> usernameToUser = extractUsernameToUser(blockedUsers);
         while (true) {

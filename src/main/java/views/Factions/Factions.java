@@ -129,9 +129,9 @@ public class Factions extends Menu {
     }
 
     private void showFactions(List<Group> groups) {
-        System.out.println(1 + " : followers\n2 : followings\n3 : black list");
-        for (int i = 0; i < groups.size(); i++) {
-            System.out.println(i + 4 + " : " + groups.get(i).getName());
+        System.out.println( "followers\nfollowings\nblack list");
+        for (Group group : groups) {
+            System.out.println(group.getName());
         }
     }
 

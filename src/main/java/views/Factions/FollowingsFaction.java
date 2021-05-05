@@ -23,8 +23,8 @@ public class FollowingsFaction extends Menu {
             scanner.nextLine();
             return;
         }
-        for (int i = 0; i < followings.size(); i++) {
-            System.out.println(i + 1 + " : " + followings.get(i).getUsername());
+        for (User following : followings) {
+            System.out.println(following.getUsername());
         }
         HashMap<String, User> usernameToUser = extractUsernameToUser(followings);
         while (true) {
