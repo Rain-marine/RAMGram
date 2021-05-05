@@ -3,7 +3,6 @@ package repository;
 import models.Message;
 import models.User;
 import repository.utils.EntityManagerProvider;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 

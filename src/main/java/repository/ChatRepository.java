@@ -2,10 +2,8 @@ package repository;
 
 import models.Chat;
 import models.Message;
-import models.Tweet;
 import models.User;
 import repository.utils.EntityManagerProvider;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;

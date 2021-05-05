@@ -1,10 +1,8 @@
 package repository;
 
-import models.Chat;
 import models.Group;
 import models.User;
 import repository.utils.EntityManagerProvider;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -103,10 +101,46 @@ public class FactionRepository {
     }
 
     public void deleteUserFromFaction(int groupId, long userId) {
-
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            Group group = em.find(Group.class, groupId);
+            group.getMembers().remove(user);
+            em.persist(group);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void addUserToFaction(int groupId, long userId) {
-
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, userId);
+            Group group = em.find(Group.class, groupId);
+            group.getMembers().add(user);
+            em.persist(group);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }
