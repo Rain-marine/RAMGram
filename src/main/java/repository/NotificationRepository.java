@@ -1,5 +1,6 @@
 package repository;
 
+import models.Group;
 import models.Notification;
 import repository.utils.EntityManagerProvider;
 
@@ -28,7 +29,21 @@ public class NotificationRepository {
     }
 
     public void deleteNotification(long notificationId) {
-
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Notification object = em.find(Notification.class, notificationId);
+            em.remove(object);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     public void addNewFollower(long userId, long newFollowerId) {

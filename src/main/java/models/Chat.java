@@ -19,7 +19,7 @@ public class Chat {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.PERSIST)
     private List<Message> messages;
 
     @Column(name = "has_seen")

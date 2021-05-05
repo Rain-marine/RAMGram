@@ -83,14 +83,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "following_id"))
     private List<User> followings;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_black_list",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "blocked_id"))
     private List<User> blackList;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_muted",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -143,7 +143,7 @@ public class User {
     @Column(name = "reported_count", nullable = false)
     private int reportedCount;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_favorite_messages",
             joinColumns = @JoinColumn(name = "user_id"),

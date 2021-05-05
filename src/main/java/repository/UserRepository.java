@@ -47,6 +47,25 @@ public class UserRepository {
         }
     }
 
+    public void save(User user){
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            em.merge(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
     public void setLastSeen(long id, Date now) {
         EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
@@ -417,27 +436,62 @@ public class UserRepository {
     }
 
     public void changeUsername(long userId, String newUsername) {
-
+        User user = getById(userId);
+        user.setUsername(newUsername);
+        save(user);
     }
 
     public void changeBio(long userId, String newBio) {
+        User user = getById(userId);
+        user.setBio(newBio);
+        save(user);
     }
 
     public void changeFullName(long userId, String newName) {
+        User user = getById(userId);
+        user.setFullName(newName);
+        save(user);
     }
 
     public void changeBirthdayDate(long userId, Date birthday) {
+        User user = getById(userId);
+        user.setBirthday(birthday);
+        save(user);
     }
 
     public void changeEmail(long userId, String newEmail) {
+        User user = getById(userId);
+        user.setEmail(newEmail);
+        save(user);
 
     }
 
     public void changePhoneNumber(long userId, String newNumber) {
+        User user = getById(userId);
+        user.setPhoneNumber(newNumber);
+        save(user);
     }
 
 
     public void unblock(long loggedUserId, long blockedUser) {
         //remove blockedUser from logged user blacklist
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            User user = em.find(User.class, loggedUserId);
+            user.setBlackList(user.getMutedUsers().stream().filter(it -> it.getId() != blockedUser).collect(Collectors.toList()));
+            em.persist(user);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }

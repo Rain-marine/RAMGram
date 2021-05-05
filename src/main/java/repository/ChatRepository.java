@@ -7,6 +7,7 @@ import models.User;
 import repository.utils.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -43,14 +44,70 @@ public class ChatRepository {
         //add message to chat
         //set hasSeen to false
         //UnseenCount += 1
+
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Chat chat = em.find(Chat.class, chatId);
+            chat.setUnseenCount(chat.getUnseenCount() + 1);
+            chat.setHasSeen(false);
+            chat.getMessages().add(message);
+            em.persist(chat);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void insert(Chat chat) {
-
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            em.persist(chat);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void clearUnSeenCount(long chatId) {
         //set unseen count to 0
         // set hasSeen to true
+
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Chat chat = em.find(Chat.class, chatId);
+            chat.setUnseenCount(0);
+            chat.setHasSeen(true);
+            em.persist(chat);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }
