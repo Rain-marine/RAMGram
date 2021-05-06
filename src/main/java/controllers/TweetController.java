@@ -65,7 +65,7 @@ public class TweetController {
                 followingTweets.addAll(getAllTweets(user));
             }
         }
-        return followingTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime)).
+        return followingTweets.stream().sorted(Comparator.comparing(Tweet::getTweetDateTime).reversed()).
                  collect(Collectors.toList());
     }
 
