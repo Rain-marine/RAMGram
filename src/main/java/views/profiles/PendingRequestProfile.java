@@ -10,8 +10,7 @@ import views.Menu;
 
 import java.util.Arrays;
 
-public class PrivateProfile extends Menu {
-    //back to search/explorer
+public class PendingRequestProfile extends Menu {
     private final User user;
     private final SettingController settingController;
     private final UserController userController;
@@ -24,7 +23,7 @@ public class PrivateProfile extends Menu {
     private String bio;
 
 
-    public PrivateProfile(User user, Menu previousMenu) {
+    public PendingRequestProfile(User user, Menu previousMenu) {
         this.user = user;
         this.previousMenu = previousMenu;
         settingController = new SettingController();
@@ -35,7 +34,7 @@ public class PrivateProfile extends Menu {
         this.birthday = settingController.birthdayForLoggedUser(user);
         notificationController = new NotificationController();
         this.bio = user.getBio();
-        options = Arrays.asList("Follow", "Block", "Report User", "Back");
+        options = Arrays.asList("Remove Request", "Block", "Report User", "Back");
     }
 
     @Override
@@ -52,7 +51,7 @@ public class PrivateProfile extends Menu {
         } while(!isValid);
         int inputInt = Integer.parseInt(input);
         switch (inputInt) {
-            case 1 -> sendFollowRequestToUser();
+            case 1 -> takeBackRequest();
             case 2 -> blockUser();
             case 3 -> reportUser();
             case 4 -> getMenu(1).run();
@@ -60,6 +59,11 @@ public class PrivateProfile extends Menu {
         }
 
 
+    }
+
+    private void takeBackRequest() {
+        notificationController.deleteRequest(user);
+        new PrivateProfile(user,previousMenu).run();
     }
 
 
@@ -70,16 +74,9 @@ public class PrivateProfile extends Menu {
     }
 
     private void blockUser() {
-        userController.blockUser(user);
-        System.out.println("user blocked");
-        new BlockedProfile(user,getMenu(1)).run();
+        System.out.println("remove your request first");
+        run();
 
-    }
-
-    private void sendFollowRequestToUser() {
-        notificationController.sendFollowRequestToUser(user);
-        System.out.println("follow request sent!");
-        new PendingRequestProfile(user,previousMenu).run();
     }
 
     public void showInfo(){

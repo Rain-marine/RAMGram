@@ -7,6 +7,7 @@ import repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class NotificationController {
@@ -35,7 +36,7 @@ public class NotificationController {
             Notification followNotification = new Notification(loggedUser, receiver, NotificationType.START_FOLLOW);
             notificationRepository.insert(followNotification);
             notificationRepository.addNewFollower(receiver.getId(), loggedUser.getId());
-            notificationRepository.addNewFollowing(loggedUser.getId(), receiver.getId());
+            //notificationRepository.addNewFollowing(loggedUser.getId(), receiver.getId());
         }
 
 
@@ -119,7 +120,7 @@ public class NotificationController {
         deleteNotification(notification);
 
         notificationRepository.addNewFollower(LoggedUser.getLoggedUser().getId(), notification.getSender().getId());
-        notificationRepository.addNewFollowing(notification.getSender().getId(), LoggedUser.getLoggedUser().getId());
+        //notificationRepository.addNewFollowing(notification.getSender().getId(), LoggedUser.getLoggedUser().getId());
     }
 
     public void rejectFollowRequestWithNotification(Notification notification) {
@@ -137,5 +138,13 @@ public class NotificationController {
 
     public void deleteNotification(Notification notification) {
         notificationRepository.deleteNotification(notification.getId());
+    }
+
+    public void deleteRequest(User rawUser) {
+        User user = userRepository.getById(rawUser.getId());
+        long loggedUserId = LoggedUser.getLoggedUser().getId();
+        Notification request = user.getReceiverNotifications().stream()
+                .filter(it -> it.getSender().getId() == loggedUserId).collect(Collectors.toList()).get(0);
+        notificationRepository.deleteNotification(request.getId());
     }
 }

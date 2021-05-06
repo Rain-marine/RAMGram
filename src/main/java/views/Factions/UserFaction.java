@@ -4,6 +4,7 @@ import controllers.FactionsController;
 import controllers.UserController;
 import models.Group;
 import models.User;
+import views.ConsoleColors;
 import views.Menu;
 import views.profiles.FollowingProfile;
 
@@ -23,9 +24,11 @@ public class UserFaction extends Menu {
 
     @Override
     public void run() {
-        showOption();
-        System.out.println("$" + group.getName() + "$");
+
         while (true){
+            System.out.println("$" + group.getName() + "$");
+            showOption();
+
             showMembers(factionsController.getGroupMembers(group));
             System.out.println("Enter your request!");
             String input = scanner.nextLine();
@@ -36,16 +39,16 @@ public class UserFaction extends Menu {
                 return;
             }
             if (input.startsWith("delete user : ")) {
-                deleteUser(input.substring(15));
+                deleteUser(input.substring(14));
             }else if (input.startsWith("add user : ")){
-                addUser(input.substring(12));
+                addUser(input.substring(11));
             } else {
                 List<User> members = factionsController.getGroupMembers(group);
                 HashMap<String, User> usernameToUser = extractUserNameToUser(members);
                 if (!usernameToUser.containsKey(input)) {
                     System.out.println("invalid request or username!");
                 }else {
-                    new FollowingProfile(usernameToUser.get(input), new UserFaction(group));
+                    new FollowingProfile(usernameToUser.get(input), new UserFaction(group)).run();
                 }
             }
         }
@@ -57,7 +60,7 @@ public class UserFaction extends Menu {
             return;
         }
         for (User member : members) {
-            System.out.println(member);
+            System.out.println(member.getUsername());
         }
     }
 
@@ -66,8 +69,13 @@ public class UserFaction extends Menu {
             System.out.println("Cannot add " + username + " to the group!. You must follow The user");
             return;
         }
-        factionsController.addUserToFaction(group, username);
-        System.out.println(username + " added to the group!");
+        if(factionsController.getGroupMembers(group).stream().noneMatch(it -> it.getUsername().equals(username))) {
+            factionsController.addUserToFaction(group, username);
+            System.out.println(username + " added to the group!");
+        }
+        else{
+            System.out.println("user is already in faction");
+        }
     }
 
     private void deleteUser(String username) {
@@ -84,6 +92,7 @@ public class UserFaction extends Menu {
     private void deleteFaction() {
         factionsController.deleteFaction(group);
         System.out.println("Faction deleted!");
+        new Factions().run();
     }
 
     private HashMap<String, User> extractUserNameToUser(List<User> members) {
@@ -93,11 +102,11 @@ public class UserFaction extends Menu {
     }
 
     private void showOption() {
-        System.out.println("delete -> delete the faction\n" +
-                "delete user : \"username\" -> delete \"username\" from faction\n" +
-                "add user : \"username\" -> add \"username\" to faction\n" +
-                "\"username\" -> see \"username\" profile\n" +
-                "*back -> go to previous menu");
+        System.out.println(ConsoleColors.GREEN +"delete" + ConsoleColors.RESET+" -> delete the faction\n" +
+                ConsoleColors.GREEN + "delete user : \"username\" " + ConsoleColors.RESET+"-> delete \"username\" from faction\n" +
+                ConsoleColors.GREEN + "add user : \"username\" " + ConsoleColors.RESET+"-> add \"username\" to faction\n" +
+                ConsoleColors.GREEN +"\"username\" " + ConsoleColors.RESET+"-> see \"username\" profile\n" +
+                ConsoleColors.GREEN + "*back " + ConsoleColors.RESET+"-> go to previous menu");
     }
 
     @Override

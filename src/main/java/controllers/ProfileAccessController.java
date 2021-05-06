@@ -61,7 +61,13 @@ public class ProfileAccessController {
             if (otherUser.isPublic()){
                 return new PublicProfile(otherUser,previousMenu);
             }
-            return new PrivateProfile(otherUser, previousMenu);
+
+            //have I send request?
+            if (otherUser.getReceiverNotifications().stream().noneMatch(it -> it.getSender().getId() == loggedUserId)) {
+                return new PrivateProfile(otherUser, previousMenu);
+
+            }
+            return new PendingRequestProfile(otherUser,previousMenu);
 
 
         }

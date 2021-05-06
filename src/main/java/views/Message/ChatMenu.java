@@ -61,8 +61,9 @@ public class ChatMenu extends Menu {
         }
         for (Message message : messages) {
             String usernameToShow = message.getSender().getUsername().equals(LoggedUser.getLoggedUser().getUsername()) ?
-                    "You" : message.getReceiver().getUsername();
-            System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+ usernameToShow + " : " + ConsoleColors.BLUE_BOLD+ message.getText() + "\tDate : " + message.getDate().toString()+ConsoleColors.RESET);
+                    "You" : message.getSender().getUsername();
+            System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+ usernameToShow + " : " + ConsoleColors.BLUE_BOLD+ message.getText()
+                    +ConsoleColors.CYAN + "\tDate : " + message.getDate().toString()+ConsoleColors.RESET);
         }
     }
 

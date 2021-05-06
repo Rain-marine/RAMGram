@@ -3,6 +3,7 @@ package views.Message;
 import controllers.MessageController;
 import models.LoggedUser;
 import models.Message;
+import views.ConsoleColors;
 import views.Menu;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +73,8 @@ public class SavedMessageMenu extends Menu {
             return;
         }
         for (Message message : messages) {
-            System.out.println(message.getSender().getUsername() + " : " + message.getText() + "\tDate : " + message.getDate().toString());
+            System.out.println(ConsoleColors.CYAN_BOLD_BRIGHT + message.getSender().getUsername() + " : " + message.getText() +
+                     ConsoleColors.BLUE + "\tDate : " + message.getDate().toString()+ConsoleColors.RESET);
         }
     }
 }

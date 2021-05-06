@@ -57,13 +57,17 @@ public class SettingController {
         userRepository.changePassword(LoggedUser.getLoggedUser().getId(), newPassword);
     }
 
-    public String lastSeenForLoggedUser(User user) {
+    public String lastSeenForLoggedUser(User rawUser) {
+        User user = userRepository.getById(rawUser.getId());
+        long loggedUserId = LoggedUser.getLoggedUser().getId();
         String status = userRepository.getById(user.getId()).getLastSeenStatus();
-        if (status.equals("everybody"))
+        if (user.getFollowings().stream().noneMatch(it -> it.getId() == loggedUserId)){
+            return ("last seen recently");
+        }
+        else if (status.equals("everybody"))
             return (user.getLastSeen().toString());
         else if (status.equals("following")){
             List<User> userFollowing = user.getFollowings();
-            long loggedUserId = LoggedUser.getLoggedUser().getId();
             for (User following : userFollowing) {
                 if (following.getId() == loggedUserId){
                     return (user.getLastSeen().toString());

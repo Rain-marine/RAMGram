@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MessageController;
 import controllers.ProfileAccessController;
 import controllers.TweetController;
 import controllers.UserController;
@@ -16,6 +17,7 @@ public class TweetMenu extends Menu {
     private List<Tweet> tweetsList;
     private int previousMenu;
     private final List<Tweet> parentList;
+    private final MessageController messageController;
 
 
     public TweetMenu(List<Tweet> listOfTweets, int previousMenu) {
@@ -24,6 +26,7 @@ public class TweetMenu extends Menu {
         this.parentList = listOfTweets;
         this.tweetsList = listOfTweets;
         this.previousMenu = previousMenu;
+        this.messageController = new MessageController();
         commands = new HashMap<>() {
             {
                 put("back", 0);
@@ -175,9 +178,18 @@ public class TweetMenu extends Menu {
     }
 
     private void forwardTweet(Tweet tweet) {
-        System.out.println("type username of receiver and press enter");
-        String receiver = scanner.nextLine();
-
+        while(true) {
+            System.out.println("type username of receiver and press enter or *back to return!");
+            String receiver = scanner.nextLine();
+            if(receiver.equals("*back"))
+                return;
+            if(messageController.canSendMessageToUser(receiver)) {
+                messageController.forwardTweet(tweet.getText(), tweet.getUser(), receiver);
+                System.out.println("The tweet forwarded!");
+                return;
+            }
+            System.out.println("The username is invalid!");
+        }
     }
 
     private void showCommands() {

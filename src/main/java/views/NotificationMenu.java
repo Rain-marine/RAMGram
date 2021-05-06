@@ -54,7 +54,7 @@ public class NotificationMenu extends Menu {
                 switch (notification.getType()) {
                     case UNFOLLOW -> System.out.println(notification.getSender().getUsername() + " unfollowed you!");
                     case START_FOLLOW -> System.out.println(notification.getSender().getUsername() + " started follow you!");
-                    case FOLLOW_REQ_REJECT -> System.out.println(notification.getSender().getUsername() + " reject your follow request!");
+                    case FOLLOW_REQ_REJECT -> System.out.println(notification.getSender().getUsername() + " rejected your follow request!");
                 }
                 notificationController.deleteNotification(notification);
             }

@@ -63,10 +63,14 @@ public class PeopleChatListMenu extends Menu{
                     ? chat.getUserChats().get(1)
                     : chat.getUserChats().get(0);
 
-            if (userToShow.isHasSeen())
+            UserChat userToSee = chat.getUserChats().get(0).getUser().getUsername().equals(LoggedUser.getLoggedUser().getUsername())
+                    ? chat.getUserChats().get(0)
+                    : chat.getUserChats().get(1);
+
+            if (userToSee.isHasSeen())
                 System.out.println(userToShow.getUser().getUsername());
             else
-                System.out.println(userToShow.getUser().getUsername() + "\t" + userToShow.getUnseenCount() + " Unseen Message");
+                System.out.println(userToShow.getUser().getUsername() + "\t" + userToSee.getUnseenCount() + " Unseen Message");
         }
     }
 }

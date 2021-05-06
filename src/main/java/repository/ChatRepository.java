@@ -29,7 +29,7 @@ public class ChatRepository {
             cq.select(root);
             cq.where(cb.equal(chatUserJoin.get("user"), userId));
 
-            cq.orderBy(cb.desc(chatUserJoin.get("hasSeen")));
+            cq.orderBy(cb.asc(chatUserJoin.get("hasSeen")));
 
             TypedQuery<Chat> typedQuery = em.createQuery(cq);
 

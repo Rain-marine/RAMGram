@@ -23,8 +23,9 @@ public class FactionsController {
         Group newGroup = new Group(name, loggedUser);
 
         List<User> members = new ArrayList<>();
-        for (String user : users) {
-            members.add(userRepository.getByUsername(user));
+        for (String username : users) {
+            if (members.stream().noneMatch(it -> it.getUsername().equals(username)))
+                members.add(userRepository.getByUsername(username));
         }
         newGroup.setMembers(members);
         factionRepository.insert(newGroup);

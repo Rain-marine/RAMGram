@@ -6,6 +6,11 @@ import javax.persistence.*;
 @Table(name = "user_chat")
 public class UserChat {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_chat_id", unique = true)
+    private long id;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -21,9 +26,14 @@ public class UserChat {
     @Column(name = "unseen_count")
     private int unseenCount;
 
+
     public UserChat(User user, Chat chat) {
         this.user = user;
         this.chat = chat;
+    }
+
+    public UserChat() {
+
     }
 
     public User getUser() {
@@ -56,5 +66,13 @@ public class UserChat {
 
     public void setUnseenCount(int unseenCount) {
         this.unseenCount = unseenCount;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
