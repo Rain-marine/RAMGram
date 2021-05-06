@@ -33,7 +33,6 @@ public class NotificationController {
         User receiver = userRepository.getById(user.getId());
         if(loggedUser.getFollowings().stream().noneMatch(it -> it.getId() == receiver.getId())) {
             Notification followNotification = new Notification(loggedUser, receiver, NotificationType.START_FOLLOW);
-            followNotification.setMessage(NotificationType.START_FOLLOW.getMessage());
             notificationRepository.insert(followNotification);
             notificationRepository.addNewFollower(receiver.getId(), loggedUser.getId());
             notificationRepository.addNewFollowing(loggedUser.getId(), receiver.getId());
@@ -79,7 +78,7 @@ public class NotificationController {
 
     public List<Notification> getFollowingRequestsNotifications() {
         User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
-        List<Notification> notifications = user.getNotifications();
+        List<Notification> notifications = user.getReceiverNotifications();
         List<Notification> followNotification = new ArrayList<>();
         for (Notification notification : notifications) {
             if (notification.getReceiver().getUsername().equals(LoggedUser.getLoggedUser().getUsername())) {
@@ -92,7 +91,7 @@ public class NotificationController {
 
     public List<Notification> getYourFollowingRequestNotification() {
         User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
-        List<Notification> notifications = user.getNotifications();
+        List<Notification> notifications = user.getSenderNotifications();
         List<Notification> followNotification = new ArrayList<>();
         for (Notification notification : notifications) {
             if (notification.getSender().getUsername().equals(LoggedUser.getLoggedUser().getUsername())) {
@@ -105,7 +104,7 @@ public class NotificationController {
 
     public List<Notification> getSystemNotification() {
         User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
-        List<Notification> notifications = user.getNotifications();
+        List<Notification> notifications = user.getReceiverNotifications();
         List<Notification> followNotification = new ArrayList<>();
         for (Notification notification : notifications) {
             if (notification.getReceiver().getUsername().equals(LoggedUser.getLoggedUser().getUsername())) {

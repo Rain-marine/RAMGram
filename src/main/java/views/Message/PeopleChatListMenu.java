@@ -4,6 +4,7 @@ import controllers.ChatController;
 import models.Chat;
 import models.LoggedUser;
 import models.User;
+import models.UserChat;
 import views.Menu;
 
 import java.util.HashMap;
@@ -43,9 +44,9 @@ public class PeopleChatListMenu extends Menu{
     private HashMap<String, Chat> extractUserFromChat(List<Chat> chats) {
         HashMap<String, Chat> usernameToChat = new HashMap<>();
         for (Chat chat : chats) {
-            User userToShow = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
-                    ? chat.getUsers().get(1)
-                    : chat.getUsers().get(0);
+            User userToShow = chat.getUserChats().get(0).getUser().getUsername().equals(LoggedUser.getLoggedUser().getUsername())
+                    ? chat.getUserChats().get(1).getUser()
+                    : chat.getUserChats().get(0).getUser();
             usernameToChat.put(userToShow.getUsername(), chat);
         }
         return usernameToChat;
@@ -58,14 +59,14 @@ public class PeopleChatListMenu extends Menu{
 
     public void showChats(List<Chat> chats) {
         for (Chat chat : chats) {
-            User userToShow = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
-                    ? chat.getUsers().get(1)
-                    : chat.getUsers().get(0);
+            UserChat userToShow = chat.getUserChats().get(0).getUser().getUsername().equals(LoggedUser.getLoggedUser().getUsername())
+                    ? chat.getUserChats().get(1)
+                    : chat.getUserChats().get(0);
 
-            if (chat.isHasSeen())
-                System.out.println(userToShow.getUsername());
+            if (userToShow.isHasSeen())
+                System.out.println(userToShow.getUser().getUsername());
             else
-                System.out.println(userToShow.getUsername() + "\t" + chat.getUnseenCount() + " Unseen Message");
+                System.out.println(userToShow.getUser().getUsername() + "\t" + userToShow.getUnseenCount() + " Unseen Message");
         }
     }
 }

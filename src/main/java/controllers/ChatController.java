@@ -25,7 +25,7 @@ public class ChatController {
     }
 
     public void seeChat(Chat chat) {
-        chatRepository.clearUnSeenCount(chat.getId());
+        chatRepository.clearUnSeenCount(chat.getId(), LoggedUser.getLoggedUser().getId());
     }
 
     public void addMessageToChat(long chatId, String message, User frontUser) {

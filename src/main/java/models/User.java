@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user")
@@ -47,6 +48,13 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
+    public List<Notification> getReceiverNotifications() {
+        return receiverNotifications;
+    }
+
+    public void setReceiverNotifications(List<Notification> receiverNotifications) {
+        this.receiverNotifications = receiverNotifications;
+    }
 
 
     public enum Level {NONE, FOLLOWING, ALL}
@@ -144,8 +152,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
 
+    @OneToMany(mappedBy = "sender")
+    private List<Notification> senderNotifications;
+
     @OneToMany(mappedBy = "receiver")
-    private List<Notification> notifications;
+    private List<Notification> receiverNotifications;
 
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats;
@@ -391,12 +402,12 @@ public class User {
         this.lastSeenStatus = lastSeenStatus;
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
+    public List<Notification> getSenderNotifications() {
+        return senderNotifications;
     }
 
-    public void setNotifications(List notifications) {
-        this.notifications = notifications;
+    public void setSenderNotifications(List notifications) {
+        this.senderNotifications = notifications;
     }
 
     public int getReportedCount() {
@@ -407,8 +418,8 @@ public class User {
         this.reportedCount = reportedCount;
     }
 
-    public List<UserChat> getUserChats() {
-        return userChats;
+    public List<Chat> getChats() {
+        return userChats.stream().map(UserChat::getChat).collect(Collectors.toList());
     }
 
     public void setUserChats(List<UserChat> userChats) {

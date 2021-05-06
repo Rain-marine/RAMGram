@@ -142,7 +142,7 @@ public class MyTweetMenu extends Menu {
             if(receiver.equals("*back"))
                 return;
             if(messageController.canSendMessageToUser(receiver)) {
-                messageController.sendMessageToUser(tweet.getText(), tweet.getUser(), receiver);
+                messageController.forwardTweet(tweet.getText(), tweet.getUser(), receiver);
                 System.out.println("The tweet forwarded!");
                 return;
             }

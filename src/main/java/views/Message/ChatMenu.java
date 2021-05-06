@@ -21,9 +21,9 @@ public class ChatMenu extends Menu {
 
     public ChatMenu(Chat chat, Menu previousMenu) {
         this.chat = chat;
-        this.frontUser = chat.getUsers().get(0).getUsername().equals(LoggedUser.getLoggedUser().getUsername())
-                ? chat.getUsers().get(1)
-                : chat.getUsers().get(0);
+        this.frontUser = chat.getUserChats().get(0).getUser().getUsername().equals(LoggedUser.getLoggedUser().getUsername())
+                ? chat.getUserChats().get(1).getUser()
+                : chat.getUserChats().get(0).getUser();
         this.previousMenu = previousMenu;
         chatController = new ChatController();
     }

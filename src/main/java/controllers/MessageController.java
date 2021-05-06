@@ -66,12 +66,12 @@ public class MessageController {
 
     public void sendMessage(String message, List<String> users, List<String> groupsToSendMessage) {
         User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
-        List<Chat> chats = user.getUserChats();
+        List<Chat> userChats = user.getChats();
         List<Group> groups = user.getGroups();
         HashMap<String, Group> groupNameToGroup = extractGroupNameToGroup(groups);
 
-        sendMessageToUsers(message, users, chats);
-        sendMessageToGroups(message, groupsToSendMessage, groupNameToGroup, chats);
+        sendMessageToUsers(message, users, userChats);
+        sendMessageToGroups(message, groupsToSendMessage, groupNameToGroup, userChats);
     }
 
     private void sendMessageToGroups(String message, List<String> groupsToSendMessage, HashMap<String, Group> groups, List<Chat> chats) {
@@ -89,9 +89,9 @@ public class MessageController {
             User receiver = userRepository.getByUsername(user);
             Message newMessage = new Message(message, loggedUser, receiver);
             for (Chat chat : chats) {
-                if (chat.getUsers().size() == 2 &&
-                        (chat.getUsers().get(0).getUsername().equals(user)
-                                || chat.getUsers().get(1).getUsername().equals(user))) {
+                if (chat.getUserChats().size() == 2 &&
+                        (chat.getUserChats().get(0).getUser().getUsername().equals(user)
+                                || chat.getUserChats().get(1).getUser().getUsername().equals(user))) {
                     chatRepository.addMessageToChat(chat.getId(), newMessage);
                     hasSent = true;
                     break;
@@ -109,8 +109,8 @@ public class MessageController {
                         add(newMessage);
                     }
                 });
-                newChat.setHasSeen(false);
-                newChat.setUnseenCount(1);
+                newChat.getUserChats().get(1).setHasSeen(false);
+                newChat.getUserChats().get(1).setUnseenCount(1);
                 chatRepository.insert(newChat);
             }
         }
@@ -127,16 +127,17 @@ public class MessageController {
         return groupNameToGroup;
     }
 
-    public void sendMessageToUser(String text, User tweetUser, String receiver) {
+    public void forwardTweet(String text, User tweetUser, String receiver) {
         String message = "Tweet forwarded from " + tweetUser.getUsername() + "\n" + text;
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         User receiveUser = userRepository.getByUsername(receiver);
         Message newMessage = new Message(message, loggedUser, receiveUser);
+        newMessage.setGrandSender(tweetUser);
 
-        for (Chat chat : loggedUser.getUserChats()) {
-            if (chat.getUsers().size() == 2 &&
-                    (chat.getUsers().get(0).getUsername().equals(receiver)
-                            || chat.getUsers().get(1).getUsername().equals(receiver))) {
+        for (Chat chat : loggedUser.getChats()) {
+            if (chat.getUserChats().size() == 2 &&
+                    (chat.getUserChats().get(0).getUser().getUsername().equals(receiver)
+                            || chat.getUserChats().get(1).getUser().getUsername().equals(receiver))) {
                 chatRepository.addMessageToChat(chat.getId(), newMessage);
                 return;
             }
@@ -152,18 +153,18 @@ public class MessageController {
                 add(newMessage);
             }
         });
-        newChat.setHasSeen(false);
-        newChat.setUnseenCount(1);
+        newChat.getUserChats().get(1).setHasSeen(false);
+        newChat.getUserChats().get(1).setUnseenCount(1);
         chatRepository.insert(newChat);
     }
 
     public Chat getChatWithUsername(String username) {
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         User receiveUser = userRepository.getByUsername(username);
-        for (Chat chat : loggedUser.getUserChats()) {
-            if (chat.getUsers().size() == 2 &&
-                    (chat.getUsers().get(0).getUsername().equals(username)
-                            || chat.getUsers().get(1).getUsername().equals(username)))
+        for (Chat chat : loggedUser.getChats()) {
+            if (chat.getUserChats().size() == 2 &&
+                    (chat.getUserChats().get(0).getUser().getUsername().equals(username)
+                            || chat.getUserChats().get(1).getUser().getUsername().equals(username)))
                 return chat;
         }
 
