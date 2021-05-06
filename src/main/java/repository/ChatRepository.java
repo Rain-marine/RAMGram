@@ -108,4 +108,14 @@ public class ChatRepository {
             em.close();
         }
     }
+
+    public Chat getById(long chatId) {
+        EntityManager em = EntityManagerProvider.getEntityManager();
+
+        try {
+            return em.find(Chat.class, chatId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

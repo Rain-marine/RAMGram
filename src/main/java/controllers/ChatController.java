@@ -7,7 +7,9 @@ import models.User;
 import repository.ChatRepository;
 import repository.UserRepository;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChatController {
     private final ChatRepository chatRepository;
@@ -31,5 +33,10 @@ public class ChatController {
                 userRepository.getById(LoggedUser.getLoggedUser().getId()),
                 userRepository.getById(frontUser.getId()));
         chatRepository.addMessageToChat(chatId, newMessage);
+    }
+
+    public List<Message> getMessages(Chat chat) {
+        Chat freshChat = chatRepository.getById(chat.getId());
+        return freshChat.getMessages().stream().sorted(Comparator.comparing(Message::getDate)).collect(Collectors.toList());
     }
 }
