@@ -47,6 +47,14 @@ public class Message {
 
     }
 
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public long getId() {
         return id;
     }

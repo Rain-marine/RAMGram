@@ -47,13 +47,7 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
-    public List<Chat> getUserChats() {
-        return userChats;
-    }
 
-    public void setUserChats(List<Chat> userChats) {
-        this.userChats = userChats;
-    }
 
     public enum Level {NONE, FOLLOWING, ALL}
 
@@ -153,12 +147,8 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Notification> notifications;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_chat",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id"))
-    private List<Chat> userChats;
+    @OneToMany(mappedBy = "user")
+    private List<UserChat> userChats;
 
     public User() {
 
@@ -415,5 +405,13 @@ public class User {
 
     public void setReportedCount(int reportedCount) {
         this.reportedCount = reportedCount;
+    }
+
+    public List<UserChat> getUserChats() {
+        return userChats;
+    }
+
+    public void setUserChats(List<UserChat> userChats) {
+        this.userChats = userChats;
     }
 }

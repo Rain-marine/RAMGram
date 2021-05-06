@@ -3,6 +3,7 @@ package repository;
 import models.Chat;
 import models.Message;
 import models.User;
+import models.UserChat;
 import repository.utils.EntityManagerProvider;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -23,12 +24,12 @@ public class ChatRepository {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Chat> cq = cb.createQuery(Chat.class);
             Root<Chat> root = cq.from(Chat.class);
-            Join<Chat, User> chatUserJoin = root.join("users");
+            Join<Chat, UserChat> chatUserJoin = root.join("userChats");
 
             cq.select(root);
-            cq.where(cb.equal(chatUserJoin.get("id"), userId));
+            cq.where(cb.equal(chatUserJoin.get("user"), userId));
 
-            cq.orderBy(cb.desc(root.get("hasSeen")));
+            cq.orderBy(cb.desc(chatUserJoin.get("hasSeen")));
 
             TypedQuery<Chat> typedQuery = em.createQuery(cq);
 
@@ -49,8 +50,12 @@ public class ChatRepository {
             et = em.getTransaction();
             et.begin();
             Chat chat = em.find(Chat.class, chatId);
-            chat.setUnseenCount(chat.getUnseenCount() + 1);
-            chat.setHasSeen(false);
+            UserChat userChat = chat.getUserChats().stream()
+                    .filter(it -> it.getUser().getId() == message.getReceiver().getId())
+                    .findAny().orElseThrow();
+            userChat.setUnseenCount(userChat.getUnseenCount() + 1);
+            userChat.setHasSeen(false);
+            message.setChat(chat);
             chat.getMessages().add(message);
             em.persist(chat);
             et.commit();
@@ -84,7 +89,7 @@ public class ChatRepository {
         }
     }
 
-    public void clearUnSeenCount(long chatId) {
+    public void clearUnSeenCount(long chatId , long userId) {
         //set unseen count to 0
         // set hasSeen to true
 
@@ -94,8 +99,11 @@ public class ChatRepository {
             et = em.getTransaction();
             et.begin();
             Chat chat = em.find(Chat.class, chatId);
-            chat.setUnseenCount(0);
-            chat.setHasSeen(true);
+            UserChat userChat = chat.getUserChats().stream()
+                    .filter(it -> it.getUser().getId() == userId)
+                    .findAny().orElseThrow();
+            userChat.setUnseenCount(0);
+            userChat.setHasSeen(true);
             em.persist(chat);
             et.commit();
         } catch (Exception e) {

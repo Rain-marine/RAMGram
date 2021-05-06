@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "chat")
@@ -12,27 +13,18 @@ public class Chat {
     @Column(name = "chat_id", unique = true)
     private long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_chat",
-            joinColumns = @JoinColumn(name = "chat_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+
+    @OneToMany(mappedBy = "chat",cascade = CascadeType.ALL)
+    private List<UserChat> userChats;
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.PERSIST)
     private List<Message> messages;
-
-    @Column(name = "has_seen")
-    private boolean hasSeen;
-
-    @Column(name = "unseen_count")
-    private int unseenCount;
 
     public Chat() {
     }
 
     public Chat(List<User> users){
-        this.users = users;
+        userChats = users.stream().map(it -> new UserChat(it,this)).collect(Collectors.toList());
     };
 
     public long getId() {
@@ -47,27 +39,11 @@ public class Chat {
         this.messages = messages;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserChat> getUserChats() {
+        return userChats;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public boolean isHasSeen() {
-        return hasSeen;
-    }
-
-    public void setHasSeen(boolean hasSeen) {
-        this.hasSeen = hasSeen;
-    }
-
-    public int getUnseenCount() {
-        return unseenCount;
-    }
-
-    public void setUnseenCount(int unseenCount) {
-        this.unseenCount = unseenCount;
+    public void setUserChats(List<UserChat> userChats) {
+        this.userChats = userChats;
     }
 }
