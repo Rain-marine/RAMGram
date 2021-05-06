@@ -19,10 +19,12 @@ public class MessageMenu extends Menu {
 
     @Override
     public void run() {
-        System.out.println("**Message Menu**");
-        showOption();
+
         while (true) {
+            System.out.println("**Message Menu**");
             System.out.println("You are in message menu, type your request");
+            showOption();
+
             String input = scanner.nextLine();
             if (!options.contains(input)) {
                 System.out.println("Invalid input!");
@@ -100,7 +102,7 @@ public class MessageMenu extends Menu {
         System.out.println("saved messages -> see messages that you type for yourself or forwarded from your chats!\n" +
                 "saved tweets -> see tweets that saved for yourself!\n" +
                 "new message -> send message to your follower/following or groups!\n" +
-                "people message -> see your chats with your follower/following\n" +
+                "people messages -> see your chats with your follower/following\n" +
                 "back -> back to previous menu!");
     }
 

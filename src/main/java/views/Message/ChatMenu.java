@@ -5,6 +5,7 @@ import models.Chat;
 import models.LoggedUser;
 import models.Message;
 import models.User;
+import views.ConsoleColors;
 import views.Menu;
 
 import java.util.Comparator;
@@ -31,7 +32,7 @@ public class ChatMenu extends Menu {
     public void run() {
         chatController.seeChat(chat);
         List<Message> messages = chatController.getMessages(chat);
-        System.out.println(frontUser.getUsername() + "\t" + frontUser.getLastSeen()); // fix last seen
+        System.out.println(frontUser.getUsername()); // fix last seen
         showMessages(messages);
         while (true) {
             System.out.println("You are in " + frontUser.getUsername() + " direct!\n type \"new message\" to send message or any key to back");
@@ -61,7 +62,7 @@ public class ChatMenu extends Menu {
         for (Message message : messages) {
             String usernameToShow = message.getSender().getUsername().equals(LoggedUser.getLoggedUser().getUsername()) ?
                     "You" : message.getReceiver().getUsername();
-            System.out.println(usernameToShow + " : " + message.getText() + "\tDate : " + message.getDate().toString());
+            System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+ usernameToShow + " : " + ConsoleColors.BLUE_BOLD+ message.getText() + "\tDate : " + message.getDate().toString()+ConsoleColors.RESET);
         }
     }
 

@@ -17,10 +17,11 @@ public class NotificationMenu extends Menu {
 
     @Override
     public void run() {
-        System.out.println("**Notification Menu**");
-        showOptions();
+
         Input:
         while (true) {
+            System.out.println("**Notification Menu**");
+            showOptions();
             System.out.println("You are in notification menu! enter your request!");
             String input = scanner.nextLine();
             if (!options.contains(input)) {
