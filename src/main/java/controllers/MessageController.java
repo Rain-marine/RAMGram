@@ -104,14 +104,9 @@ public class MessageController {
                         add(receiver);
                     }
                 });
-                newChat.setMessages(new ArrayList<>() {
-                    {
-                        add(newMessage);
-                    }
-                });
-                newChat.getUserChats().get(1).setHasSeen(false);
-                newChat.getUserChats().get(1).setUnseenCount(1);
                 chatRepository.insert(newChat);
+                Chat chat = getChatWithUsername(receiver.getUsername());
+                chatRepository.addMessageToChat(chat.getId(),newMessage);
             }
         }
     }
