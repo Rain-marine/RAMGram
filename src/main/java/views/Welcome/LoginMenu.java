@@ -28,6 +28,7 @@ public class LoginMenu extends Menu {
         try {
             User user = authController.login(username, password);
             if(user.isActive()) {
+                log.info(username + " logged in");
                 System.out.println("login successful. press enter to continue");
                 scanner.nextLine();
                 getMenu(1).run();

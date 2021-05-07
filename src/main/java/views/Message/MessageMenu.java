@@ -71,16 +71,25 @@ public class MessageMenu extends Menu {
             }
             if (inputSplit[0].trim().equals("User")) {
                 if (messageController.canSendMessageToUser(inputSplit[1].trim())) {
-                    users.add(inputSplit[1].trim());
-                    System.out.println("Added! type another username or groupName!");
+                    if (!users.contains("inputSplit[1].trim()")) {
+                        users.add(inputSplit[1].trim());
+                        System.out.println("Added! type another username or groupName!");
+                    }
+                    else
+                        System.out.println("duplicate name!");
                 } else
                     System.out.println("You cannot send message to this user! type another username!");
                 continue;
             }
             if (messageController.canSendMessageToGroup(inputSplit[1].trim())) {
-                groups.add(inputSplit[1].trim());
-                System.out.println("Added! type another username or groupName!");
-            } else {
+                if(!groups.contains(inputSplit[1].trim())) {
+                    groups.add(inputSplit[1].trim());
+                    System.out.println("Added! type another username or groupName!");
+                }
+                else
+                    System.out.println("duplicate name");
+            }
+            else {
                 System.out.println("You cannot send message to this Group! type another GroupName!");
             }
         }

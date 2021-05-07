@@ -69,7 +69,7 @@ public class PeopleChatListMenu extends Menu{
 
             if (userToSee.isHasSeen())
                 System.out.println(userToShow.getUser().getUsername());
-            else
+            else if (userToSee.getUnseenCount()!=0)
                 System.out.println(userToShow.getUser().getUsername() + "\t" + userToSee.getUnseenCount() + " Unseen Message");
         }
     }

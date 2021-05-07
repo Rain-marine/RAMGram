@@ -1,11 +1,12 @@
 package views;
 
-import views.profiles.FollowingProfile;
-
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Scanner;
 
 public abstract class Menu {
+    protected final static Logger log = LogManager.getLogger(Menu.class);
     protected static Scanner scanner = new Scanner(System.in);
     protected List<String> options;
 

@@ -4,6 +4,8 @@ import models.Chat;
 import models.LoggedUser;
 import models.Message;
 import models.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import repository.ChatRepository;
 import repository.UserRepository;
 
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChatController {
+    private final static Logger log = LogManager.getLogger(ChatController.class);
     private final ChatRepository chatRepository;
     private final UserRepository userRepository;
 

@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import repository.FactionRepository;
 import repository.NotificationRepository;
 import repository.UserRepository;
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
 
 
 public class NotificationController {
+    private final static Logger log = LogManager.getLogger(NotificationController.class);
     private final NotificationRepository notificationRepository;
     private final FactionRepository factionRepository;
     private final UserRepository userRepository;
@@ -51,7 +54,7 @@ public class NotificationController {
         notificationRepository.removeFromFollowings(loggedUser.getId(), receiver.getId());
         notificationRepository.removeFromFollowers(receiver.getId(), loggedUser.getId());
 
-        for (Group group : loggedUser.getGroups()) {
+        for (Group group : userRepository.getById(LoggedUser.getLoggedUser().getId()).getGroups()) {
             for (User member : group.getMembers()) {
                 if (member.getUsername().equals(receiver.getUsername())) {
                     factionRepository.removeUserFromGroup(receiver.getId(), group.getId());
@@ -138,13 +141,16 @@ public class NotificationController {
 
     public void deleteNotification(Notification notification) {
         notificationRepository.deleteNotification(notification.getId());
+        User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
+        loggedUser.getReceiverNotifications().remove(notification);
     }
 
     public void deleteRequest(User rawUser) {
         User user = userRepository.getById(rawUser.getId());
         long loggedUserId = LoggedUser.getLoggedUser().getId();
         Notification request = user.getReceiverNotifications().stream()
-                .filter(it -> it.getSender().getId() == loggedUserId).collect(Collectors.toList()).get(0);
+                .filter(it -> ((it.getSender().getId() == loggedUserId) && (it.getType() == NotificationType.FOLLOW_REQ)))
+                .collect(Collectors.toList()).get(0);
         notificationRepository.deleteNotification(request.getId());
     }
 }

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+
 }
 
 
@@ -12,6 +13,7 @@ repositories {
 
 
 
+
 dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
@@ -19,13 +21,17 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     compile 'org.hibernate:hibernate-core:5.4.30.Final'
-//    classpath 'mysql:mysql-connector-java:5.1.34'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+    //classpath 'mysql:mysql-connector-java:5.1.34'
     runtime 'mysql:mysql-connector-java:8.0.18'
 //    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.30.Final'
 //    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
-
 }
+
+
 
 test {
     useJUnitPlatform()
+
 }

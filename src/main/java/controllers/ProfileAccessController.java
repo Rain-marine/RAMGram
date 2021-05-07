@@ -1,6 +1,7 @@
 package controllers;
 
 import models.LoggedUser;
+import models.NotificationType;
 import models.User;
 import repository.UserRepository;
 import views.Menu;
@@ -63,11 +64,13 @@ public class ProfileAccessController {
             }
 
             //have I send request?
-            if (otherUser.getReceiverNotifications().stream().noneMatch(it -> it.getSender().getId() == loggedUserId)) {
-                return new PrivateProfile(otherUser, previousMenu);
+            if (otherUser.getReceiverNotifications().stream().anyMatch(it -> ((it.getSender().getId() == loggedUserId)
+            && (it.getType() == NotificationType.FOLLOW_REQ)))) {
+                return new PendingRequestProfile(otherUser,previousMenu);
 
             }
-            return new PendingRequestProfile(otherUser,previousMenu);
+            return new PrivateProfile(otherUser, previousMenu);
+
 
 
         }

@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import repository.ChatRepository;
 import repository.MessageRepository;
 import repository.UserRepository;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MessageController {
+    private final static Logger log = LogManager.getLogger(MessageController.class);
     private final MessageRepository messageRepository;
     private final ChatRepository chatRepository;
     private final UserRepository userRepository;

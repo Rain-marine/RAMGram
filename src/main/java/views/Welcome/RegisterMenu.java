@@ -46,6 +46,7 @@ public class RegisterMenu extends Menu {
             if(registerSuccessful){
                 System.out.println("register successful!");
                 registerManager.makeNewUser(fullName,username,password,email,phoneNumber,bio,birthDate);
+                log.info("User " + username + " registered");
             }
 
         } while (!registerSuccessful);

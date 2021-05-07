@@ -28,12 +28,12 @@ public class UserController {
                 notificationRepository.removeFromFollowers(loggedUser.getId(), user.getId());
                 break;
             }
-        for (User user : loggedUser.getFollowings())
+        for (User user : userRepository.getById(LoggedUser.getLoggedUser().getId()).getFollowings())
             if(user.getUsername().equals(userToBlock.getUsername())) {
                 notificationRepository.removeFromFollowings(loggedUser.getId(), user.getId());
                 break;
             }
-        for (Group group : loggedUser.getGroups()) {
+        for (Group group : userRepository.getById(LoggedUser.getLoggedUser().getId()).getGroups()) {
             for (User member : group.getMembers()) {
                 if(member.getUsername().equals(userToBlock.getUsername())) {
                     factionRepository.removeUserFromGroup(member.getId(), group.getId());

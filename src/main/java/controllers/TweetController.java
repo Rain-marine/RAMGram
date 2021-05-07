@@ -3,6 +3,7 @@ package controllers;
 import models.LoggedUser;
 import models.Tweet;
 import models.User;
+import repository.FactionRepository;
 import repository.TweetRepository;
 import repository.UserRepository;
 
@@ -15,11 +16,13 @@ public class TweetController {
 
     private final UserRepository userRepository;
     private final TweetRepository tweetRepository;
+    private final FactionsController factionsController;
 
     public TweetController() {
 
         userRepository = new UserRepository();
         tweetRepository = new TweetRepository();
+        factionsController = new FactionsController();
     }
 
 
@@ -57,7 +60,7 @@ public class TweetController {
     public List<Tweet> getFollowingTweets() {
         List<Tweet> followingTweets = new ArrayList<>();
         User currentUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
-        List<User> following = currentUser.getFollowings();
+        List<User> following = factionsController.getActiveFollowings();
         List<User> muted = currentUser.getMutedUsers();
 
         for (User user : following) {

@@ -3,6 +3,8 @@ package controllers;
 import models.Group;
 import models.LoggedUser;
 import models.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import repository.FactionRepository;
 import repository.UserRepository;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FactionsController {
+    private final static Logger log = LogManager.getLogger(FactionsController.class);
     private final UserRepository userRepository;
     private final FactionRepository factionRepository;
 
