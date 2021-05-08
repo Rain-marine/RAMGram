@@ -1,7 +1,5 @@
 package models;
 
-import javafx.scene.image.Image;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +16,6 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    private Image profilePhoto;
-    //todo
 
     @Column(name = "full_name")
     private String fullName;
