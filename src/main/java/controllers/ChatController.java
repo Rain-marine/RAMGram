@@ -36,6 +36,7 @@ public class ChatController {
                 userRepository.getById(LoggedUser.getLoggedUser().getId()),
                 userRepository.getById(frontUser.getId()));
         chatRepository.addMessageToChat(chatId, newMessage);
+        log.info("user " + LoggedUser.getLoggedUser().getUsername() + " sent a message to "+frontUser.getUsername());
     }
 
     public List<Message> getMessages(Chat chat) {

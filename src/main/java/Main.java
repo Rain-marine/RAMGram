@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 
 public class Main extends Application {
-    static Logger log = LogManager.getLogger(Main.class);
+    public static Logger log = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
        log.info("Application Started");
         MenuManager manager = new MenuManager(new Scanner(System.in));

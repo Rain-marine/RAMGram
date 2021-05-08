@@ -21,6 +21,10 @@
             <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
         </File>
 
+        <File name="Type" fileName="./src/main/resources/logs/type.log" immediateFlush="true" append="false">
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+
     </Appenders>
 
     <Loggers>
@@ -39,6 +43,10 @@
         </Logger>
 
         <Logger name="org.hibernate.transaction" level="debug" additivity="false">
+            <AppenderRef ref="Transaction" />
+        </Logger>
+
+        <Logger name="org.hibernate.type" level="trace" additivity="false">
             <AppenderRef ref="Transaction" />
         </Logger>
 
