@@ -1,7 +1,5 @@
 package models;
 
-import javafx.scene.image.Image;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -42,10 +40,16 @@ public class Message {
     @JoinColumn(name = "chat_id")
     private Chat chat;
 
-    public Message(String text, User sender, User receiver) {
+    public Message(String text, byte[] image, User sender) {
         this.date = new Date();
         this.text = text;
+        this.image = image;
         this.sender = sender;
+        this.grandSender = sender;
+    }
+
+    public Message(String text, byte[] image, User sender, User receiver) {
+        this(text, image, sender);
         this.receiver = receiver;
     }
 

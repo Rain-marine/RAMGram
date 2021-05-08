@@ -87,4 +87,8 @@ public class UserController {
     public boolean isAccountPublic(String username) {
         return userRepository.getByUsername(username).isPublic();
     }
+
+    public void changeProfilePhoto(byte[] newPhoto){
+        userRepository.changeProfilePhoto(LoggedUser.getLoggedUser().getId(), newPhoto);
+    }
 }

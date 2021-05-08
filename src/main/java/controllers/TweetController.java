@@ -19,15 +19,14 @@ public class TweetController {
     private final FactionsController factionsController;
 
     public TweetController() {
-
         userRepository = new UserRepository();
         tweetRepository = new TweetRepository();
         factionsController = new FactionsController();
     }
 
 
-    public void addTweet(String text){
-        Tweet tweet = new Tweet(LoggedUser.getLoggedUser(),text);
+    public void addTweet(String text, byte[] image){
+        Tweet tweet = new Tweet(LoggedUser.getLoggedUser(),text, image);
         tweetRepository.insert(tweet);
     }
 
@@ -93,10 +92,9 @@ public class TweetController {
 
     }
 
-    public void addComment(String comment, Tweet rawParentTweet) {
+    public void addComment(String comment,byte[] image , Tweet rawParentTweet) {
         Tweet parentTweet = tweetRepository.getById(rawParentTweet.getId());
-        Tweet commentTweet = new Tweet(userRepository.getById(LoggedUser.getLoggedUser().getId()),comment);
-        //tweetRepository.insert(commentTweet);
+        Tweet commentTweet = new Tweet(userRepository.getById(LoggedUser.getLoggedUser().getId()),comment, image);
         tweetRepository.addComment(parentTweet,commentTweet);
     }
 

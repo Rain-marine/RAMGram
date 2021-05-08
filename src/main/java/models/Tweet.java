@@ -54,13 +54,12 @@ public class Tweet {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> usersRetweeted;
 
-    public Tweet() {
-    }
 
-    public Tweet(User user, String text) {
+    public Tweet(User user, String text, byte[] image) {
         this.user = user;
         this.tweetDateTime = new Date();
         this.text = text;
+        this.image = image;
     }
 
 
@@ -123,5 +122,13 @@ public class Tweet {
 
     public void setParentTweet(Tweet parentTweet) {
         this.parentTweet = parentTweet;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

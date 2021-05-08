@@ -51,9 +51,9 @@ public class ChatRepository {
             et.begin();
             Chat chat = em.find(Chat.class, chatId);
             UserChat userChat = chat.getUserChats().stream()
-                    .filter(it -> it.getUser().getId() == message.getReceiver().getId())
-                    .findAny().orElseThrow();
-            userChat.setUnseenCount(userChat.getUnseenCount() + 1);
+                    .filter(it -> it.getUser().getId() == message.getReceiver().getId()) // todo : it.getUser().getId() == message.getReceiver().getId() -> it.getUser().getId() != message.getSender().getId()
+                    .findAny().orElseThrow(); //todo :  remove findAny()
+            userChat.setUnseenCount(userChat.getUnseenCount() + 1); // todo : unseen count of all users except sender must increase
             userChat.setHasSeen(false);
             message.setChat(chat);
             chat.getMessages().add(message);
@@ -125,5 +125,9 @@ public class ChatRepository {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public void addMemberToGroupChat(long chatId, UserChat userChat) {
+        //add userChat to chatId chat
     }
 }

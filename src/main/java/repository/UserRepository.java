@@ -514,4 +514,7 @@ public class UserRepository {
         }
     }
 
+    public void changeProfilePhoto(long userId, byte[] newPhoto) {
+
+    }
 }

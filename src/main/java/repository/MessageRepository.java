@@ -47,4 +47,12 @@ public class MessageRepository {
             em.close();
         }
     }
+
+    public void delete(long messageId) {
+
+    }
+
+    public void editMessageText(long messageId, String newText) {
+        //message.setText(newText);
+    }
 }

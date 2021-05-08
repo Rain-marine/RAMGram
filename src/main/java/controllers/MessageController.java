@@ -67,30 +67,30 @@ public class MessageController {
         return false;
     }
 
-    public void sendMessage(String message, List<String> users, List<String> groupsToSendMessage) {
+    public void sendMessage(String message, byte[] image, List<String> users, List<String> groupsToSendMessage) {
         User user = userRepository.getById(LoggedUser.getLoggedUser().getId());
         List<Chat> userChats = user.getChats();
         List<Group> groups = user.getGroups();
         HashMap<String, Group> groupNameToGroup = extractGroupNameToGroup(groups);
 
-        sendMessageToUsers(message, users, userChats);
-        sendMessageToGroups(message, groupsToSendMessage, groupNameToGroup, userChats);
+        sendMessageToUsers(message,image, users, userChats);
+        sendMessageToGroups(message, image, groupsToSendMessage, groupNameToGroup, userChats);
     }
 
-    private void sendMessageToGroups(String message, List<String> groupsToSendMessage, HashMap<String, Group> groups, List<Chat> chats) {
+    private void sendMessageToGroups(String message, byte[] image, List<String> groupsToSendMessage, HashMap<String, Group> groups, List<Chat> chats) {
         for (String groupName : groupsToSendMessage) {
             List<String> users = new ArrayList<>();
             groups.get(groupName).getMembers().forEach(member -> users.add(member.getUsername()));
-            sendMessageToUsers(message, users, chats);
+            sendMessageToUsers(message, image, users, chats);
         }
     }
 
-    private void sendMessageToUsers(String message, List<String> users, List<Chat> chats) {
+    private void sendMessageToUsers(String message, byte[] image, List<String> users, List<Chat> chats) {
         for (String user : users) {
             boolean hasSent = false;
             User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
             User receiver = userRepository.getByUsername(user);
-            Message newMessage = new Message(message, loggedUser, receiver);
+            Message newMessage = new Message(message, image, loggedUser, receiver);
             for (Chat chat : chats) {
                 if (chat.getUserChats().size() == 2 &&
                         (chat.getUserChats().get(0).getUser().getUsername().equals(user)
@@ -125,11 +125,11 @@ public class MessageController {
         return groupNameToGroup;
     }
 
-    public void forwardTweet(String text, User tweetUser, String receiver) {
-        String message = "Tweet forwarded from " + tweetUser.getUsername() + "\n" + text;
+    public void forwardTweet(Tweet tweet, User tweetUser, String receiver) {
+        String message = "Tweet forwarded from " + tweetUser.getUsername() + "\n" + tweet.getText();
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         User receiveUser = userRepository.getByUsername(receiver);
-        Message newMessage = new Message(message, loggedUser, receiveUser);
+        Message newMessage = new Message(message, tweet.getImage(), loggedUser, receiveUser);
         newMessage.setGrandSender(tweetUser);
 
         for (Chat chat : loggedUser.getChats()) {
@@ -175,5 +175,13 @@ public class MessageController {
         newChat.setMessages(new ArrayList<>());
         chatRepository.insert(newChat);
         return null;
+    }
+
+    public void deleteMessage(Message message) {
+        messageRepository.delete(message.getId());
+    }
+
+    public void editMessage(Message message, String newText) {
+        messageRepository.editMessageText(message.getId(), newText);
     }
 }
