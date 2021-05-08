@@ -183,4 +183,7 @@ public class TweetRepository {
     }
 
 
+    public void delete(long tweetId) {
+        //delete the tweet from DB
+    }
 }

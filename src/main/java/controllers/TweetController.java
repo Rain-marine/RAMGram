@@ -82,8 +82,15 @@ public class TweetController {
     }
 
     public void reportSpam(Tweet currentTweet) {
-        tweetRepository.increaseReportCount(currentTweet.getId());
-        userRepository.addReportedTweet(currentTweet.getId(), LoggedUser.getLoggedUser().getId());
+        Tweet reportedTweet = tweetRepository.getById(currentTweet.getId());
+        if (reportedTweet.getReportCounter() >= 2 ){
+            tweetRepository.delete(reportedTweet.getId());
+        }
+        else {
+            tweetRepository.increaseReportCount(currentTweet.getId());
+            userRepository.addReportedTweet(currentTweet.getId(), LoggedUser.getLoggedUser().getId());
+        }
+
     }
 
     public void addComment(String comment, Tweet rawParentTweet) {
