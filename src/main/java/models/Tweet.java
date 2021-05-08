@@ -1,5 +1,7 @@
 package models;
 
+import javafx.scene.image.Image;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,9 @@ public class Tweet {
     @ManyToOne
     @JoinColumn(name = "user")
     private User user;
+
+    private Image image;
+    //todo
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(

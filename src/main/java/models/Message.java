@@ -1,5 +1,7 @@
 package models;
 
+import javafx.scene.image.Image;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,9 @@ public class Message {
 
     @Column(name = "text")
     private String text;
+
+    private Image image;
+    //todo
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
