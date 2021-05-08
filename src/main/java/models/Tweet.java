@@ -19,8 +19,9 @@ public class Tweet {
     @JoinColumn(name = "user")
     private User user;
 
-    private Image image;
-    //todo
+    @Lob
+    @Column(name = "image", columnDefinition = "mediumblob")
+    private byte[] image;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(

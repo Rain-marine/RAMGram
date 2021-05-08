@@ -18,8 +18,9 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    private Image profilePhoto;
-    //todo
+    @Lob
+    @Column(name = "profile_photo", columnDefinition = "mediumblob")
+    private byte[] profilePhoto;
 
     @Column(name = "full_name")
     private String fullName;

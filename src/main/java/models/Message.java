@@ -17,8 +17,9 @@ public class Message {
     @Column(name = "text")
     private String text;
 
-    private Image image;
-    //todo
+    @Lob
+    @Column(name = "image", columnDefinition = "mediumblob")
+    private byte[] image;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
