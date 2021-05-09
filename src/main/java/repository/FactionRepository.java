@@ -1,12 +1,18 @@
 package repository;
 
+import controllers.FactionsController;
 import models.Group;
+import models.LoggedUser;
 import models.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import repository.utils.EntityManagerProvider;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 public class FactionRepository {
+    private final static Logger log = LogManager.getLogger(FactionRepository.class);
+
     public void insert(Group newGroup) {
         EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
@@ -86,12 +92,16 @@ public class FactionRepository {
         EntityManager em = EntityManagerProvider.getEntityManager();
         EntityTransaction et = null;
         try {
+            String factionName = getFactionById(id).getName();
             et = em.getTransaction();
             et.begin();
             Group object = em.find(Group.class, id);
             em.remove(object);
             et.commit();
+            log.info("user " + LoggedUser.getLoggedUser().getUsername() + " deleted faction: "+ factionName);
+
         } catch (Exception e) {
+            log.error("faction " +id +" deleting failed: error:  "+ e.getMessage());
             System.err.println(e.getMessage());
             if (et != null) {
                 et.rollback();
@@ -111,7 +121,9 @@ public class FactionRepository {
             group.getMembers().remove(user);
             em.persist(group);
             et.commit();
+            log.info("user got removed from faction");
         } catch (Exception e) {
+            log.error("removing user from faction failed. error:  " + e.getMessage());
             System.err.println(e.getMessage());
             if (et != null) {
                 et.rollback();
@@ -133,7 +145,9 @@ public class FactionRepository {
             group.getMembers().add(user);
             em.persist(group);
             et.commit();
+            log.info("user added to faction successfully");
         } catch (Exception e) {
+            log.error("adding user " + userId +" to faction " + groupId + " failed. error: " + e.getMessage());
             System.err.println(e.getMessage());
             if (et != null) {
                 et.rollback();
