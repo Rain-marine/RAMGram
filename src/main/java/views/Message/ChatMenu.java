@@ -48,7 +48,7 @@ public class ChatMenu extends Menu {
     private void getNewMessage() {
         System.out.println("Type your message!");
         String message = scanner.nextLine();
-        chatController.addMessageToChat(chat.getId(), message, frontUser);
+        chatController.addMessageToChat(chat.getId(), message,null, frontUser);
         System.out.println("You : " + message + " Date : " + new Date());
         System.out.println("press any key to continue!");
         scanner.nextLine();

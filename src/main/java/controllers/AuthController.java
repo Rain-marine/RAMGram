@@ -32,7 +32,6 @@ public class AuthController {
                     userRepository.setLastSeen(user.getId(), new Date());
                 }
                 return user;
-
             }
 
         }

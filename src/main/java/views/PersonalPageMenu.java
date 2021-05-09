@@ -70,7 +70,7 @@ public class PersonalPageMenu extends Menu {
         System.out.println("Are you sure?(Y/N)");
         String input = scanner.nextLine();
         if (input.equals("Y")){
-            tweetController.addTweet(tweet);
+            tweetController.addTweet(tweet,null);
             System.out.println("Tweet Published!.\nPress any key to continue!");
         } else {
             System.out.println("Tweet Canceled!.\nPress any key to continue!");

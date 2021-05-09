@@ -174,7 +174,7 @@ public class TweetMenu extends Menu {
     private void addNewComment(Tweet parentTweet) {
         System.out.println("write your comment and press enter");
         String comment = scanner.nextLine();
-        tweetController.addComment(comment, parentTweet);
+        tweetController.addComment(comment,null, parentTweet);
     }
 
     private void forwardTweet(Tweet tweet) {
@@ -184,7 +184,7 @@ public class TweetMenu extends Menu {
             if(receiver.equals("*back"))
                 return;
             if(messageController.canSendMessageToUser(receiver)) {
-                messageController.forwardTweet(tweet.getText(), tweet.getUser(), receiver);
+                messageController.forwardTweet(tweet, tweet.getUser(), receiver);
                 System.out.println("The tweet forwarded!");
                 return;
             }

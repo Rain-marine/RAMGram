@@ -47,7 +47,7 @@ public class SavedMessageMenu extends Menu {
     private void getNewMessage() {
         System.out.println("type your message");
         String message = scanner.nextLine();
-        Message messageToSave = new Message(message, LoggedUser.getLoggedUser(), LoggedUser.getLoggedUser());
+        Message messageToSave = new Message(message,null, LoggedUser.getLoggedUser(), LoggedUser.getLoggedUser());
         ArrayList<Message> messages = new ArrayList<>() {
             {
                 add(messageToSave);

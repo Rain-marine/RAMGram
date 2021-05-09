@@ -59,7 +59,7 @@ public class MessageMenu extends Menu {
                 }
                 System.out.println("Type your message!");
                 String message = scanner.nextLine();
-                messageController.sendMessage(message, users, groups);
+                messageController.sendMessage(message,null, users, groups);
                 System.out.println("Message has sent! enter any key to back to message menu");
                 scanner.nextLine();
                 break;
