@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.User;
 
-public class Login {
+public class LoginController {
     @FXML
     private PasswordField passwordTextField;
     @FXML
@@ -66,9 +66,9 @@ public class Login {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }
