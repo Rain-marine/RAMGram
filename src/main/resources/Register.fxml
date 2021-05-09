@@ -67,7 +67,7 @@
                   <TextField fx:id="usernameTextField" layoutX="220.0" layoutY="110.0" prefHeight="26.0" prefWidth="190.0" promptText="Username" />
                   <TextField fx:id="emailTextField" layoutX="220.0" layoutY="290.0" prefHeight="26.0" prefWidth="190.0" promptText="Email must contain @ and ." />
                   <TextField fx:id="bioTextField" layoutX="220.0" layoutY="410.0" prefHeight="26.0" prefWidth="190.0" promptText="Bio" />
-                  <PasswordField fx:id="passwrodTextField" layoutX="220.0" layoutY="170.0" prefHeight="26.0" prefWidth="190.0" promptText="Password" />
+                  <PasswordField fx:id="passwordTextField" layoutX="220.0" layoutY="170.0" prefHeight="26.0" prefWidth="190.0" promptText="Password" />
                   <PasswordField fx:id="rePasswordTextField" layoutX="220.0" layoutY="230.0" prefHeight="26.0" prefWidth="190.0" promptText="Re-Password" />
                   <TextField fx:id="phoneNumberTextField" layoutX="220.0" layoutY="350.0" prefHeight="26.0" prefWidth="190.0" promptText="Phone number" />
                   <Button fx:id="registerButton" layoutX="350.0" layoutY="537.0" mnemonicParsing="false" onAction="#registerButtonClicked" style="-fx-background-color: #4b016e;" text="Register" textFill="WHITE" />
@@ -77,6 +77,11 @@
                   <Label fx:id="rePasswordError" layoutX="220.0" layoutY="212.0" textFill="RED" />
                   <Label fx:id="emailError" layoutX="220.0" layoutY="272.0" textFill="RED" />
                   <Label fx:id="phoneNumberError" layoutX="220.0" layoutY="332.0" textFill="RED" />
+                  <Label fx:id="registerSuccessful" layoutX="35.0" layoutY="540.0" prefHeight="19.0" prefWidth="262.0" textFill="#17bc35">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets bottom="40.0" left="20.0" right="20.0" top="20.0" />

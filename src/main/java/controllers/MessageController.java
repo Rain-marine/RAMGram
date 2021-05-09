@@ -129,7 +129,7 @@ public class MessageController {
         String message = "Tweet forwarded from " + tweetUser.getUsername() + "\n" + tweet.getText();
         User loggedUser = userRepository.getById(LoggedUser.getLoggedUser().getId());
         User receiveUser = userRepository.getByUsername(receiver);
-        Message newMessage = new Message(message, tweet.getImage(), loggedUser, receiveUser);
+        Message newMessage = new Message(message, null, loggedUser, receiveUser);
         newMessage.setGrandSender(tweetUser);
 
         for (Chat chat : loggedUser.getChats()) {

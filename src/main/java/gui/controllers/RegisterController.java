@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import controllers.RegisterManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +11,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.User;
 import repository.UserRepository;
+import views.ConsoleColors;
 
 public class RegisterController {
     @FXML
     private Label fullNameError;
+    @FXML
+    private Label registerSuccessful;
     @FXML
     private Label usernameError;
     @FXML
@@ -47,7 +51,7 @@ public class RegisterController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private final UserRepository userRepository = new UserRepository();
+    private final RegisterManager registerManager = new RegisterManager();
 
 
     public void registerButtonClicked(ActionEvent actionEvent) {
@@ -56,22 +60,25 @@ public class RegisterController {
             fullNameError.setText("you must enter your fullName");
             return;
         }
+        fullNameError.setText("");
         String username = usernameTextField.getText();
         if(username.isEmpty()){
             usernameError.setText("you must enter your username");
             return;
         }
         else{
-            if(!isUsernameAvailable(username)) {
+            if(!registerManager.isUsernameAvailable(username)) {
                 usernameError.setText("username already exists");
                 return;
             }
+            usernameError.setText("");
         }
         String password = passwordTextField.getText();
         if(password.isEmpty()){
             passwordError.setText("you must enter your password");
             return;
         }
+        passwordError.setText("");
         String rePassword = rePasswordTextField.getText();
         if(rePassword.isEmpty()){
             rePasswordError.setText("you must re-enter your password");
@@ -82,26 +89,42 @@ public class RegisterController {
                 rePasswordError.setText("passwords don't match");
                 return;
             }
+            rePasswordError.setText("");
         }
         String email = emailTextField.getText();
-        if(username.isEmpty()){
+        if(email.isEmpty()){
             System.out.println("you must enter your email");
             return;
         }
+        else if(!email.contains("@") || !email.contains(".")){
+            emailError.setText("invalid email address");
+            return;
+        }
         else{
-            if(!isEmailAvailable(email)){
+            if(!registerManager.isEmailAvailable(email)){
                 emailError.setText("email already exists");
                 return;
             }
+            emailError.setText("");
         }
         String phoneNumber = phoneNumberTextField.getText();
-        try {
-            Integer.parseInt(phoneNumber);
-        } catch (NumberFormatException e) {
-            phoneNumberError.setText("phone number should be only numbers");
+        if(!phoneNumber.isEmpty()) {
+            try {
+                Integer.parseInt(phoneNumber);
+                if (!registerManager.isPhoneNumberAvailable(phoneNumber)){
+                    phoneNumberError.setText("phone number already exists");
+                    return;
+                }
+                phoneNumberError.setText("");
+            } catch (NumberFormatException e) {
+                phoneNumberError.setText("phone number should be only numbers");
+                return;
+            }
         }
         String bio = bioTextField.getText();
-        String birthday = birthdayTextField.toString();
+        String birthday = birthdayTextField.getValue() == null ? "" : birthdayTextField.getValue().toString() ;
+        registerManager.makeNewUser(fullName,username,password,email,phoneNumber,bio,birthday);
+        registerSuccessful.setText("register successful! go back to login");
     }
 
 
@@ -118,18 +141,4 @@ public class RegisterController {
     }
 
 
-    public boolean isUsernameAvailable(String username) {
-        User user = userRepository.getByUsername(username);
-        return (user == null);
-    }
-
-    public boolean isEmailAvailable(String email) {
-        User user = userRepository.getByEmail(email);
-        return user == null;
-    }
-
-    public boolean isPhoneNumberAvailable(String phoneNumber) {
-        User user = userRepository.getByPhoneNumber(phoneNumber);
-        return user == null;
-    }
 }

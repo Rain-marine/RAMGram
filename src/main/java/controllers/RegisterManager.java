@@ -14,7 +14,7 @@ public class RegisterManager {
         Date birthday = null ;
         if (birthDate!=null && !birthDate.equals("")) {
             try {
-                birthday = new SimpleDateFormat("yyyy/MM/dd").parse(birthDate);
+                birthday = new SimpleDateFormat("yyyy-MM-dd").parse(birthDate);
             } catch (ParseException e) {
                 return;
             }

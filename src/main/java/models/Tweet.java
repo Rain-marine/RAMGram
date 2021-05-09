@@ -23,14 +23,14 @@ public class Tweet {
     @Column(name = "image", columnDefinition = "mediumblob")
     private byte[] image;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_liked",
             joinColumns = @JoinColumn(name = "tweet_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> usersWhoLiked;
 
-    @OneToMany(mappedBy = "parentTweet", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "parentTweet", cascade = CascadeType.ALL)
     private List<Tweet> comments;
 
     @ManyToOne
@@ -47,7 +47,7 @@ public class Tweet {
     @Column(name = "report_counter",nullable = false)
     private int reportCounter;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_retweet_tweets",
             joinColumns = @JoinColumn(name = "tweet_id"),
@@ -55,12 +55,24 @@ public class Tweet {
     private List<User> usersRetweeted;
 
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "user_reported_tweets",
+            joinColumns = @JoinColumn(name = "tweet_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> usersWhoReported;
+
+    public Tweet() {
+    }
+
     public Tweet(User user, String text, byte[] image) {
         this.user = user;
         this.tweetDateTime = new Date();
         this.text = text;
         this.image = image;
     }
+
+
 
 
     public long getId() {
@@ -130,5 +142,25 @@ public class Tweet {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public List<User> getUsersWhoReported() {
+        return usersWhoReported;
+    }
+
+    public void setUsersWhoReported(List<User> usersWhoReported) {
+        this.usersWhoReported = usersWhoReported;
+    }
+
+    public void setTweetDateTime(Date tweetDateTime) {
+        this.tweetDateTime = tweetDateTime;
+    }
+
+    public List<User> getUsersRetweeted() {
+        return usersRetweeted;
+    }
+
+    public void setUsersRetweeted(List<User> usersRetweeted) {
+        this.usersRetweeted = usersRetweeted;
     }
 }
