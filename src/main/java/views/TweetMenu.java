@@ -112,6 +112,7 @@ public class TweetMenu extends Menu {
                         case 4:
                             //ToDo
                             tweetController.retweet(currentTweet);
+                            System.out.println("retweet successful");
                             break;
                         case 5:
                             //ToDo
@@ -127,9 +128,17 @@ public class TweetMenu extends Menu {
                             System.out.println("User muted! list will refresh when you reEnter page later");
                             continue;
                         case 8:
-                            tweetController.reportSpam(currentTweet);
+                            boolean isDeleted = tweetController.reportSpam(currentTweet);
                             System.out.println("Tweet was reported and won't be shown to you again! list will refresh when you reEnter page later");
-                            continue;
+                            if(isDeleted){
+                                System.out.println("you need to refresh the list. press enter to go back");
+                                scanner.nextLine();
+                                getMenu(previousMenu).run();
+                                break;
+                            }
+                            else {
+                                continue;
+                            }
                         case 9:
                             if (previousMenu == 0){
                                 new FollowingProfile(currentTweet.getUser(),getMenu(previousMenu)).run();
