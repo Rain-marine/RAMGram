@@ -19,7 +19,7 @@ public class Group {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST )
     @JoinTable(
             name = "group_members",
             joinColumns = @JoinColumn(name = "gr_id"),
