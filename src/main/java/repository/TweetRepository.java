@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TweetRepository {
@@ -184,6 +185,41 @@ public class TweetRepository {
 
 
     public void delete(long tweetId) {
-        //delete the tweet from DB
+        emptyList(tweetId);
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Tweet object = em.find(Tweet.class,tweetId);
+            em.remove(object);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    private void emptyList(long tweetId){
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Tweet object = em.find(Tweet.class,tweetId);
+            object.setUsersWhoReported(new ArrayList<>());
+            object.setUsersRetweeted(new ArrayList<>());
+            em.persist(object);
+            et.commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (et != null) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }
