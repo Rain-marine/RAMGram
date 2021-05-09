@@ -88,6 +88,7 @@ public class FactionsController {
 
     public void deleteFaction(Group group) {
         factionRepository.deleteFaction(group.getId());
+        userRepository.getById(LoggedUser.getLoggedUser().getId()).getGroups().remove(group);
     }
 
     public void deleteUserFromFaction(Group group, User user) {
