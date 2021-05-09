@@ -14,6 +14,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import views.Menu;
+import views.profiles.DeActiveSelfProfile;
 
 public class LoginController {
     @FXML
@@ -29,6 +33,7 @@ public class LoginController {
     private Parent root;
 
     private final AuthController authController = new AuthController();
+    private final static Logger log = LogManager.getLogger(LoginController.class);
 
 
 
@@ -43,17 +48,24 @@ public class LoginController {
         else {
             try {
                 User user = authController.login(username, password);
-                try {
-                    root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
-                    stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-                    scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(user.isActive()) {
+                    log.info(username + " logged in");
+                    try {
+                        root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
+                        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
-            } catch (InvalidInputException e) {
+                else{
+                    //todo : deActive profile
+                    new DeActiveSelfProfile(username).run();
+                }
+            }
+            catch (InvalidInputException e) {
                 errorMessage.setText(e.getMessage());
             }
         }
