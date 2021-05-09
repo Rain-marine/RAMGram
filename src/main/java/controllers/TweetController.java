@@ -3,7 +3,6 @@ package controllers;
 import models.LoggedUser;
 import models.Tweet;
 import models.User;
-import repository.FactionRepository;
 import repository.TweetRepository;
 import repository.UserRepository;
 
@@ -81,16 +80,17 @@ public class TweetController {
         userRepository.addRetweet(currentTweet.getId(),LoggedUser.getLoggedUser().getId());
     }
 
-    public void reportSpam(Tweet currentTweet) {
+    public boolean reportSpam(Tweet currentTweet) {
         Tweet reportedTweet = tweetRepository.getById(currentTweet.getId());
         if (reportedTweet.getReportCounter() >= 2 ){
             tweetRepository.delete(reportedTweet.getId());
+            return true;
         }
         else {
             tweetRepository.increaseReportCount(currentTweet.getId());
             userRepository.addReportedTweet(currentTweet.getId(), LoggedUser.getLoggedUser().getId());
         }
-
+        return false;
     }
 
     public void addComment(String comment, Tweet rawParentTweet) {

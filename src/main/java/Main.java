@@ -10,21 +10,12 @@ import views.MenuManager;
 import java.util.Scanner;
 
 
-public class Main extends Application {
+public class Main {
     public static Logger log = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
        log.info("Application Started");
         MenuManager manager = new MenuManager(new Scanner(System.in));
         manager.run();
-//        launch(args);
 
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//        primaryStage.show();
     }
 }

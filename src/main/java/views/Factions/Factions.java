@@ -20,9 +20,9 @@ public class Factions extends Menu {
 
     @Override
     public void run() {
-        List<Group> groups = factionsController.getFactions();
-        HashMap<String, Group> groupNameToGroup = extractGroupName(groups);
         while (true) {
+            List<Group> groups = factionsController.getFactions();
+            HashMap<String, Group> groupNameToGroup = extractGroupName(groups);
             showFactions(groups);
             System.out.println("enter faction name! or \"new faction\"! or \"*back\" for back to previous menu!");
             String input = scanner.nextLine();

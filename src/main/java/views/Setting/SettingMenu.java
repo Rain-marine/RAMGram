@@ -1,6 +1,7 @@
 package views.Setting;
 
 import controllers.SettingController;
+import models.LoggedUser;
 import views.MainMenu;
 import views.Menu;
 import views.Welcome.WelcomeMenu;
@@ -50,6 +51,7 @@ public class SettingMenu extends Menu {
         System.out.println("Are you sure?!(Y/N)");
         String input = scanner.nextLine();
         if (input.equals("Y")) {
+            log.info("user "+ LoggedUser.getLoggedUser().getUsername()+" logged out");
             settingsController.logout();
             getMenu(3).run();
             return;

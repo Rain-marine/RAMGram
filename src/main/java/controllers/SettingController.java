@@ -3,6 +3,8 @@ package controllers;
 
 import models.LoggedUser;
 import models.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import repository.UserRepository;
 
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.List;
 
 public class SettingController {
     private final UserRepository userRepository;
+    public static Logger log = LogManager.getLogger(SettingController.class);
 
     public SettingController() {
         this.userRepository = new UserRepository();
@@ -18,6 +21,7 @@ public class SettingController {
 
     public void logout() {
         userRepository.setLastSeen(LoggedUser.getLoggedUser().getId(), new Date());
+        log.info("user "+LoggedUser.getLoggedUser().getUsername()+" last seen set to" + LoggedUser.getLoggedUser().getLastSeen());
         LoggedUser.setLoggedUser(null);
     }
 

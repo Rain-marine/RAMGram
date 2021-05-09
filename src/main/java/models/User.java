@@ -114,10 +114,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private List<User> followerRequest; // todo : it is not necessary
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE)
     private List<Group> groups;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Tweet> tweets;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -153,10 +153,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private List<Message> favoriteMessages;
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender",cascade = CascadeType.REMOVE)
     private List<Notification> senderNotifications;
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver",cascade = CascadeType.REMOVE)
     private List<Notification> receiverNotifications;
 
     @OneToMany(mappedBy = "user")
