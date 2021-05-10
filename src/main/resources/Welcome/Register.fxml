@@ -57,7 +57,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="25.0" layoutY="470.0" text="Birtdhay" textFill="#b300ea">
+                  <Label layoutX="25.0" layoutY="470.0" text="Birthday" textFill="#b300ea">
                      <font>
                         <Font size="14.0" />
                      </font>
