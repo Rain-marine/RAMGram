@@ -13,7 +13,7 @@ import models.User;
 import repository.UserRepository;
 import views.ConsoleColors;
 
-public class RegisterController {
+public class RegisterGuiController {
     @FXML
     private Label fullNameError;
     @FXML
@@ -130,7 +130,7 @@ public class RegisterController {
 
     public void backButtonClicked(ActionEvent actionEvent) {
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("Login.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("Welcome/Login.fxml"));
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

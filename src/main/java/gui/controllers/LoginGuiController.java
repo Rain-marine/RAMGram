@@ -16,10 +16,9 @@ import javafx.stage.Stage;
 import models.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import views.Menu;
 import views.profiles.DeActiveSelfProfile;
 
-public class LoginController {
+public class LoginGuiController {
     @FXML
     private PasswordField passwordTextField;
     @FXML
@@ -33,7 +32,7 @@ public class LoginController {
     private Parent root;
 
     private final AuthController authController = new AuthController();
-    private final static Logger log = LogManager.getLogger(LoginController.class);
+    private final static Logger log = LogManager.getLogger(LoginGuiController.class);
 
 
 
@@ -73,7 +72,7 @@ public class LoginController {
 
     public void registerButtonClicked(ActionEvent actionEvent) {
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("Register.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("Welcome/Register.fxml"));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
