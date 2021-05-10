@@ -1,4 +1,4 @@
-package gui.controllers;
+package gui.controllers.settings;
 
 public class SettingGuiController {
 }

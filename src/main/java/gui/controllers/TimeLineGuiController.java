@@ -1,6 +1,7 @@
 package gui.controllers;
 
-public class MessagesMenuGuiController {
+public class TimeLineGuiController {
+
 
     public void initialize() {
     }

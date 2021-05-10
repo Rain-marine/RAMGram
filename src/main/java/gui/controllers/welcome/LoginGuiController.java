@@ -1,4 +1,4 @@
-package gui.controllers;
+package gui.controllers.welcome;
 
 import controllers.AuthController;
 import exceptions.InvalidInputException;
@@ -83,4 +83,6 @@ public class LoginGuiController {
         }
 
     }
+
+
 }

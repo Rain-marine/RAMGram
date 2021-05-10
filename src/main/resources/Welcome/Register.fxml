@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -13,12 +14,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.RegisterGuiController">
+<BorderPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.welcome.RegisterGuiController">
    <center>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="309.0" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="466.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" pannable="true" prefHeight="1000.0" prefWidth="466.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <content>
             <AnchorPane maxHeight="1000.0" prefHeight="554.0" prefWidth="382.0" style="-fx-background-color: black;">
                <children>
@@ -62,9 +63,18 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="birthdayTextField" layoutX="220.0" layoutY="470.0" prefHeight="26.0" prefWidth="190.0" promptText="Pick a Date" />
-                  <TextField fx:id="fullNameTextField" layoutX="220.0" layoutY="50.0" prefHeight="26.0" prefWidth="190.0" promptText="Full Name" />
-                  <TextField fx:id="usernameTextField" layoutX="220.0" layoutY="110.0" prefHeight="26.0" prefWidth="190.0" promptText="Username" />
+                  <DatePicker fx:id="birthdayTextField" layoutX="220.0" layoutY="470.0" prefHeight="26.0" prefWidth="190.0" promptText="Pick a Date">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
+                  <TextField fx:id="fullNameTextField" layoutX="220.0" layoutY="50.0" prefHeight="26.0" prefWidth="190.0" promptText="Full Name">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                  <TextField fx:id="usernameTextField" layoutX="220.0" layoutY="110.0" prefHeight="26.0" prefWidth="190.0" promptText="Username">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
                   <TextField fx:id="emailTextField" layoutX="220.0" layoutY="290.0" prefHeight="26.0" prefWidth="190.0" promptText="Email must contain @ and ." />
                   <TextField fx:id="bioTextField" layoutX="220.0" layoutY="410.0" prefHeight="26.0" prefWidth="190.0" promptText="Bio" />
                   <PasswordField fx:id="passwordTextField" layoutX="220.0" layoutY="170.0" prefHeight="26.0" prefWidth="190.0" promptText="Password" />
@@ -98,7 +108,10 @@
                   <Image url="@../Images/welcome.png" />
                </image>
             </ImageView>
-            <Button fx:id="backButton" layoutX="14.0" layoutY="472.0" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #4b016e;" text="Back" textFill="WHITE" />
+            <Button fx:id="backButton" layoutX="14.0" layoutY="472.0" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #4b016e;" text="Back" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </AnchorPane>
    </left>

@@ -1,4 +1,4 @@
-package gui.controllers;
+package gui.controllers.welcome;
 
 import controllers.RegisterManager;
 import javafx.event.ActionEvent;
@@ -9,11 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import models.User;
-import repository.UserRepository;
-import views.ConsoleColors;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class RegisterGuiController {
+    static Logger log = LogManager.getLogger(RegisterGuiController.class);
+
     @FXML
     private Label fullNameError;
     @FXML
@@ -52,7 +53,6 @@ public class RegisterGuiController {
     private Scene scene;
     private Parent root;
     private final RegisterManager registerManager = new RegisterManager();
-
 
     public void registerButtonClicked(ActionEvent actionEvent) {
         String fullName = fullNameTextField.getText();
@@ -136,6 +136,7 @@ public class RegisterGuiController {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error(e.getStackTrace());
             System.out.println(e.getMessage());
         }
     }

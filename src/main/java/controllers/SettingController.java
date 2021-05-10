@@ -17,7 +17,8 @@ public class SettingController {
     }
 
     public void logout() {
-        userRepository.setLastSeen(LoggedUser.getLoggedUser().getId(), new Date());
+        if (!(LoggedUser.getLoggedUser() == null))
+            userRepository.setLastSeen(LoggedUser.getLoggedUser().getId(), new Date());
         LoggedUser.setLoggedUser(null);
     }
 
@@ -61,15 +62,14 @@ public class SettingController {
         User user = userRepository.getById(rawUser.getId());
         long loggedUserId = LoggedUser.getLoggedUser().getId();
         String status = userRepository.getById(user.getId()).getLastSeenStatus();
-        if (user.getFollowings().stream().noneMatch(it -> it.getId() == loggedUserId)){
+        if (user.getFollowings().stream().noneMatch(it -> it.getId() == loggedUserId)) {
             return ("last seen recently");
-        }
-        else if (status.equals("everybody"))
+        } else if (status.equals("everybody"))
             return (user.getLastSeen().toString());
-        else if (status.equals("following")){
+        else if (status.equals("following")) {
             List<User> userFollowing = user.getFollowings();
             for (User following : userFollowing) {
-                if (following.getId() == loggedUserId){
+                if (following.getId() == loggedUserId) {
                     return (user.getLastSeen().toString());
                 }
             }
@@ -90,8 +90,7 @@ public class SettingController {
             return "not visible";
         } else if (status == User.Level.ALL) {
             return user.getBirthday().toString();
-        }
-        else {
+        } else {
             return "not visible";
         }
     }
@@ -110,8 +109,7 @@ public class SettingController {
             return "not visible";
         } else if (status == User.Level.ALL) {
             return user.getEmail();
-        }
-        else {
+        } else {
             return "not visible";
         }
 
@@ -130,8 +128,7 @@ public class SettingController {
             return "not visible";
         } else if (status == User.Level.ALL) {
             return user.getPhoneNumber();
-        }
-        else {
+        } else {
             return "not visible";
         }
 
