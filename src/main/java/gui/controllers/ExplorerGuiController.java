@@ -11,6 +11,7 @@ public class ExplorerGuiController implements InitializableController {
 
     @Override
     public void initialize(int id) {
+        System.out.println("you did it!");
 
     }
 }

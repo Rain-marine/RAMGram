@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MainMenuGuiController {
     @FXML
     private Button mainMenuButton;
@@ -38,7 +40,7 @@ public class MainMenuGuiController {
     public void mainMenuButtonClicked(ActionEvent actionEvent) {
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
-            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -49,16 +51,16 @@ public class MainMenuGuiController {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        AlertBox.display("log out alert","To go back to login menu, use log out button");
+        AlertBox.display("log out alert", "To go back to login menu, use log out button");
     }
 
     public void logoutButtonClicked(ActionEvent actionEvent) {
-        boolean answer = ConfirmBox.display("Log out confirmation" , "Are you sure you want to Log out??");
-        if (answer){
+        boolean answer = ConfirmBox.display("Log out confirmation", "Are you sure you want to Log out??");
+        if (answer) {
             settingsController.logout();
             try {
                 root = FXMLLoader.load(getClass().getClassLoader().getResource("Welcome/Login.fxml"));
-                stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+                stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -73,7 +75,7 @@ public class MainMenuGuiController {
     public void personalPageButtonClicked(ActionEvent actionEvent) {
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("PersonalPage/PersonalPage.fxml"));
-            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -85,10 +87,22 @@ public class MainMenuGuiController {
 
     public void timeLineButtonClicked(ActionEvent actionEvent) {
         //timeLineGuiController.initialize();
+
     }
 
     public void explorerButtonClicked(ActionEvent actionEvent) {
-        //explorerGuiController.initialize();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Welcome/Explorer.fxml"));
+            System.out.println(loader.getLocation());
+            Parent p = loader.load();
+
+            ExplorerGuiController controller = loader.getController();
+            controller.initialize(1234);
+
+            //explorerGuiController.initialize();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void messagingButtonClicked(ActionEvent actionEvent) { //messagesMenuGuiController.initialize();
@@ -97,7 +111,7 @@ public class MainMenuGuiController {
     public void settingButtonClicked(ActionEvent actionEvent) {
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("Setting/SettingMenu.fxml"));
-            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
